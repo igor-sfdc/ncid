@@ -1,0 +1,45 @@
+# Last updated: May 13, 2015
+#
+#   USAGE:
+#       ./test-client test-client-screenshot.data
+#
+#       (if displaying on ncid in GUI mode)
+#       ../client/ncid 3334
+#
+#       (if using ncid-page):
+#       ../client/ncid -P ncid-page --ring -1 3334
+#
+#       (if using ncid-notify):
+#       ../client/ncid -P ncid-notify --ring -1 3334
+#
+# See README.test for more information on usage.
+#
+200 server: NCID Test Client
+252 Call log not sent
+300 end of server startup
+
+OUT: *DATE*07142012*TIME*0905*LINE*VOIP*NMBR*14075551212*MESG*NONE*NAME*NO NAME*
+CIDINFO: *LINE*VOIP*RING*-1*TIME*10:10:00*
+
+HUP: *DATE*07142012*TIME*0915*LINE*VOIP*NMBR*PRIVATE*MESG*NONE*NAME*PRIVATE*
+CIDINFO: *LINE*VOIP*RING*-1*TIME*10:15:00*
+
+CID: *DATE*01072012*TIME*1018*LINE*VOIP*NMBR*8775558360*MESG*NONE*NAME*800 Service*
+CIDINFO: *LINE*VOIP*RING*-1*TIME*10:19:20*
+
+CID: *DATE*09182012*TIME*1120*LINE*VOIP*NMBR*4075551212*MESG*NONE*NAME*John on cell*
+CIDINFO: *LINE*VOIP*RING*-1*TIME*11:21:00*
+
+CID: *DATE*01282012*TIME*1509*LINE*HOME*NMBR*5415554330*MESG*NONE*NAME*Albany       OR*
+CIDINFO: *LINE*HOME*RING*-2*TIME*15:15:15*
+
+CID: *DATE*01282012*TIME*1309*LINE*SPY*NMBR*0075551007*MESG*NONE*NAME*Bond, James*
+CIDINFO: *LINE*SPY*RING*-2*TIME*13:15:25*
+
+CID: *DATE*01282012*TIME*1509*LINE*B*NMBR*9085555002*MESG*NONE*NAME*Vähälä*
+CIDINFO: *LINE*B*RING*-2*TIME*15:15:15*
+
+NOT: Delivered: Your Amazon package containing your order was delivered.***DATE*11132016*TIME*1011*NAME*Amazon*NMBR*262966*LINE*Nexus 6*MTYPE*IN*
+
+MSG: check out NCID at http://ncid.sourceforge.net ***DATE*11152016*TIME*1302*NAME*NO NAME*NMBR*NO-NUMBER*LINE*NO-LINE*MTYPE*-*
+

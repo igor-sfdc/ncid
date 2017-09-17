@@ -1,0 +1,3153 @@
+ncid - Network CallerID
+
+Version 1.6
+    Makefile: removed comment: #-Wunused-but-set-variable -Wmaybe-uninitialized
+    - client/ncid.sh: changed: typeWidth to mtypeWidth
+                      added: labelWidth dateWidth timeWidth
+                      changed: historyTextWidth from 86 to an expression
+                      added: doVerbose Mesg Type Width
+                      added set lbl5 and lbl8
+                      fieldInfo {} new
+                      serverOPT {} modified text
+                      connectCID {} added: 'HELLO: IDENT' and 'HELLO: CMD'
+                          changed: historyTextWidth from 86 to sum of fields
+                          added: labelWidth dateWidth timeWidth spacesWidth
+                          renamed: typeWidth to mtypeWidth
+                      makeWindow {} changed history front from 11 to 12
+                            made history window width dependent on time format
+                            added $lbl5, $lbl8
+                            added label for fields as row 1
+                            added increased other grid rows by 1
+                            added "set nmbrREQ [string trimleft $nmbrREQ]"
+                            added "Field Labekls" menu item
+                      logClock {} added variable historyTextWidth
+                            add: + 3 to historywidth if 12 hour time display
+                            add: - 3 to historywidth if 24 hour time display
+                            add: configure window width, set geometry
+                            add: change minimum window size, update
+                            added: $lbl5 and $lbl8 lines
+                      displayLOG {} moved display format here from ????Width
+    - doc/Verbose.md: updated
+          NCID-API.md: fixed color problem; add HELLO: lines
+          Message.md: add HELLO: lines
+    - gateway/email2ncid.pl: fixed default port from 3334 to 3333
+                            added: $IDENT and $COMMAND
+              ncid2ncid.c: socketConnect():
+                             added: IDENT and COMMAND
+                             changed if statement to find 2x0, and 25x lines
+              ncid2ncid.h: added: #define IDENT and #define COMMAND
+              obi2ncid.pl: added: $IDENT and $COMMAND
+                                  if (/^[23]\d\d/) { logMsg(1, $_); }
+                                  else { logMsg(7, $_); }
+              rn2ncid.pl: added: $IDENT and $COMMAND
+                                 if (/^[23]\d\d/) { logMsg(1, $_); }
+                                 else { logMsg(5, $_); }
+              sip2ncid.c: socketConnect()
+                            added IDENT and COMMAND
+                            added code to read lines up to end of startup
+                          readLine(): new
+              sip2ncid.h: added: #define IDENT and #define COMMAND
+              wc2ncid.pl: added: $IDENT and $COMMAND
+                                 if (/^[23]\d\d/) { logMsg(1, $_); }
+                                 else { logMsg(5, $_); }
+              yac2ncid.sh: added: $IDENT and $COMMAND
+    - man/ncidd.conf.5: added HELLO
+              added several missing settings e.g., announce, audiofmt, and more
+    - server/Makefile: added -Wmisleading-indentation
+    - server/ncidd.c: added doHELLO() and notHex()
+               added ident to struct ipinfo
+               doPoll() fixed if test:
+                 added IPinfo[pos].ident to some connect/disconnect messages
+                 changed: if ((buf[0] == '+' && buf[4] == ':') || buf[8] == ':')
+                 to: if (buf[0] == '+' && (buf[4] == ':' || buf[8] == ':'))
+                 changed: else if (cid.status == (CIDALL3 | CIDMESG) )
+                 to: else if (notHex() && cid.status == (CIDALL3 | CIDMESG))
+               showConnected() added IPinfo[pos].ident to log messages
+             nciddalias.c: strmatch() changed inside last else
+                           from: len = strlen(string);
+                           to:   len = strlen(value);  
+    - screenshots/ncid-call.png: updated
+    - screenshots/ncid-mesg.png: updated
+    - screenshots/ncid-FieldLabels.png: added
+    - screenshots/ncid-ServerMenuHelp.png: added
+    - screenshots/ncid-ServerOptions.png: added
+    - server/ncidd.h: added #define HELLO, #define IDENT, & #define COMMAND
+    - server/nciddhangup.c: hangupCall() added missing arentheses to else
+                                         inside if (!ttyfd) {...}
+    - test/test-server: added 407 alias
+           test-gw-calls.data: added CALL and CALLINFO lines for number 407
+           renamed test-script.data to test-mobile.data
+           test-client-screenshot.data: updated
+           test-client.data: updated
+
+Version 1.5
+    - Makefile: added doc/NCID-SDK.tar.gz to DOC
+                added setup/ to subdirectories
+                added logrotatedir to freebsd
+                added install-logrotate to install-freebsd
+                removed MFLAGS and LDFLAGS from cygwin target
+    - client/ncid.sh: getCID{} added "set argument ..." in if {$mod_menu}
+                      removed: package require tile
+                      changed maxNumber Width to numberWidth
+                      changed numberWidth from 14 to 20
+                      added nameWidth = 20 was hardcoded at 18
+                      added typeWidth = 7
+                      changed historyTextWidth from 81 to 86 
+                      display all *width values at verbose 1
+                      allow selection of MSG and NOT lines
+    - debian/Makefile: updated
+             README.debian: updated
+             ncid-mysql.init: new
+    - doc/Makefile: updated and removed target sdk from the default
+                    changed "cp -a" to "cp -Rp"
+          Alias.md: added information about a name/number like "#########8"
+          mk-epub: modified code for getting options
+          mk-manual-date: added ':' case statement in getopts()
+                          modified options code
+          Hangup.md: added information about an entry like "#########8"
+          index.md: updated
+          Use.md: updated and added the Message.md section
+          NCID-API.md: updated and added FS5
+          Message.md: new
+          Gateways.md: added email2ncid gateway
+          Extensions.md: added info about the whitelist and two new scripts
+          GettingStarted.md: updated for the gateways package
+                             added section: Configure yearly call log
+          INSTALL.md: updated for the gateways package
+          INSTALL-Cygwin.md: updated for the gateways package
+          INSTALL-Fedora.md: updated for the gateways package
+          INSTALL-FreeBSD.md: updated for the gateways package
+          INSTALL-Mac.md: updated for the gateways package
+          INSTALL-Raspbian.md: updated for the gateways package
+          INSTALL-Redhat.md: updated for the gateways package
+          INSTALL-Ubuntu.md: updated for the gateways package
+          Verbose.md: added new log lines to ncid verbose level 1
+    - extensions/hangup-skel.sh: modified options code and comments
+                 hangup-message-skel.sh: renamed from hangup-message.sh
+                                         modified options code and comments
+                 hangup-closed-skel.sh: new
+                 hangup-calls.sh: new
+    - logrotate/ncidrotate.sh: added variable RotateOff
+                ncidrotate.conf: added variable RotateOff
+                ncidrotate.1-in: updated
+                ncidrotate.conf.5: added variable RotateOff and updated
+    - Mac/Makefile: updated
+             README.Mac: updated
+             net.sourceforge.ncid-mysql.plist: new
+    - Fedora/Makefile: updated
+             README.Fedora: updated
+             ncid-mysql.init: new
+             ncid-mysql.service: new
+             ncid.spec: set defaults for LOCKFILE and TTYPORT
+                        %post: check firewall and add port 3333 if needed
+                        %postun: check firewall and remove port 3333 if needed
+                        updated add scriptlets
+    - FreeBSD/Makefile: updated
+             README.FreeBSD: updated
+             ncid-mysql.rc: new
+    - gateway/Makefile: updated
+              ncid2ncid.c:main() fixed /* initialize setword[] */ section
+                                 so "toport" keyword is recognized
+                                 added fwdbuf
+                                 copied TOKEN and rcvbuf to fwdbuf
+                                 send(fwdbuf ...) instead of rcvbuf
+                          socketConnect(): logs name as well as host & port
+                                           uses readLine()
+                          main(): uses readLine() instead of recv());
+                          readLine(): new
+              ncid2ncid.h: added: #define TOKEN "+"
+              ncid2ncid.conf.c: improved wording of some comments
+              email2ncid.sh: new
+              email2ncid.conf: new
+    - man/Makefile: updated, changed "cp -a" to "cp -p"
+                    removed txt: and fixed html: to build *.7.html
+          hangup-message-skel.1-in: was named hangup-message.1-in
+                                    updated for whitelist
+          hangup-skel.1-in: updated for whitelist
+          hangup-calls.1-in: new
+          hangup-closed-skel.1-in: new
+          ncid.1-in: changed .SS "Arguments" to .SH "ARGUMENTS"
+          ncid-mysql.1-in: new
+          ncid-modules.7-in: removed ncid-modules.conf.5
+                             corrected module location
+                             added ncid-mysql
+          ncid2ncid.1: corrected section 8 to section 1
+          ncid-yearlog.1-in: new
+          ncid-setup.1-in: new
+          ncid-email2ncid-setup.1-in: new
+          ncidgateways.7: updated
+          ncidtools.7: updated
+          ncid-mysql-setup.8-in: new
+          yac2ncid.conf.5: updated
+          email2ncid.1-in: new
+          email2ncid.conf.5: new
+    - modules/ncid-mysql.sh: new
+              ncid-mysql.conf-in: new
+    - server/Makefile removed MFLAGS and LDFLAGS from cygwin target
+             ncidd.c: added '+' to each element in serverTags[]
+                      doPoll(): changed 3 !strncmp(... lines to 1 line 3 buf[#]
+                                in "else if" for a server line
+                        replaced code to send an ACK by sendACK()
+                        added a break to while loop when svrtag found
+                        in "for (svrtag = serverTags; *svrtag; svrtag++)"
+                          added if (strncmp(buf, "CIDINFO", strlen("CIDINFO")))
+                          so CIDINFO lines are not added to the call log
+                        repositioned else if for server data and end of else if
+                      getINFO(): added code so "###" can be in a message
+                      formatCID(): added if (hangup || hupmode)
+                        if (hangup) -> if (hangup && !wflag)
+                        replaced (hupmode && (linelabel != &HUPLINE[0]))
+                        by if (hupmode && !wflag && (linelabel != &HUPLINE[0]))
+                      sendLog(): placed LOGEND after "Sent call log:"
+                      sendACK(): new
+             nciddconf.c: getWord() added inQuotes
+             nciddconf.h: added extern in inQuotes
+             nciddhangup.c: addEntry() added check for "inQuotes" for a comment
+             ncidd.alias: added line about number or name beginning with a '#'
+             ncidd.blacklist: added line about an entry beginning with a '#'
+             ncidd.whitelist: added line about an entry beginning with a '#'
+             nciddhangup.c: added checkWhitelist
+                           doHangup(): replaced checking whitelist with wflag
+             ncidd.conf-in: changed comments to specify gencid default is off
+    - setup/Makefile: new
+            README.setup: new
+            ncid-mysql-setup.sh: new
+            ncid-email2ncid-setup.sh: new
+            ncid-setup.sh: new
+    - test/test-client.data: updated with RLY message
+    - test/test-gw-calls.data: updated, added RLY message and MSG from ncid2ncid
+    - tools/Makefile: updated
+    - tools/cidalias: changed s/\s*#.*$//; to s/\s+#.*$//; in while loop
+               doList(): changed s/\s*#.*//; to s/\s+#.*$//;
+            cidcall.pl: paerseline()
+               added if (/MSG:|NOT:/) ... in 2 places
+               changed REGEX for getting name and number
+               removed $lineid =~ s/-*//; so a "-" is printed
+               added format output
+               added: use File::Glob ':bsd_glob';
+                      option --yearlog|-y
+                      $cidlog = yearly log file if $yearlog
+            cidupdate.pl: changed s/\s*#.*$//; to s/\s+#.*$//; in while loop
+                          changed: if (/^BLK|^CID|^END ...)
+                          to:      if (/^BLK:|^CID:|^END: ...)
+                          in:      foreach $cidlog (@log_files) loop
+               strmatch(): changed: $string =~ s/\s*#.*$//;
+                           to:      $string =~ s/\s+#.*$//;
+            ncidutil.pl:
+               changed: $item = "\"$item\"" if (index $item, ' ') >= 0;
+               to:      $item = "\"$item\"";
+               strmatch(): changed: $string =~ s/\s*#.*$//;
+                           to:      $string =~ s/\s+#.*$//;
+               getfield(): changed: $line =~ s/\s*#.*$|\s*$//;
+                           to:      $line =~ s/\s+#.*$|\s*$//;
+               changed "if $number: to "if \"$nmbr\" in NAMEDEP line
+               changed "if $name: to "if \"$name\" in NMBRDEP line
+            ncid-yearlog.sh: new
+
+Version 1.4
+    - Makefile: updated
+    - client/ncid.sh: removed: doVerbose "Set $option to 1" 1
+                      removed: set $option 1
+                      changed option to svropt
+                      added global variable $svrOptions
+                      added proc serverOPT {}
+    - debian/conffiles: new
+    - debian/ncid-client.conffiles: new
+    - debian/ncid-kpopup.conffiles: new
+    - debian/ncid-mythtv.conffiles: new
+    - debian/ncid-samba.conffiles: new
+    - debian/ncid-speak.conffiles: new
+    - debian/yac2ncid.init: updated
+    - debian/control: use latest tcl/tk dependences
+    - doc/GPL.md: updated
+          Extensions.md: new
+          mk-manual-date: new
+          recording renamed to recordings
+          Use.md: updated
+          INSTALL-Raspbian.md: updated to default modem port
+                               add steps to cause auto launch of 
+                                    ncid GUI after login
+          INSTALL-Fedora.md: updated to default modem port
+          INSTALL-Redhat.md: updated to default modem port
+          INSTALL-FreeBSD.md: updated to default modem port
+          INSTALL-Ubuntu.md: added ModemManager section
+          INSTALL-Mac.md: remove backslash in newsyslog.conf example
+          Modems.md: "Modem is fd x" where x is less than 10
+          Hangup.md: extensive rewrite of how to create voice files from scratch
+          Makefile: updated; added make for raspbian and debian
+          images: new, contains all images
+          UserManualIndex.md: updated for image in images/
+          Clients.md: added clients images
+          mk-epub: updated for image in images/
+          Verbose.md: added three lines to LEVEL 2
+    - extensions/Makefile: new
+                 hangup-skel.sh: new
+                 hangup-message.sh: new
+    - Fedora/*.service: improved all service files
+    - Fedora/yac2ncid.init: updated
+    - FreeBSD/yac2ncid.rc: updated
+    - gateway/yac2ncid.sh: added getopts() and -vVp options
+    - logrotate/Makefile: updated
+                ncidrotate.1: changed name to ncidrotate.1-in
+                corrected script directory
+    - man/hangup-skel.1-in: new
+          hangup-message.1-in: new
+          ncid-*.1-in: corrected module directory
+          ncid-notify.1-in: remove ncid-page references, verify content
+          ncid-page.1-in: remove ncid-notify references, verify content
+          ncid-skel.1-in: corrected skel_types
+          ncid-wakeup.1-in: minor typo
+          ncidd.8-in: updated
+          index.md: updated
+          Makefile: updated
+          yac2ncid-in: updated for shell script changes
+    - modules/Makefile: updated
+    - recording: changed name to recordings
+    - recordings/Makefile: updated
+          installs *.pvf files to <path>/doc/ncid/recordings
+          NumberDisconnected.rmd moved to attic/
+          NumberDisconnected.wav moved to attic/
+          NotInService.rmd changed name to NumberDisconnected.rmd
+          NotInService.pvf changed name to NumberDisconnected.pvf
+    - server/ncidd.conf-in: Changed PID to Alias in Blacklist/Whitelist section
+        modified comments for announce, added variables hupname, hupmode, huprmd
+        added "HANGUP EXTENSION" section
+    - server/Makefile: updated
+    - server/ncidd.c: line 2880 changed "--regex" to " --regex"
+        all write() to clients on network changed to safeSend()
+        added date and time to more log lines
+        added code and variables for hupname (script called by popen)
+        added changeTTY()
+        added annpath to hold the announce file
+        added hupmode, hupname, huppath (for Hangup Extension)
+        added checkHangupMode() and checkVoiceFile()
+        changed doTTY() to setTTY() and doModem to setModem()
+        setTTY(): rewrote
+        main(): added "Startup complete" message
+        doPoll(): changed strstr() to strncmp() for RELOAD, UPDATE, UPDATES,
+                          and REREAD
+                  changed "OPT: hangup" to "OPT: hangup-X" where X = 1-3
+                  added "OPT: hupmode-X" where X = 1-3 
+                  added "OPT: ignore1" and "OPT: regex"
+                  added if error execute writeError() on write statements
+                        when client connects up to end of startup
+        sendLog():  added if write error is 110, 32, 104, client is removed
+                          and sd set to 0 to avoid the if (iptr) else statement
+        writeError(): new
+        safeWrite(): new
+    - server/ncidd.h: added SYSDIR #ifdef and #define
+        changed READTRY from 10 to 30
+        changed MODEMTRY from 6 to 4
+        added DOEXTEND, RECORDING, EXTDIR, HUPEXTENSIONS, & HUPNAME defines
+        added RAW and NOTRAW defines
+        added extern char *hupname, *huprmd
+        changed #defines for RELOAD, UPDATE, UPDATES, and REREAD to include
+          "REQ: " at the start
+        added ALARM_DELAY
+    - server/ncidd.conf-in: updated
+    - server/nciddalias: remove '\n' and '\r' from alias file as file is read
+    - server/nciddconf.c: added "hupname", "hupmode", "huprmd" to struct setword
+        remove '\n' and '\r' from conf file as file is read
+    - server/nciddhangup.c: added char annpath to hold full path to announce
+        remove '\n' and '\r' from list files as files are read
+    - server/nciddhangup.h: remove path from RECORDING define
+        added extern char annpath[] and extern int hangupCall()
+    - test/test-gw-calls.data: updated
+        test-server: updated
+    - test/test-server: updated to include a CID line with name "POWERUPDATE"
+                          in the T-call log
+                        default modem changed to /dev/ttyACM0
+    - tools/cidcall.pl: enabled autoflush for STDERR and STDOUT
+                        test-server: updated
+                        test-gw-calls.data: updated
+            cidupdate: if MSG:|NOT: added regex to find last "***" for $info
+                                    changed split to operate on $info
+
+Version 1.3
+    - Makefile: updated for recording/Makefile
+                Removed -Waddress compiler options for CentOS 5.11
+    - client/ncid.conf-in: changed ProgName to ModName, ProgDir to ModDir
+    - client/ncid.sh: changed ProgName to ModName, ProgDir to ModDir
+                      changed ModDir to /usr/local/share/ncid/modules
+              DoList() added wording in display screens
+                       fixed client jobs to work with all aliases
+            getField() allow '?' or '*' as first character in data field
+                       allow '@' and '_' anywhere in data fields
+    - doc/README.docdir: updated, uses pandoc instead of markdown
+    - doc/Makefile: updated
+    - doc/CONTRIBUTORS.md: updated
+    - doc/Clients.md: new
+    - doc/GPL.md: new
+    - doc/NCID-API.md: new, ported from NCID-API.md 1.1 and updated to 1.2
+    - doc/LICENSE: deleted
+    - doc/mk-epub: updated
+    - logcwrotatefile: changed MOD to NCID, MAN to MANDIR, added SYSDIR
+                       set MODDIR to $(NCID)/modules
+    - logcwrotatedir/ncid.logrotate: changed /usr/local/share/ncid/ncidrotate
+                                     to /usr/local/share/ncid/sys/ncidrotate
+    - man/README.mandir: updated
+    - man/Makefile:  updated, changed file locations in man1, man7, man8
+                     to be consistant with where the make places them
+                     uses pandoc instead of markdown
+    - man/ncidd.8: removed ignore1 section
+    - man/*.1: moved to *.1-in, *.7 moved to *.7-in, and *.8 moved to *.8-in
+    - recording/Makefile: new
+                added six new modem recording files.
+    - server/Makefile: updated for recording/Makefile
+                       Removed -Waddress compiler options for CentOS 5.11
+                       changed VOICEFILE to RECORDING
+    - server/ncidd.c: removed "noone" variable
+                      formatCID() added char *nameptr and used instead of
+                          cid.cidname
+                          expanded if (doHangup(cid.cidname, cid.cidnmbr))
+                      doPoll() rewrote "line from another server" section
+                               removed sending ignore1 option to clients
+                               added sending regex option to clients
+                               added --regex option to calling ncidutil
+                                     and cidudate
+                      main(): added SIGUSR2
+                      showConnected(): new 
+    - server/ncidd.h: removed INCLUDE1, revised NCIDUPDATE
+                      reworded IGNORE1 and added NOIGNORE1
+                      changed VOICEFILE to RECORDING and its default
+    - server/nciddalias.c: strmatch(): lots of changes to code, fixed bug
+                                      added check for "1?" and "^1?"
+                                      added if (regex) ... 
+                          userAlias(): added preg argument to strmatch()
+                          setAlias(): added err and errbuf variables
+                                      added regcomp() and if (err) ...
+                          rmaliases(): added if (regex) ...
+                          findAlias(): changed search for alias name to
+                                       search for depend or from to get
+                                       alias type
+    - server/nciddalias.h: added <sys/types.h and <regex.h> includes
+                           added "regex_t preg;" to "struct alias_info"
+    - server/nciddhangup.c: added char *listname
+                            onList() added check for "1?" and "^1?"
+                                     added if (ret) listname = node->newname;
+                            doList() added variables and code to pretty print
+                                     the blacklist in ncidd.log
+                            hangupCall() revised and added comments
+                            addEntry() adds a name to node->newname if it
+                                       starts with "#="
+    - server/nciddhangup.h: added member hupname[CIDSIZE] to list_t
+                            added extern *hupname
+    - server/ncidd.conf-in: updated, improved wording in hangup section
+                            reworded ignore1
+                            created section for alias/blacklist/whitelist
+    - test/test-client.data: added new test for "?*@_" in number and name
+    - test/test-gw-calls.data: updated to test an optonal leading 1
+    - test/test-modem-calls: updated to work with new server
+    - tools/cidalias.pl: removed alias file argument
+            added --version, --alias, --blacklist, --whitelist options
+            added $search, $hupname, and hn => "" to %listed
+            updated documentation
+    - tools/cidcall.pl: added --version, PID, and WID options
+                        added $pid and $wid variables
+                        updated documentation
+    - tools/cidupdate.pl: replace $value with $depend
+                          modified strmatch() to handle "^1?" & "1?" expressions
+                          modified to update both calls and messages
+                          added --regex option
+                          updated documentation
+    - tools/ncidutil.pl: Modified $extra to handle "#= <match name>"
+                         added strmatch() and getfield()
+                         added --regex option and --ignore1 option
+                         updated documentation
+
+Version 1.2
+    - Makefile: MODDIR and VOICEFILE, added -Waddress to MFLAGS
+    - client/ncid.sh: getCID{} removed PID obsolete comment
+                               added check for $CIDtype for label = 1,2,3
+                      DoList{} changed regsub {1(.*) to regsub {^1(.*)
+    - doc/Documentation.md: added TODO back
+    - doc/Makefile: updated for Alias.md and Hangup.md
+    - doc/Modems.md: incomplete list of modems section changed to reference wiki
+    - doc/Alias.md, Hangup.md: new
+    - gateway/Makefile: added -Waddress to MFLAGS
+    - gateway/ncid2ncid.c: removed comments from lineType[] and replaced
+                                   NULL with ""
+    - man/ncidd.8: extensive rewrite to make sure all options in ncidd are 
+                   included, and all descriptions updated to reflect the latest
+                   features
+    - man/ncid-*.1: updated all that have a configuration file.
+    - modules/ncid-page.sh: $PageOpt can now either "", or 1 of 4 subject lines
+    - modules/ncid-page.conf: modified PageOpt comments to take on 4 values
+    - modules/ncid-*.conf: updated for the WID call type
+    - server/Makefile: added RNDFILE, SHIRDIR, MODDIR, and VOICEFILE,
+                added -DVOICEFILE=\"$(VOICEFILE)\" and install-rnd
+                added -Waddress to MFLAGS
+                changed ret to pos in "if ((pos = addPoll(sd)) < 0)"
+                        and in strcpy(IPinfo[pos].x in doPoll()
+    - server/ncidd.c: checkModem() improved log file input for modem modes
+                                   output modem chip set at verbose 1
+                                   added output of AT+VSM=?, variable audiofile
+                      formatCID() replaced linelabel == CIDLINE with !strncmp
+                      doModem() used switch statement on initModem() return
+                                fixed modem return logic.
+                      initModem() rmoved "break;" when ret set to 3
+    - server/ncidd.h: added "#define QUERYATVSM"
+                      added the "-f | --audiofmt" to "#define OPTIONS"
+                      increased MAXCLIENTS from 25 to 50
+    - server/ncidd.alias: updated
+    - server/nciddhangup.c: 
+    - server/nciddhangup.c: added "char char *announce, replaced XPRESS with it
+                            replaced "ATE0" with NOECHO
+    - server/nciddhangup.h: added comments and removed temporary comments
+                            added "extern *announce" and "#define NOECHO"
+
+Version 1.1
+    - Makefile: added -Wformat to MFLAGS
+                updated comments and usage message
+    - all Makefiles, added: MAKE = gmake
+                           $(Version) -> $(VERSION)
+    - client/Makefile: added API := $(shell sed '1d; 2q' ../VERSION)
+    - client/ncid.conf-in: updated comments for FR (France)
+    - client/ncid.sh: formatNMBR {} added format ob-xxx-xxx-xxx for OBi devices
+                                    modified 9 digit format: xxx-xxx-xxx
+                      removed "if {$NoOne}...", so maxNumberWidth is always 14
+                      changed: doVerbose, it is always "Max Number Width 14"
+                      correct spelling: usin -> using
+                      added $API to -V
+                      added country code for FR (France)
+    - debian/*.init: fixed the status part of the 13 init files
+    - debian/obi2ncid.init: new
+    - doc/CONTRIBUTORS.md: updated
+    - doc/Devices.md: updated
+    - doc/Gateways.md: updated
+    - doc/INSTALL-Fedora.md: updated
+    - doc/INSTALL-Ubuntu.md: updated
+    - doc/INSTALL-Raspbian.md: updated
+    - doc/INSTALL-Redhat.md: updated
+    - doc/INSTALL-Cygwin.md: updated
+    - doc/Documentation.md: Removed TODO.md
+    - doc/GettingStarted.md: improved
+    - doc/Verbose.md: updated
+    - Fedora/obi2ncid.service: new
+    - Fedora/obi2ncid.init: new
+    - gateway/Makefile: added API := $(shell sed '1d; 2q' ../VERSION)
+                        added -Wformat to MFLAGS
+                        removed -D_BSD_SOURCE
+    - gateway/rn2ncid.pl: updated documentation section, added $API to -V
+                          fixed SYNOPSIS in documentation
+    - gateway/wc2ncid.pl: updated documentation section, added $API to -V
+                          fixed SYNOPSIS in documentation
+                          fixed the --delay|-d option to take an argument
+                          removed $selectTO, added $abort
+                          doDiscover: while(1) changed code for select timeout
+    - gateway/rn2ncid.conf: updated comment about rn2ncid.conf.5
+    - gateway/sip2ncid.c: added API to -V
+                          changed: ntohs(udp->uh_sport), ntohs(udp->uh_dport));
+                               to: ntohs(udp->source), ntohs(udp->dest));
+    - gateway/ncid2ncid.c: added API to -V
+    - gateway/obi2ncid.pl: new
+    - gateway/obi2ncid.conf: new
+    - Mac/net.sourceforge.obi2ncid.plist: new
+    - Mac/README.Mac: updated
+    - man/obi2ncid.conf.5: new
+    - man/ncid-page.1: updated the requirements section for the Raspberry Pi
+    - man/ncidd.8: updated for new tty speed
+    - server/ncidd.c: added FIDLINE, WIDLINE to *lineTags[]
+                      added regex variable and log messages for it
+                      added modemGCI[] to decode country code to country
+                      replaced IPaddr array with IPbuf structure
+                      tcpAccept(): added getnameinfo code
+                      finish() added if (hangup) ...
+                      doPoll() changed "int cnt = 0" to "static int cnt = 0"
+                               changed logic a bit in "else if (!num)"
+                                 in CIDNODT section added LEVEL5 debug message
+                               fixed test for CIDALL3, CIDALT3, CIDALL4, CIDNODT
+                               added CIDALT4 section
+                               relocated test for noname and modified it
+                               changed strstr to strncmp for ACK and YO line
+                               added DDN to DDN_NMBR and NMBR 'if' statement
+                               replaced IPaddr with IPinfo for client connect
+                               added IPinfo for client disconnect
+                               fixed longtime bug of sending VERSION and API
+                                 to clients when they failed to connect
+                               fixed "get and process end of call termination"
+                                 section: lineid copied from endcall structure
+                                 current RING value saved and restored
+                       formatCID() added code for a TCI device
+                                   added code for WID
+                                   added code for France telco modems
+                       getOptions() added -r and --regex
+                       initModem() changed some return values
+                                   added more return values
+                       checkModem(): new
+                       main(): if hangup: moved switch to checkModem()
+                                          added call to checkModem()
+                               if (!nomodem) added call to checkModem()
+                               added tty speed 115200
+                       doModem(): moved modem queries to checkModem()
+    - server/ncidd.h: added CIDRCV3, CIDRCV4, CIDALL5, FID, WID, CALLWID,
+                            CALLFID, FIDLINE, WIDLINE, REQ_ACK, REQ_YO,
+                            IGNHIGH, CIDALT4
+                      added --announce to Usage, extern char *announce
+                      added -r & --regex to Usage
+                      changed TTYSPEED from B19200 to B115200
+    - server/ncidd.conf-in: updated
+    - server/nciddhangup.c: added int regex
+                            hangupCall() added if (ret){ret = initModem ...
+                            addEntry() added "int err", "char errbuf[80]"
+                                       added if (regex){...}
+                            rmEntries() added if (regex){...}
+                            onList(): added if (regex){...} else {...}
+                            doPoll(): fixed CIDCALL -> CIDINFO
+    - server/nciddhangup.h: added sys/types.h and regex.h includes
+                            added "regex_t preg" to "typedef struct list"
+                            added extern int regex
+                            changed HANGUPDELAY from 1 to 2 seconds
+    - server/ncidd.blacklist: updated the "DEFAULT ENTRIES" section
+    - test/README.test, test-gw-calls, test-modem-calls, test-server: updated
+    - test/test/test-device-calls, test/test-device-calls.data: new
+    - test/test-client-data: added an OBi 9 digit number starting with ob
+    - test/test-client-screenshot.data: updated for current server
+                                        added lines including a NOT: line
+                                        fixed a CID line not ending in *
+    - test/test-gw-calls: modified comments
+    - test/test-gw-calls.data: added a NOT and MSG
+    - test/test-modem-calls: updated
+    - test/test-modem-calls.data: added data
+    - tools/Makefile: Added API := $(shell sed '1d; 2q' ../VERSION)
+                      Added $API to all scripts for -V
+    - tools/cidcall.pl: added cleanup(), errorExit(), and sigHandle()
+                        fixed SYNOPSIS in documentation
+    - tools/ncidutil: changed "Entry" to "Alias" in error messages
+    - tools/wct.pl: fixed SYNOPSIS in documentation
+
+Version 1.0
+    Going to version 1.0 instead of 0.90
+    - Makefile: added default TTYPORT for fedora, redhat, and ubuntu builds
+                added API define and rule to generate the API in version.h
+    - VERSION: added API version
+    - version.h-in: added API line
+    - client/ncid.sh: getCID(): elseif {$label == 6}
+            - removed array set call "$lineLabel [list $cid]"
+            - removed comments: $cid set above, no need for $call($lineLabel
+            formatMSG{}: added new MSG field
+            displayLog{}: added new MSG field
+            sendMSG{}: simplified code, added verbose statements
+            sendCID{}: simplified code, added verbose statements
+    - client/ncid.conf-in: added Compatibility Mode section
+    - doc/Modems.md: added Trendnet modem, rearranged modem list, added links
+    - doc/GettingStarted.md: improved beginning wording in INSTALL section
+    - doc/: updated Devices.md, Modems.md, Verbose.md, mk-epub, Documentation.md
+            removed NCID-SDK.odt, added NCID-API.odt and NCID-SDK.md
+    - Fedora/*.service: added "Wants=ncidd.service" to all service files
+                        that depend on ncidd.service
+    - man/ncidd.8: updated
+    - modules/ncid-skel.sh: added another display format
+    - modules/ncid-skel.conf: added option for putput format
+    - modules/ncid-mythtv.sh: modified to send info to multiple clients
+    - modules/ncid-mythtv.conf: added config for multiple clients
+    - modules/ncid-*.sh: changed input so MESG line always last
+                         simplified shell scripts
+                         change MESG line to MESG="${MESG## ***}"
+    - server/Makefile: Updated to agree with the top Makefile for the API
+    - server/ncidd.c: changed if statement looking for ACK to ACK and YO
+                      added new if statement for line: ack[pos] = 1;
+                      added type to struct mesg
+                      added API version when ncidd version is displayed
+                      doPoll(): added ACK to a CALLINFO line
+                      formatCID(): fixed detection of no date or time
+                      doPoll(): added APIANNOUNCE 210 line
+                                added mesg.type to sprintf(tmpbuf, MESSAGE, ...
+                      getINFO() added lines for new "TYPE" field
+                      misc verbose output changes
+    - server/ncidd.h: added YO define
+                      added APIANNOUNCE define
+                      added define for NO_TYPE
+                      added second line to SHOWVER
+                      appended TYPE*%s* to MESSAGE
+                      added CIDNODT define
+                      removed CIDSIZE define
+    - server/nciddalias.c: changed alias structure to a linked list
+                           removed cpy2mem()
+    - server/nciddconf.c: added pickup to setword[]
+    - server/nciddhangup.h: removed defines LISTSIZE and ERRLIST
+                            removed externs *blklist[] & *whtlist[]
+                            added define ENTRYSIZE and struct list
+    - server/nciddhangup.c: changed list arrays to a linked list
+                            hangupCall(): rewrote FAX hangup section
+                                          added LEVEL5 to logMsg()
+    - server/nciddalias.h: added CIDSIZE define, changed struct alias
+                           added struct alias_info
+                           removed ERRALIAS define, cpy2mem() extern
+    - server/ncidd.conf-in: modified default ttyport comments
+    - test/test-client.data: updated
+    - test/test-gw-calls.data: updated
+    - test/test-modem-calls.data: updated
+    - tools/cidupdate.pl: - added same test used in NAMEDEP and NMBRDEP
+                            on all other aliases to make sure a change
+                          - fixed NMBRNAME alias so it actually checks
+                            the number for a change
+
+Version 0.89
+    - Makefile: updated
+                added more warning options in MFLAGS
+                added NCIDUPDATE and NCIDUTIL defines
+    - README: updated
+    - doc/*.md: rewrote for better use in ebook format on small devices
+          NCID-SDK.odt: updated
+    - client/ncid.conf-in: changed WrapLines from "none" to "word"
+                           obtained $line from call line highlighted
+                           added &&line to REQ: INFO line sent to ncidd
+                           added support for all aliases
+                           reduced alias menus from 2 to 1
+                           rewrote DoList()
+    - gateway/Makefile: added more MFLAGS
+    - man/ncid-kpopup.1: added software packages needed
+    - man/ncidd.8: added the fax mode to hangup
+    - modules/*.sh: updated
+    - modules/*.conf: updated
+    - server/Makefile: added more MFLAGS, NCIDUPDATE, and NCIDUTIL
+    - server/ncidd.c: main()/while(1): added "ttyfd = 0 after close(ttyfd)
+                      opentty(): added ttyfd = 0 in open(...
+                      changed OPTION to OPTLINE
+                      added getINFO() and getField()
+                      doPoll(): rewrote MSG: and INFO: if statement sections
+                      rewrote if statement for REQ: line
+                      misc format changes
+    - server/ncidd.h: changed OPTION to OPTLINE
+    - server/ncidd.c: getINFO(): new for message content INFO
+    - server/ncidd.c: getField(): new for message content INFO
+    - server/nciddalias.c: strmatch(): new, uses wildcards
+    - server/nciddalias.c: userAlias(): calls strmatch() to determine alias
+    - server/nciddalias.c: findAlias(): rewrite
+    - server/nciddhangup.c: doHangup(): modified for FAX auto answer
+                            hangupCall(): added FAX autoanswer mode
+    - server/nciddhangup.h: added FAXANS FAXINIT GETOK defines
+    - server/ncidd.alias: updated for the use of '*'
+    - server/ncidd.conf-in: added information on using hangup to act as a FAX
+    - test/aliasfile: added new valid alias with additional characters.
+    - test/test-client.data: added new NOT: line format
+    - test/test-server: made --osx-launchd optional and -D as the default
+    - tools/cidupdate.pl: added a version number to agree with NCID release
+                          removed most comments
+                          added strmatch()
+                          rewrote determining alliases from cidcall.log file
+                          add END: line support
+                          removed trailing spaces from $to and $value
+                          deleted comments
+    - tools/ncidutil.pl: added a version number to agree with NCID release
+                         added copyright (C) comment line
+                         improved pod documentation
+                         fix broken alias modify
+                         deleted comments
+    - tools/cidcall.pl: modified to also display PID: and NOT: lines
+                        default is to display CID:, HUP, OUT, and PID: lines
+                        deleted comments, added copyright lines
+                        updated pod
+    - tools/cidalias.pl: deleted comments, added copyright lines
+
+Version 0.88
+    - Makefile: - MFLAGS line: removed -W from Mflags, -Wmissing-declarations
+                - added to DOC define, added docdir to local-base
+                - created docdir:, added $(DOCDIR) to some install commands
+    - README: - updated
+    - client/ncid.sh:
+                - added server menu and code to make changes to the
+                  alias, blacklist, and whitelist files using the server
+                - added new verbose statements
+    - doc/Makefile: new
+          README.doc: new
+          *: except for CHANGES, LICENSE, and ReleaseNotes, all text
+             files were replaced by md files.
+          NCID-SDK.odt: updated
+      doc/NCID-SDK.odt: updated
+    - gateway/Makefile: added warning for unused variables
+              ncid2ncid.c: removed unused variables
+              sip2ncid.c: removed unused variables
+    - man/Makefile: updated
+          README.man: new
+          moved: ncidrotate.conf.5 to logtotate/ncidrotate.conf.5
+          new: index.md index-add.md
+          ncid.1: updated
+          ncidrotate.conf.5 moved to logrotate/ncidrotate.conf.5 
+    - screenshots/ncid-call.png: updated
+    - screenshots/ncid-mesg.png: updated
+    - server/ncidd.c: writeLog(): changed msgbuf to logbuf for write
+                                  to server log
+                      - added "char *fnptr" to point to a open file that
+                        can be alias, conf, blacklist, or whitelist
+                      - added fnptr as first parameter passwd to getWord()
+                      - removed unused variables
+     
+                      getWord() added a new passwd parameter: char *nameptr
+             ncidd.h: added extern char *fnptr;
+                      added more service messages, changed 300 message name
+             nciddalias.c: added fnptr as first parameter passwd to getWord()
+             nciddalias.h: updated
+             nciddconf.c: added fnptr as first parameter passwd to getWord()
+             nciddhangup.c: added fnptr as first parameter passwd to getWord()
+             nciddhangup.h: updated
+             ncidd.conf-in: added new modem information
+    - test/test-client-screenshot.data: updated
+           test-client.data: updated
+           test-modem-calls.data: updated
+    - tools/Makefile: updated
+            cidupdate.pl: * fixed changing a name to "NO NAME"
+                            if not in ncidd.alias
+                          * Removed accept/reject message if no changes to
+                            cidcall.log
+            ncidutil.pl: new
+
+Version 0.87
+    - README: updated
+    - Makefile: added test: $(DOCDIR) does not exist, create it
+    - All GPL license headers in files were updated to GPL 3
+    - client/ncid.sh: logClock{} changed {^(CID|HUP|OUT)} to {^(?:CID|HUP|OUT)}
+                      added "Line Labels" in help menu and labInfo {}
+                      checkTypes() added new types and changed type numbers
+                      getCID(): added new types and changed if statements
+                                for new Type numbers
+    - debian/Makefile: updated
+    - debian/README.Debian: updated
+    - debian/*.init: removed "S" from default STOP
+    - debian/wc2ncid.init: removed configuration stuff, changed sbin to sbin
+    - debian/yac2ncid.init: removed configuration stuff, changed sbin to sbin
+    - debian/rn2ncid.init: new
+    - doc/INSTALL-Ubuntu: updated
+    - doc/INSTALL-Raspbian: updated
+    - doc/LICENSE: updated to GPL 3
+    - doc/Setup-rn2ncid: new
+    - doc/Verbose-rn2ncid: new
+    - Fedora/Makefile: updated
+    - Fedora/README.Fedora: updated
+    - Fedora/rn2ncid.init: new
+    - Fedora/rn2ncid.service: new
+    - FreeBSD/Makefile: updated
+    - FreeBSD/README.FreeBSD: updated
+    - FreeBSD/rn2ncid.rc: new
+    - gateway/Makefile: added $(EXTRA_CFLAGS) to CFLAGS definition
+    - gateway/README.Gateways: renamed to README.gateways and updated
+    - gateway/*.[ch]: updated license in headers
+    - gateway/*.pl: updated license in comments
+    - gateway/sip2ncid.h: added UNAUTHORIZED define
+    - gateway/sip2ncid.c: processPackets() added UNAUTHORIZED section
+    - gateway/wc2ncid.conf: - improved comment wording
+                            - changed nciddelay to delay
+    - gateway/wc2ncid.pl: - moved test mode just after Command Line Processing
+                          - moved logfile and config file messages to
+                            after start message
+                          - added cleanup(), called by errorExit() & sigHandle()
+                          - added delay option to pod documentation wording,
+                            improved some pod wording
+                          - changed $nciddelay to $delay, added $Delay,
+                            added --delay|-d option
+    - gateway/rn2ncid.pl: new
+    - gateway/rn2ncid.config: new
+    - Mac/Makefile: updated
+    - Mac/README.Mac: updated
+    - Mac/net.sourceforge.rn2ncid.plist: new
+    - man/Makefile: updated
+    - man/ncid-*.1: updated
+    - man/ncid.1: updated
+    - man/ncid.conf.5: updated
+    - man/ncidd.8: updated
+    - man/yac2ncid.1: updated
+    - man/rn2ncid.conf.5: new
+    - modules/ncid-*.sh: updated
+    - modules/ncid-*.conf: updated
+    - modules/ncid-notify.sh: changed line one from /bin/sh to /bin/bash
+                              minor changes to verbose output and comments
+    - modules/ncid-speak.sh: added "AreaCodeLength" code to speak the area
+                             code instead or "NO NAME" or entire number
+    - modules/ncid-speak.conf-in: added "AreaCodeLength" and comments
+    - server/ncidd.c: writeLog() - moved "logMsg(LEVEL3, msgbuf);" to start
+                      formatCID() - moved cidnoname test inside
+                                    if (!(cid.status & CIDNMBR))
+                                 - added PID:
+                      added BLKLINE, NOTLINE, PIDLINE to *lineTags[]
+                      doPoll: - added code for a NOT: message
+    - server/ncidd.h: added defines for PID, PIDLINE, NOTLINE, CALLPID
+    - test/README.test: updated
+    - test/*: renamed test programs and test data
+    - test/test-rn2ncid: new
+    - test/test-rn2ncid.data: new
+    - TiVo/ncid-tivo.sh:  if no line label, display $CIDNAME/$CIDNMBR
+                          else display "$CIDNAME $CIDNMBR/$CIDTYPE $CIDLINE"
+
+Version 0.86.1
+    - debian/changelog: updated
+    - debian/control: for package ncid-client added "curl" to Depends
+
+Version 0.86
+    - README: updated
+              added redhat: and redhat-install:
+    - attic/*: new
+    - client/ncid.sh: added more doVerbose statements and levels
+                      changed 300* doVerbose message to any one of four
+                      added line count to "End of call log" message
+                      removed the --raw | -R option
+                      fixed and improved call on a ring number
+                      fonts used depend on platform and OS
+                      allow resizing of window
+                      allow font size changes
+                      time format in history window can be either 12 and 24
+                      new menu called Preferences for Fonts and time format
+                      menu item to save window size
+                      menu item to save window size and location
+                      added the "-h | --help" option
+                      added the "-v | --version" option
+                      added the "-w | --wakeup" option
+                      getCID{}: added calls to ncid-wakeup module
+                      changed "-V" to be the "-v | --verbose" option
+                      makeWindow{}: improved widget and menu code
+                      added saveSize{} write_rc_file{} logFont{} changeFont{}
+                      getField{}: changed regex to include "*" and "-"
+    - client/ncid.conf-in: removed MsgFlag variable and comments
+                           removed Raw variable and comments
+                           added comments to CallOnRing section
+                           added comments to Ring Options section
+                           new "WakeUp" section
+                           new "WrapLines" section
+    - debian/Makefile: updated
+    - debian/wc2ncid.init: new
+    - debian/ncidsip.init: removed
+    - doc/CONTRIBUTORS: updated
+    - doc/NCID-SDK.odt: updated
+    - doc/Setup-ncidsip: removed
+    - doc/Setup-sip2ncid: updated
+    - doc/Setup-wc2ncid: new
+    - doc/INSTALL-Redhat: new
+    - doc/INSTALL*: updated
+    - doc/INSTALL-RPi: new
+    - Fedora/Makefile: updated
+    - Fedora/README.Fedora: updated
+    - Fedora/*.service-in changed to *.service
+      Fedora/ncidd.service-in: added ExecReload
+    - Fedora/wc2ncid.init: new
+    - Fedora/wc2ncid.service: new
+    - Fedora/ncidsip.init: removed
+    - Fedora/ncidsip.service: removed
+    - Fedora/wc2ncid.service: new
+    - FreeBSD/Makefile: updated
+    - FreeBSD/README: updated
+    - FreeBSD/wc2ncid.rc: new
+    - FreeBSD/ncidsip.rc: removed
+    - gateway/Makefile: updated
+    - gateway/README.Gateways: updated
+    - gateway/config.h: changed ncidsip.conf to sip2ncid.conf
+    - gateway/sip2ncid.c: - fixed calltype() "if (cnt >= MAXLINE)" to
+                            properly detect outgoing call
+                          - added lineLabel()
+                          - changed rmCallID() return values
+                          - added findCallID() and addCallID()
+                         processPackets(): - changed INVITE, CANCEL, and BYE
+                                             to use rmCallID(), findCallID()
+                                             and addCallID()
+                                           - changed INVITE to use lineLabel()
+    - gateway/sip2ncid.h: - added OUTCALLi and INFOLINE,
+                          - removed CIDCAN, CIDBYE, and NUMSIZ
+    - gateway/wc2ncid.pl: new
+    - gateway/wc2ncid.conf: new
+    - gateway/ncidsip.pl: removed
+    - gateway/ncidsip.conf: removed
+    - Mac/Makefile: updated
+    - Mac/README.Mac: updated
+    - Mac/net.sourceforge.wc2ncid.plist: new
+    - Mac/net.sourceforge.ncid-gui.plist: removed
+    - Mac/_ncid-gui.command: new
+    - Mac/ncid-gui.command.sh: new
+    - Mac/fix-combobox.sh: new
+    - man/Makefile: updated
+    - man/cidalias.1: removed
+    - man/cidcall.1: removed
+    - man/cidupdate.1: removed
+    - man/ncidsip.1: removed
+    - man/ncidsip.conf.5: removed
+    - man/ncid.1: updated
+    - man/ncidd.8: updated
+    - man/ncidd.alias.5: updated
+    - man/ncid-*: updated
+    - man/ncidtools.7: new
+    - man/wc2ncid.conf.5: new
+    - man/ncid-alert.1: new
+    - man/ncid-wakeup.1: new
+    - modules/ncid-samba.sh:  Fixed typo: MAG -> MSG
+    - modules/ncid-kpopup.sh:  added closing brace on line 66
+    - modules/ncid-alert.sh:  new
+    - modules/ncid-alert.conf:  new
+    - modules/ncid-wakeup.sh:  new
+    - screenshots/ncid-call.png: updated
+    - screenshots/ncid-call-mesg.png: updated
+    - screenshots/ncid-call-classic.png: removed
+    - screenshots/ncid-font.png: new
+    - server/ncidd.blacklist: added new area code to block
+    - server/ncidd.h: added NOLOG, NOLOGSENT, and EMPTYLOG
+                      removed BUFSIZE definition
+                      added externint cidnoname
+    - server/ncidd.c: added char *lineTags[] = {...}
+                      main(): added logMsg() for when cidnoname is set
+                      doPoll(): added send NOLOG, NOLOGSENT, EMPTYLOG
+                      getOptions(): corrected whitelist long option 
+                      formatCID(): added test for cidnoname and ring == 1
+                                   to set cid.cidname to NONAME
+                      doPoll(): - added HUP and OUT text lines as valid
+                                - input from a NCID gateway
+                                - added parsing of CALLINFO into "END:" line
+                                  and writing the "END:" line into cidlog
+                      sendLog(): - changed how line labels are found so "LOG: "
+                                   is added at proper spot.
+                      reload(): corrected reload if statement to errorExit
+    - server/nciddconf.c: corrected spelling: &obsolute -> obsolete
+                          added "cidnoname" to setword structure
+    - server/nciddalias.c: userAlias(): added "^" in NAMEDEP case statement
+                           formatCID(): added BLK call type
+    - server/nciddalias.h: increased ALIASSIZE from 200 to 500
+    - server/nciddhangup.h: increased LISTSIZEfrom 200 to 500
+    - server/ncidd.alias: updated
+    - server/ncidd.conf-in: improved comments for the lockfile section
+    - test/README.test: updated
+    - test/largelog: removed
+    - test/lorgecall.log: new
+    - test/TestGWcalls: added client directory and added server start option
+    - test/TestMdmcalls: added client directory and added server start option
+    - test/testclient.data: updated test calls
+    - test/testSIPgw: new
+    - test/testSIPgw.data: new
+    - TiVo/startncid.sh: updated ncid-fly comments
+    - TiVo/README.TiVo: updated
+    - tools/cidalias.pl: improved code and display, added blacklist feature
+                        added pod documentation
+    - tools/cidcall.pl: added option -e and fixed if statement for no options
+                        added pod documentation
+    - tools/cidupdate.pl: added pod documentation
+    - tools/wct.pl: new
+    - tools/README: updated
+
+Version 0.85
+    - README: updated
+    - Makefile: updated
+    - renamed cidgate/ to gateway/
+    - client/Makefile: updated
+    - client/ncid.sh:
+        added verbose levels 1-9
+        added doVerbose{}
+        changed all "if $Verbose" to "doVerbose <string> 1"
+        added test for $ProgDir == "" to correctly set $Program from $ProgName
+        updated comments for $ProgDir and $ProgName
+        added --alt-date|-A option to display date as dd/mm/yyyy
+        added country code for HR (Croatia)
+        fixed "call" array pronlem that crashed ncid if call
+            not found in the array.
+        added date separator ($DateSepar) so "-" or "." can be used
+            in place of "/" in displayed date
+        changed --message option to do nothing, messages always sent
+            to the output module
+        removed -M | --messages option from Usage:
+        added code to set ring indirectly from a module
+            name with "-" replaced by "_" in ncid.conf
+        getCID{}: removed verbose inside "if $Raw {"
+                  added line: if {$Program != ""} {doVerbose "$dataBlock" 1}
+    - client/ncid.conf-in:
+            added AltDate configuration variable
+            added ring number configuration
+    - debian/README.Debian: updated
+    - debian/Makefile: updated
+    - debian/ncid-*.init: updated
+    - debian/ncid-notify.init: new
+    - debian/postrm-client: updated
+    - debian/prerm-client: updated
+    - debian/rules: updated
+    - doc/INSTALL-andLinux: removed
+    - doc/INSTALL-Cygwin: added rebase and service documentation
+    - doc/INSTALL-Fedora: updated
+    - doc/INSTALL-Mac: added section to install using launchctl
+    - doc/INSTALL-TiVo: updated for the startncid script.
+    - doc/INSTALL-Ubuntu: added section to install from GetDeb
+    - doc/INSTALL-Win: updated
+    - doc/Verbose-ncidd: updated
+    - doc/NCID-SDK.odt: updated
+    - Fedora/Makefile: updated
+    - Fedora/ncid.spec: updated
+    - Fedora/ncid-notify.init: new
+    - Fedora/ncid-notify.service-in: new
+    - Fedora/ncidd.service-in: changed network.target to multi-user.target
+    - Fedora/ncid2ncid.service-in: changed network.target to multi-user.target
+    - Fedora/ncid2sip.service-in: changed network.target to multi-user.target
+    - Fedora/ncid2yac.service-in: changed network.target to multi-user.target
+    - FreeBSD/Makefile: updated
+    - FreeBSD/ncid-notify.rc: new
+    - gateway/Makefile: updated
+    - gateway/sip2ncid.c:
+        added print of command line options to logfile
+        doPCAP(): - changed  errorExit() call
+        getOptions(): - added "--osx-launchd" for Mac launchd
+        parseLines: fixed linenum[0] never populated
+    - gateway/sip2ncid.h: updated Usage: 
+    - gateway/ncid2ncid.c:
+        added "OUT: " & "HUP: " to lineType[]
+       added print of command line options to logfile
+       processPackets(): moved if (outcall) to inside above if statement
+       getOptions(): - added "--osx-launchd" for Mac launchd
+    - gateway/ncid2ncid.h: updated Usage: 
+    - Mac/*: new
+    - man/Makefile: updated
+    - man/ncid.1: updated
+    - man/notify.1: new
+    - man/ncid.conf.5: updated
+    - man/ncid2ncid.1: updated
+    - man/ncidd.8: updated
+    - man/ncidd.conf.5: Updated
+    - man/ncidd.blacklist.5: updated
+    - man/ncidd.whitelist.5: new
+    - man/ncidmodules.1: removed
+    - man/ncidmodules.conf.5: removed
+    - man/ncid-modules.7: new
+    - man/ncid-tivo.1: moved to TiVo/
+    - man/ncid-*.1: rewrote
+    - mancid*.1: rewrote
+    - man/ncidrotate.1: moved to scripts/
+    - man/ncidtoold.1: removed
+    - man/sip2ncid.conf.5: Updated
+    - modules/Makefile.modules: updated
+    - modules/README.modules: updated
+    - modules/ncid-initmodem.sh: modified comments
+    - modules/ncid-kpopup.sh: modified comments
+    - modules/ncid-mythtv.sh: modified comments
+    - modules/ncid-notify.sh: new
+    - modules/ncid-tivo.sh: moved to TiVo/
+    - modules/*.sh: lots of code minor changes in all modules
+    - modules/ncidmodules.conf-in: removed
+    - modules/ncid-*.conf: new
+    - scripts/README.scripts: updated
+    - scripts/README.scripts: renamed to README.logrotate
+    - scripts/Makefile: updated
+    - scripts/ncidrotate.1: moved from man/
+    - scripts/ncid.logrotate: updated to work with all service files & systemctl
+    - scripts/ncidrotate.sh: improved code a bit
+    - renamed scripts/ to logrotate/
+    - server/Makefile: updated
+    - server/README.server: updated
+    - server/ncidd.blacklist: added 4 area codes to block
+    - server/ncidd.whitelist: new
+    - server/ncidd.c:
+        changed ringline to infoline, initialize to ONELINE instead of "-"
+        Updated CIDINFO line comment for sendInfo(int mainsock)
+        main() - added: strncpy(infoline, lineid, CIDSIZE - 1);
+        removed extern void builtinAlias(), userAlias();
+        Moved position of command line printout in logfile
+        formatCID() - changed callout to calltype with values IN, OUT, and HUP
+                    - removed builtinAlias() & userAlias()
+                    - added test for "CALLHUP" in the CALL line from a gateway
+                    - added switch statement for linelabel value
+        main(): - added call whitelist lines under if (hangup)
+        getOptions(): - added whitelist option
+                      - added "--osx-launchd" for Mac launchd
+        reload(): - moved blacklist reload inside if (hangup)
+                  - added whitelist reload
+        main(): - added code to print total alias entries
+    - server/ncidd.conf-in: added whitelist variable
+    - server/ncidd.h: - added defines for IN, OUT, and HUP
+                      - added whitelist option to USAGE define
+                      - replaced HANGUPMSG define with BLMSG and WLMSG
+                      - updated Usage:
+    - server/nciddalias.c:idoAlias(): - added Alias Entries log message
+                           - added builtinAlias() & userAlias() was in ncidd.c 
+    - server/nciddconf.c: - added whitelist to setword[]
+    - server/nciddconf.h: removed: extern struct alias alias[];
+    - server/nciddhangup.c: - changed doBlacklist() to doList(),
+                              rmbl() to rmEntries(), addbl() to addEntry(),
+                              nextbl() to nextEntry(), *list[] to *blklist[]
+                            - added *whitelist, *whtlist[LISTSIZE]
+                            - changed functions to handle both blacklist and
+                              whitelist
+    - server/nciddhangup.h: - added #define WHITELIST, and new function names
+    - test/README.test: updated
+    - test/client-display.data: updated
+    - test/testclient.log: removed
+    - test/TestGWcalls.data: - added CALL and CALLINFO to test hangup lists
+    - test/TestMdmcalls: - fixed proplem looking only for "\n$"
+                         - added print statements inside while loop
+                         - removed select line inside while loop
+    - test/testserver: - added here-documents for T-config, T-blacklist
+                         and T-whitelist
+                       - removed command line options set in config file
+    - TiVo/README.TiVo: updated
+    - TiVo/Makefile: updated
+    - TiVo/startncid.sh: added ncid-notify module configuration
+                         changed logic for starting a module
+    - TiVo/stopncid.sh: updated list of programs to stop, and comments
+    - TiVo/ncid-tivo.sh: moved from modules/
+    - TiVo/ncid-tivo.conf: new
+    - TiVo/ncid-tivo.1: moved from man/
+    - tools/Makefile: updated
+    - tools/README.tools: updated
+    - Win/ncid.nsi: updated
+
+Version 0.84
+    - Makefile - updated to call Fedora/Makefile for service scripts
+               - updated mac-fat compile for OS X 10.4.11 (Tiger)
+    - cidgate/ncidsip.conf: updated comments
+    - cidgate/sip2ncid.c:processPackets(): added if (!linenum[0]) {} statement
+    - cidgate/yac2ncid.sh: added test for new version of Eric Jackson netcat
+    - debian/README.Debian: updated
+    - doc/Install-Fedora: updated for using 'stystemctl' instead of 'service'
+    - doc/Setup-sip2ncid:
+    - Fedora/Makefile: updated for service scripts
+    - Fedora/README.Fedora: updated for service scripts
+    - Fedora/ncid-*.init: improved description line wording
+    - Fedora/ncid-*.service.in: new (replaced *.init scripta)
+    - Fedora/ncid.spec: updated to use the systemctl service scripts
+    - man/ncid2ncid.1: updated
+    - man/sip2ncid.8: updated
+    - man/sip2ncid.8: updated
+    - modules/ncidmodules.conf-in: updated comments
+    - server/ncidd.c: formatCID(): when searching for DATE, TIME, NAME, NMBR,
+                                   check for <SPACE> after the '=' and skip it.
+    - TiVo/README.TiVo: corrected some text and added text
+    - TiVo/Makefile: fixed symlinks install
+    - TiVo/initmodem.sh: changed from using "ps" to using "pgrep"
+    - TiVo/ncid-tivo.sh: added echo pipe to text2osd clear screen command
+    - TiVo/startncid.sh: removed the rmpid option
+                         added new comments about ncid-fly
+    - TiVo/stopncid.sh: new
+
+Version 0.83
+    - Makefile: updated and minor improvements
+    - cidgate/config.c: added rmdups to: struct setword setword[]
+    - cidgate/sip2ncid.c: main(): - added sprintf() and logMsg() for rmdups
+    - cidgate/sip2ncid.c: processPackets(): - added code to eliminate
+                          duplicate INVITE packets generated by Phone Power
+    - cidgate/sip2ncid.h: added: extern int rmdups
+    - client/ncid.sh: sendCID {}: "added > @stdout" to all "catch {exec ..."
+                      sendMSG {}: Corrected comments and updated exec
+                                  Sends "MSG" as $cidtype
+                      sendCID {}: added $cidtype as last line sent to a module 
+                      replaced $allCalls with !$Classic or $Classic
+                      removed --all-calls from USAGE 
+                      getArg {}: --all-calls only there for compatibility
+    - client/ncid.conf-in: replaced AllCalls with Classic, updated comments
+    - debian/README.Gateways: updated
+    - debian/changelog: updated
+    - doc/CONTRIBUTORS: updated
+    - doc/NCID-SDK.odt: updated
+    - Fedora/ncid.spec: updated version number and changelog
+    - man/Makefile: ncid-tivo.1 is only installed for a TiVo
+    - man/cidtools.1: changed default: cidcall.log.new -> <callfile>.new
+    - man/ncod.1: updated
+    - modules/Makefile: ncid-tivo is only built and installed for a TiVo
+    - modules/ncid-initmodem.sh: added $CIDTYPE and updated comments
+    - modules/ncid-kpopup.sh: added $CIDTYPE and updated comments & output
+    - modules/ncid-mythtv.sh: added $CIDTYPE and updated comments
+    - modules/ncid-page.sh: added $CIDTYPE and updated comments & output
+    - modules/ncid-samba.sh: added $CIDTYPE and updated comments & output
+    - modules/ncid-skel.sh: added $CIDTYPE and updated comments & output
+    - modules/ncid-speak.sh: added $WHAT and $CIDNMBR
+                             added $CIDTYPE and updated comments & output
+    - modules/ncid-tivo.sh: added $CIDTYPE and updated comments & output
+    - modules/ncid-yac.sh: added $CIDTYPE and updated comments & output
+    - modules/ncidmodules.conf-in: updated ncid-speak section
+    - screenshots/ncid-call.png: updated
+    - screenshots/ncid-mesg.png: updated
+    - screenshots/ncid-call-classic.png: added
+    - server/ncidd.h: changed CIDSIZE from 25 to 50
+    - server/ncidd.c: main(): added comments and line before a sprintf():
+                              strncpy(cid.cidline, lineid, CIDSIZE - 1);
+    - server/nciddalias.h: added: #define ERRLONG     "word is too long:"
+                           added *_TXT defines
+                           added "char *type_txt" to alias struct
+    - server/nciddalias.c: setAlias(): added 3 word size checks to CIDSIZE
+                                       if too big sets ERRLONG and aborts
+    - server/nciddalias.c: doAlias(): changed alias printout to look better
+    - server/nciddhangup.c: doBlacklist(): added log of entries/maximum
+                                           changed log list from [xx] tp "xx"
+    - test/README.test: updated
+    - test/aliasfile: added more aliases, most contain :?|
+    - test/testlog-display: updated
+    - test/call.log: new
+    - test/client-display.data: new
+    - tools/cidupdate: Fixed problems with the regular expression
+                       Changed join() and split() to use '"' instead of ':'
+    - Win/ncid.nsi: updated version number
+
+Version 0.82.1
+    - nciddconf.c: added back 'send outcall' to give depreciated warning
+
+Version 0.82
+    - Makefile: added LOCKFILE=/var/spool/uucp/LCK.. in mac and fat-mac targets
+                added LOCKFILE=/var/spool/lock/LCK.. in freebsd target
+                added LOCKFILE=/var/lock/lockdev/LCK.. in Fedora target
+                added LOCKFILE=/var/lock/LCK.. in Ubuntu target
+    - cidgate/yac2ncid.sh: fixed broken if statement on line 144
+                           by adding line 145
+    - client/ncid.sh: replaced --call-out|-A option with --all-calls|-A
+                      replaced $CallOut with $AllCalls
+                      replaced callin/callout with line label in history window
+                      line label added in history window for $AllCalls = 1
+                      increased length of history window by 5 for $AllCalls = 1
+                      messages are displayed in the history window
+                      checkType {} codes rearranged and new types added
+                                   removed check for *EXTRA*
+                      getCID {} updated for revised checkType {}
+    - client/ncid.conf-in: updated
+    - debian/README.Debian: updated
+    - debian/changelog: updated
+    - debian/ncidd.init: updated
+    - doc/CONTRIBUTORS: updated
+    - doc/Modem-CallerID-test: renamed from doc/Modem-CID-test
+    - doc/Modem-info: added
+    - doc/NCID-SDK.odt: updated
+    - Fedora/ncidd.init: updated
+    - man/ncid.1: updated
+    - man/ncidd.8: updated
+    - man/nciddconf.5: updated
+    - server/Makefile: added poll.c to $(SRC) and poll.h to $(HEARDE)
+                       added -DLOCKFILE=\"$(LOCKFILE)\" to DEFINES
+    - server/ncidd.c: added ipaddr[CONNECTIONS][25];
+                      removed global int sendout
+                      main() removed ]
+                             from: CallerID from AT Modem and optional gateways]
+                             added LEVEL3 Modem or Caller ID Device message
+                             added if (!hangup) { ... }
+                             checks return code for openTTY() to exit
+                      doPoll(): check for modem in POLLNVAL and exit
+                                added client IP address to connect messages
+                                added *ipaddr[sd] = '\0'; to "End Connections"
+                                "Poll device" -> "Serial Device" in messages
+                      tcpAccept() changed sockaddr to sockaddr_in
+                                  changed bind_addr to sa & socksize to sa_len
+                                  added inet_ntoa() to add client ip address
+                                        to ipaddr[sd]
+                      doModem() changed if (!(initcid = strdup(INITCID2)...
+                                to initcid = INITCID2;
+                      initModem() changed " delay until response" logic
+                                  removed "get rest of response" logic
+                                  removed extra delay of ATH? commands
+                                  log size and try with response
+                                  changed INITWAIT to READWAIT
+                      formatCID() removed checks for sendout
+                                  removed if statement from rmPoll()
+                      sendLog() changes INITWAIT to READWAIT
+                      strdate() added LOGFILETIME /* HH:MM:SS.ssss */
+                      openTTY() returns error or success, was exit on error
+                      reload() added in check for hangup, changed log message
+                      getOptions() chnaged "tty" to "ttyport" in "case 't':"
+                                   changed "debug = 1" to "++debug" to indicate
+                                           how many times -D was gived.
+    - server/ncidd.h: added #include <arpa/inet.h>
+                      removed #include <netinet/in.h>
+                      added #if (defined(__MACH__))
+                      added #ifndef LOCKFILE ...
+                      added #define LOGFILETIME 8       /* HH:MM:SS.ssss */
+                      changed INITWAIT to READWAIT
+                      changed INITTRY to READTRY
+                      removed export in callout
+    - server/nciddhangup.c: hangupCall(): changed to act on return codes
+                                          changed usleep delay to HANGUPDELAY
+                                          added HANGUPTRY to initModem() call
+                                          Changed logic for if (!ret) ...
+                                          changed 200000 to HANGUPDELAY
+    - server/nciddhangup.h: removed the CR define
+                            changed PICKUP and HANGUP defines
+                            added the HANGUPTRY and HANGUPDELAY defines
+    - server/poll.c: added for OSX
+    - server/poll.h: added for OSX
+    - test/testclient: updated
+    - test/testclient.data: updated
+
+Version 0.81
+    - Makefile: updated
+    - README: updated
+    - ncidd.h: changed RINGWAIT from 25 to 29
+               changed "CIDOUT: " to "OUT: ", added "HUP: "
+                   added ttyfd and hangup to extern int
+                   added extern struct termios ntty;
+               added ignore1 as a extern
+               added the IGNORE1 and INCLUDE1 defines
+               moved to server/
+    - ncidd.c: changed ringcount variable to ringwait
+               changed gencid to initialize to 0 instead of 1
+               added LogMsg() to display lastring and ring at level 4
+               main(): removed code to print aliases
+               userAlias(): added if (ignore1 && *nmbr == '1') ++nmbr;
+               added hangup option
+               moved to server/
+    - ncidd.alias: moved to server/
+    - nciddalias.c: doAlias(): changed buf[] to msgbuf[]
+                               added LEVEL8 printout of alias[]
+                    moved to server/
+    - nciddalias.h: updated
+                    moved to server/
+    - nciddconf.c: added hangup to setword[] structure
+                   added ignore1 to setword[] structure
+                   moved to server/
+    - nciddconf.h: added extern int errorStatus;
+                   moved to server/
+    - nciddhangup.c: added
+                     moved to server/
+    - nciddhangup.h: added
+                     moved to server/
+    - ncidd.conf-in: added hangup configuration and comments
+                     added ignore1 configuration and comments
+                     moved to server/
+    - ncid.sh: changed CIDOUT to OUT and changed CIDOUTLOG to OUTLOG
+               getCID{}: - changed if {$type < 3 || $type == 8}
+                           to if {($type < 3) || ($type == 8 && $CallOut)}
+                         - added: global CallOut
+    -          moved to client/
+    - ncid.conf-in: moved to client/
+    - ncid.gif: moved to client/
+    - nciddalias.c: doAlias(): added code to print aliases
+                               renamed buf to msgbuf
+    - ncidd.conf-in: updated for new gencid initialization
+                     added ttyACM0 comment
+    - moved server files to server/
+    - moved client files to client/
+    - cidgate/Makefile: updated
+    - cidgate/ncid2ncid.c: socketConnect(): changed connect message
+                           added strerror() to error messgage line 1298
+                           sigdetect(): signals logged for all signals
+    - debian/Makefile: updated
+    - debian/README.Debian: updated
+    - debian/control: updated
+    - debian/ncid-hangup.init: removed
+    - debian/postrm-client: updated
+    - debian/prerm-client: updated
+    - debian/rules: updated
+    - doc/TODO: updated
+    - doc/NCID-SDK.odt: updated
+    - doc/Verbose-ncidd: updated
+    - Fedora/Makefile: updated
+    - Fedora/README.Fedora: updated
+    - Fedora/ncid.spec: updated
+    - Fedora/ncidsip.init: added comment
+    - Fedora/ncid-hangup.init: removed
+    - FreeBSD/Makefile: updated
+    - FreeBSD/README.FreeBSD: updated
+    - FreeBSD/ncidsip.rc: added $opts to args=... line
+    - FreeBSD/ncid-hangup.rc: removed
+    - man/Makefile: updated
+    - man/*: updated all man pages and added man pages
+    - modules/Makefile: updated
+    - modules/README.modules: updated
+    - modules/ncidmodules.conf-in: updated
+    - modules/ncid-hangup.sh: removed
+    - modules/ncid.blacklist: removed
+    - modules/ncid.minicom: removed
+    - server/*: added
+    - test/README.test: updated
+    - test/testserver: added the -B blacklist option
+    - test/TestGWcalls.data: updated
+    - test/testclient.data: updated
+    - TiVo/Makefile: updated
+    - TiVo/README.TiVo: updated
+    - tools/cidcall.pl: updated and improved output
+    - tools/cidupdate.pl: changed the -a and -c options to -A and -C, removed -l
+
+Version 0.80
+    - README: updated for new features
+    - Makefile: added OSDCLIENT to tivo-mips: and tivo-s1:
+    - ncidd.c: added global "int sendout", changed some comments in formatCID()
+    - ncidd.h: added "sendout" to "extern int"
+    - nciddconf.c: added "cidout" to sendclient[]
+    - ncid.sh: added country codes: "NONE" for no number format,
+               DE (Germany), and UK (Ubited Kingdom)
+               added shell code to check NoGUI in ncid.conf at startup
+               modified the ithe beginning shell code that used GUI
+               added CIDOUT: CIDOUTLOG: to checkType {}
+               added variable "CallOut" to display outgoing calls
+               added $cidtype to the cid list in formatCID {}
+               changed option -C and replaced --call-prog with --call-out
+               added $cidtype to displayLog {} and displayCID {}
+               added CIDOUT and CIDOUTLOG to getCID {}
+               removed --call-prog from $OPTSTIVO
+               removed variable "CallProg" or replaced it with Program
+               changed 'set Program [list $ProgDir/$ProgName' to: set Program ""
+    - ncid.conf-in: updated country code comments
+               removed "set Program line and comments
+               changed EXTPROG name to ProgName
+    - ncidd.conf-in: corrected comment about the cid logfile
+    - cidgate/sip2ncid.c: added type to the CALL: and CALLINFO lines
+                          type is either CALLOUT or CALLIN
+    - cidgate/sip2ncid.h: removed CIDCALL and added CALLOUT, CALLIN
+                          added CALL field to CIDCAN, CIDBYE, and CIDLINE
+    - debian/changelog: updated
+    - debian/control: changed Requires and added Recommends for ncid-client
+    - doc/NCID-SDK.odt: Updated for new features
+    - Fedora/ncid.spec: updated
+    - man/ncidd.8: updated for new features
+    - man/ncidd.conf.8: updated for new features
+    - test/TestGWcalls.data: updated to include CALLIN and CALLOUT
+    - TiVo/Makefile: added OSDCLIENT
+    - Win/ncid.nsi: updated
+
+Version 0.79
+    - Makefile: fixed FreeBSD problems by adding: MAKE = gmake
+                CFLAGS changed -O to -O2
+                MFLAGS changed to: MFLAGS  = -W -Wmissing-declarations
+    - ncid.sh: Patched to work with the Vodafone ARC_ncidd 0.01 server
+               Changed "after" logic
+               Renamed reconnect {} to Reconnect {}
+               Removed waitOnce {}
+               getArg {}: -P sets Callprog to 1 like the -C option
+               Removed "--call-prog | -C" from Usage
+    - ncidd.c: sendInfo(): added TIME fields
+               - added the "-n | --gencid" options to turn on or off the
+                 feature to generate a CID if a CID is not received from
+                 a modem by ring 2
+               main() if modem, log if ncidd can/can't handle calls without CID
+               strdate(): changed NODATE to ONLYTIME
+               doPoll(): allow CID: and CIDINFO: input from another NCID server
+                         changed logMsg() wording for invalid request
+                         changed LEVEL3 to LEVEL8 for receiving empty line
+               logMsg(): write to stdout instead of stderr in debug mode
+               main(): added check for any arguments and to abort if any
+                       moved check for logfile
+               formatCID: changed strncmp() for NMBR to strstr() for NMBR
+    - ncidd.h: added the "-n|--gencid" option to usage
+               added extern int gencid
+    - nciddconf.c: added "gencid" keyword to setword[]
+                   max verbose level set to 7
+    - ncidd.conf-in: added new config variable "gencid" and information on it
+                     added new initstring for a US Robotics 5637 USB modem
+                     updated for new verbose range
+    - getopt_long.c: not used anymore
+    - getopt_long.h: not used anymore
+    - poll.c: not used anymore
+    - poll.h: not used anymore
+    - README: updated
+    - cidgate/sip2ncid.c: processPackets() changed 'ONLYTIME' to 'WITHYEAR'
+                                           accept alpha for called number
+                                           test for REQCAN with REQTERM
+                          doPCAP() changed 'ONLYTIME' to 'WITHYEAR'
+                          logMsg(): write to stdout instead of stderr in debug
+                          socketConnect(): changed warning to LEVEL2
+                          socketRead(): changed LEVEL5 to LEVEL9
+                          main(): added check for any arguments and to abort
+                                  moved check for logfile
+                          max verbose level set to 7
+                          fixed coredump of the -W | --warn options
+    - cidgate/sip2ncid.conf: updated
+    - cidgate/sip2ncid.h: renamed REQUEST to REQTERM and added REQCAN
+    - cidgate/ncid2ncid.c: new
+    - cidgate/ncid2ncid.conf: new
+    - cidgate/ncid2ncid.h: new
+    - cidgate/yac2ncid.sh: modified to forward YAC messages
+    - debian/Makefile: updated
+    - debian/README.debian: updated
+    - debian/rules: updated
+    - debian/ncid-<module>.init: removed the -C option
+    - debian/ncid2ncid.init: new
+    - doc/NCID-SDK.odt: updated CIDINFO section to include TIME fields
+    - doc/INSTALL: updated for 'gencid'
+    - doc/INSTALL-TiVo: updated
+    - doc/Verbose-ncidd: updated
+    - doc/Verbose-sip2ncid: updated
+    - doc/Verbose-ncid2ncid: new
+    - Fedora/Makefile: removed ifdef and updated it
+    - Fedora/README,Fedora: updated
+    - Fedora/ncid-<module>.init: removed the -C option
+    - Fedora/ncidsip.init: corrected Start/Stop comment
+    - Fedora/ncid2ncid.init: new
+    - FreeBsd/Makefile: updated
+    - FreeBsd/README.FreeBSD: updated
+    - FreeBSD/ncid-<module>.rc: removed the -C option
+    - FreeBsd/ncid2ncid.rc: new
+    - man/Makefile: added line: MAKE = gmake
+    - man/ncid.1: updated
+    - man/ncidd.8: updated
+    - man/ncidd.conf.5: updated for "gencid" usage
+    - man/ncidmodules.1: removed [--messages] from ncid-yac usage
+    - man/sip2ncid.8: updated
+    - man/yac2ncid.1: corrected a line
+    - man/ncid2ncid.1: new
+    - man/ncid2ncid.conf.5: new
+    - man/ncidsip.8: updated
+    - modules/ncid-<module>.sh: removed --call-prog option comments
+    - scripts/testclient.log: - added 2 MSG lines, 1 CID line, and 1
+                                CIDINFO line
+                              - updated the CIDINFO lines
+    - scripts/testlog-display: updated to show currect client log display
+    - TiVo/Makefile: new
+    - TiVo/README.TiVo: new
+    - TiVo/initmodem.sh: moved from tools/initmodem.sh
+    - TiVo/startncid.sh: moved from tools/startncid.sh
+    - tools/Makefileh: added line: MAKE = gmake
+    - tools/README.tools: updated and removed Makefile comments
+    - tools/startncid.sh: changed using 'ps' to using 'pgrep;
+                        removed --messages from ncid-yac startup
+    - tools/initmodem.sh: moved to to TiVo/initmodem.sh
+    - tools/startmcid.sh: moved to to TiVo/startmcid.sh
+
+Version 0.78
+    - ncid.sh: fixed 4 comments
+               changed checkCID {} to checkType {}
+               added check for MSGLOG: and LOG: in checkType {}
+               moved reconnect {} to just after retryConnect {}
+               reconnect {}: removed lines: global Host and global Port
+                             added: if {$Socket != 0} { ... }
+               getCID {}: changed "else {" to "elseif {$type <= 3} {"
+               formatCID {}: line label is not displayed inside <> anymore
+    - ncidd.c:formatCID(): replaced cid.sent with cidsent, it is set to 0
+                           when processing NAME, NUMBER, DATE, and TIME
+                           and when ring is set to 0; it is set to 1 after
+                           the CID is sent to clients
+    - ncidd.h: removed CIDSENT define, added CIDALT4 define
+    - debian/README.Debian: updated
+    - doc/Country Codes: corrected grammer
+    - doc/NCID-DataFormats: replaced by NCID-SDK.odt
+    - doc/NCID-PROTOCOL: replaced by NCID-SDK.odt
+    - doc/INSTALL-andLinux: updated
+    - doc/INSTALL-Fedora: updated
+    - doc/INSTALL-Ubuntu: updated
+    - Fedora/ncid.spec: updated
+    - man/ncidd.8: updated for no Caller ID use
+    - man/ncidmodules.1: correct usage for ncid-initmodem, ncid-samba, and
+                         ncid-speak
+    - modules/ncid-page.sh: modified to properly support messages
+    - modules/ncid-tivo.sh: modified to properly support messages
+    - test/TestGWcalls.data: added a CALL line and a CALLINFO line at
+                             the top
+    - test/TestMdmcalls.data: added a line at the top that starts with
+                              Caller ID lines before ring 1
+    - test/aliasfile: updated
+    - test aliasfile.errors: added
+    - test/ncidd-errors.conf: updated
+    - test/ncidd-noerrors.conf: fixed and updated
+    - test/README.test: updated
+    - tools/cidcall.pl: removed <> from enclosing line label
+                        changed number from (xxx)xxx-xxxx to xxx-xxx-xxxx
+    - Win/ncid.nsi: updated
+
+Version 0.77
+    - Makefile: removed cd into specific subdirs in clean: and clobber:
+                added "subdirs =" line
+                added a for loop to go into $subdirs in clean: and clobber:
+                fixed clean: so it did make clean in subdirectories
+                changed OS=tivo-s1 to OS=tivo-ppc
+                tivo:ppc removed prefix=/var/hack, replaced spaces with tabs
+                         added setlock="TiVo Modem Lockfile"
+                         changed: settag="TiVo Modem Port"
+                         to:      settag="TiVo PPC Modem Port"
+                added setlock
+    - README: uopdated for new ncidd RING feature
+    - ncid.sh: sendMSG {} removed & from exec
+               sendCID {} removed & from exec
+               removed the "--nocid| -N option
+    - ncidd.c: main{} reworded errorExit() for "check tty port lock file"
+                      changed: if (stat(lockfile, &statbuf) == 0)
+                      to: if (CheckForLockfile())
+                      added to if (!locked): ringwait = 0;
+                      changed TTY port, speed, lockfile from LEVEL2 to LEVEL1
+                      Removed usleep(INITWAIT) when TTY is freed
+                      moved verbose level indicator lines
+                            after line: if (doConf()) errorExit(-104, 0, 0);
+               CheckForLockfile(): added
+               formatCID(): Created CID messgae when no CID received by Ring 2
+               doPoll(): poll() event flag from LEVEL4 to LEVEL9
+               doTTY(): removed line:
+                          else sprintf(msgbuf, "Modem set for CallerID.\n");
+                         added comments
+               doModem(): added if (*initstr) {...} else {...}
+                            and if (*initcid) {...} else {...}
+                          added comments
+               initModem(): added comments
+    - nciddconf.c: struct setword setword[]: changed verbose max value
+                   from MAXLEVEL to MAXLEVEL -1
+    - ncidd.conf-in: updated to show how to skip sending a CID init string
+    - ncidd.h: added #define NOCID       "No CID From Modem"
+               added #define CIDSENT      0x20
+    - cidgate/Makefile: added linei to clobber:
+                        rm -f a.out *.log *.zip *.tar.gz *.tgz
+                        changed tivo-s1 to tivo-ppc
+    - cidgate/sip2ncid.h: changed PKTWAIT from 90 to 120 (seconds)
+    - cidgate/sip2ncid.c: processPackets(): added "if (msgsent & 0x1)" to
+                                            inform SIP packets returned
+                                            INVITE: - added INVITE argument to
+                                                      getCallID()
+                                                    - moved added calls and sim
+                                                      calls to if (pos) line
+                          doPCAP(): inside of while(1) loop, added logic to
+                                    only print each message once
+                          getCallID() added char *label argument
+                          sigdetect() fixed string in sprintf()
+    - debian/Makefile: removed ncid-kpopup.init
+                       added ncid-initmodem.init
+                       Added line to clobber: rm -f *.zip *.tar.gz *.tgz
+    - debian/README.debian: updated
+    - debian/ncid-kpopup.init: removed
+    - debian/ncid-initmodem.init: added
+    - debian/rules: removed ncid-kpopup
+                    added ncid-initmodem
+    - doc/INSTALL-Ubuntu: corrected 2 words
+    - doc/INSTALL-andLinux: updated
+    - doc/INSTALL-TiVo: updated for startncid and initmodem
+    - doc/Verbose-ncidd: updated
+    - doc/Verbose-sip2ncid: updated
+    - Fedora/Makefile: Removed ncid-kpopup.init
+                       Added ncid-initmodem.init
+                       Added line to clobber: rm -f *.zip *.tar.gz *.tgz
+    - Fedora/README.Fedora: updated
+    - Fedora/ncid-kpopup.init: removed
+    - Fedora/ncid-initmodem.init: added
+    - Fedora/ncid.spec: updated for improved ncid-hangup
+    -                   removed ncid-kpopup module
+                        Added ncid-initmodem.init
+    - FreeBSD/Makefile: Removed ncid-kpopup.rc
+                        Added ncid-initmodem.rc
+                        Added line to clobber: rm -f *.zip *.tar.gz *.tgz
+    - FreeBSD/README.FreeBSD: updated
+    - FreeBSD/ncid-kpopup.rc: removed
+    - FreeBSD/ncid-initmodem.rc: added
+    - man/Makefile: rm -f *.zip *.tar.gz *.tgz
+    - man/ncid.1: removed "--nocid|-N" option
+    - man/ncidd.8: reworded exit message -102
+                   added warning about using verbose level 9
+    - man/ncidmodules.1: updated to include ncid-initmodem
+    - man/ncidmodules.conf.5: updated for URL of SMS gateways
+    - modules/Makefile: - added ncid-initmodem.sh
+                        - added line to clobber: rm -f *.zip *.tar.gz *.tgz
+                        - fixed bad line in install-etc that replaced
+                          ncid.minicom with ncid.blacklist
+    - modules/README.modules: added ncid-initmodem
+    - modules/ncid-initmodem.sh: added
+    - modules/ncid-page.sh: changed "/bin/mail" to "mail"
+    - modules/ncid-hangup.sh: changed "ncidscript.conf" to "ncidmodiles.conf"
+                              removed "-o" option from HangupOpts
+    - modules/ncid.minicom: corrected script as it was suppose to be in 0.76
+                            updated comments and removed obsolete comments
+                            replaced print with "send AT/expect OK"
+    - modules/ncidmodules.conf-in: added comment: URL listing SMS gateways
+    - modules/ncid-yac.sh: modified to handle messages
+    - scripts/Makefile: added line to clobber: rm -f *.zip *.tar.gz *.tgz
+    - test/Makefile: added default: clobber: and distclean:
+    - test/README.test: updated to include TestMdmcalls
+      test/testserver: removed the "-N 1" line
+                       added the "-t vmodem0 \" line
+      test/TestGWcalls: updated usage comments, fixed a spelling error
+      test/TestMdmcalls.data: added
+    - tools/startncid.sh: check process is not running to start programs
+                          removed ncid-page module (requires a mail program)
+                          added ncid-initmodem
+                          improved somments and program sections
+      tools/Makefile: added line to clobber: rm -f *.zip *.tar.gz *.tgz
+    - tools/initmodem.sh: added
+
+Version 0.76
+    - Makefile: Changed IMAGEDIR from pixmaps to pixmaps/ncid
+    - ncidd.c: strdate(): Changed "with separators" to return time in HH:MM:SS
+                          added ONLYTIME (HH:MM:SS)
+               main(): Added usleep(INITWAIT) when TTY is freed by another prog
+    - ncidd.h: changed NOSEP to 2 and added ONLYTIME
+    - ncid.sh: add catch{} for encoding system utf-8 - it is missing on a TiVo
+               changed LOGO from /usr/local/share/pixmaps/ncid.gif
+                            to /usr/local/share/pixmaps/ncid/ncid.gif
+               Added the --noexit|-X option to disable "Close Window"
+    - ncid.conf-in: added the --noexit|-X option
+    - cidgate/sip2ncid.c: doPCAP(): added time to the no SIP messages
+                          strdate(): added seconds to WITHYEAR
+                                     added ONLYTIME (HH:MM:SS)
+                          main(): changed wording of "No SIP line"
+                          getCallID(): eptr set to NL instead of SIPAT
+    - cidgate/sip2ncid.h: changed NOYEAR to 2 and added ONLYTIME
+    - cidgate/ncidsip.pl: Call-ID regular expression changed from
+                          /^Call-ID:(.+)@/imo to /^Call-ID: ([0-9_@.]+)/imo
+    - doc/Setup-ncidsip: Updated
+    - doc/Setup-sip2ncid: Updated
+    - Fedora/ncid.spec: changed /usr/share/pixmaps/ncid.gif
+                        to /usr/share/pixmaps/ncid/ncid.gif
+    - modules/Makefile: changed: $(DIST:.dist=) to: $(DIST:-in=)
+    - modules/ncid.minicom: Replaced script (was overwritten by ncid.blacklist)
+    - tools/Makefile: changed: $(DIST:.dist=) to: $(DIST:-in=)
+
+Version 0.75
+    - Makefile: Added rule to make version.h from the VERSION file
+                Changed *.dist files to *-in files and rules to make them
+                remove *.tgz files in clobber:
+                Changed gmake to make for freebsd and freebsd-install targets
+    - ncid.conf-in: renamed from ncid.conf.dist
+    - ncid.sh: changed version to indicate NCID version
+               removed NCID from VersionInfo
+               added line: encoding system utf-8
+               getCID {}: ($type == 1,2, or 3) created $call($lineLabel)
+                          ($type == 5) call on ring uses $call($lineinfo)
+                                       instead of $cid
+    - ncidd.h: changed version to indicate NCID version
+               increased CONNECTIONS from 15 to 25
+               removed NCID from ANNOUNCE
+               removed " to get" from LOGMSG
+    - ncidd.c: sendLog(): changed write() to handle short write & EWOULDBLOCK
+                          if call log sent send line: 300 end of call log
+                          added line to strip <CR>
+               sendInfo(): removed CRLF in sprintf()
+                           removed strip <CR> code and added strcat()
+               main(): removed \n from sprintf() just before rmPoll()
+               main(): added: signal(SIGPIPE, ignore);
+                       removed signals: SIGFPE, SIGILL, SIGUSR1, SIGUSR2,
+                                        SIGILL
+                       create call log in mode 644 instead of 744
+                       added ignore()
+               reload(): replaced SIGHUP with strsignal(sig)
+               rmPoll(): added buf() and removed write() for CRLF
+               writeLog(): removed write() for NL moved sprintf(msgbuf,...)
+               doPoll(): CALLINFO line: removed buf from sprintf()
+               formatCID(): removed setting NONAME when MESG line received
+    - ncidd.conf-in: renamed from ncidd.conf.dist
+    - version.h-in: Added
+    - cidgate/Makefile: Added rule to make ../version.h from ../VERSION file
+                        Changed *.dist to *-in files and rules to make them
+    - cidgate/config.c: added the "warn" configure option
+    - cidgate/ncidsip.pl: changed version to indicate NCID version
+                          Modified all the CALLINFO lines
+    - cidgate/sip2ncid.h: changed version to indicate NCID version
+                          changed PKTWAIT from 60 to 90
+                          changed CIDCAN, CIDBYE, CIDCALL defines to
+                                  include LINE
+    - cidgate/sip2ncid.c: doPCAP() if warn & sd, send message to clients
+                          getOption() corrected dumpfile to writegile
+                                      added --warn, -W option
+                          processPackets() modified INVITE, CANCEL, and BYE
+                                           to output the telephone line used
+    - cidgate/sip2ncid.conf: added the "warn" configure option
+    - cidgate/yac2ncid.sh: changed version to indicate NCID version
+    - debian/Makefile: Updated for ncid-hangup.init
+    - debian/README.Debian: Updated
+    - debian/control: added libpcap0.8-devel to Build-Depends
+                      split package into multiple packages
+    - debian/*.init: changed Description and added Short Description
+    - debian/postrm: changed for server package
+    - debian/postrm-client: Added
+    - debian/postrm-kpopup: Added
+    - debian/postrm-mythtv: Added
+    - debian/postrm-samba: Added
+    - debian/postrm-speak: Added
+    - debian/prerm: changed for server package
+    - debian/prerm-client: Added
+    - debian/prerm-kpopup: Added
+    - debian/prerm-mythtv: Added
+    - debian/prerm-samba: Added
+    - debian/prerm-speak: Added
+    - debian/rules: changed to generate multiple DEB packages
+    - debian/ncid-hangup.init: Added
+    - debian/ncid-page.init: added --message|-M option
+    - debian/ncid-samba.init: added --message|-M option
+    - debian/ncid-speakopt.init: added --message|-M option
+    - debian/postrm: added ncid-hangup
+    - debian/prerm: added ncid-hangup
+    - debian/rules: added debian/root/usr/sbin/sip2ncid to dpkg-shlibdeps
+                    generate multiple packages
+    - doc/CONTRIBUTORS: Updated
+    - doc/INSTALL: Updated
+    - doc/INSTALL-andLinux: Updated
+    - doc/INSTALL-Fedora: Updated and Corrected typo
+    - doc/INSTALL-Ubuntu: Updated
+    - doc/NCID-DataFormats: Updated
+    - doc/NCID-PROTOCOL: Updated for the "300" line
+    - doc/Setup-ncidsip: Corrected port 5061 to port 10000 in test example
+    - doc/Setup-sip2ncid: Corrected port 5061 to port 10000 in test example
+    - doc/Verbose-ncidd: Added signal ignore message
+    - doc/Verbose-sip2ncid: added "no SIP" warning message
+    - Fedora/Makefile: Updated for ncid-hangup.init
+    - Fedora/README.Fedora: Updated for ncid-hangup.init
+    - Fedora/ncid.spec: removed modules/README.modules from server build
+    - Fedora/*.init: modified Description and added Short Description
+    - Fedora/ncid-hangup.init: Added
+    - Fedora/ncid-page.init: added --message|-M option
+    - Fedora/ncid-samba.init: added --message|-M option
+    - Fedora/ncid-speak.init: added --message|-M option
+    - FreeBSD/Makefile: Updated for ncid-hangup.rc
+    - FreeBSD/README.FreeBSD: Updated for ncid-hangup.rc
+    - FreeBSD/ncidd: moved line name=ncidd above line rcvar=`set_rcvar`
+    - FreeBSD/ncidsip: moved line name=ncidd above line rcvar=`set_rcvar`
+    - FreeBSD/sip2ncid: moved line name=ncidd above line rcvar=`set_rcvar`
+    - FreeBSD/yac2ncid: moved line name=ncidd above line rcvar=`set_rcvar`
+    - FreeBSD/ncid-hangup.rc: Added
+    - FreeBSD/ncid-page.rc: added --message|-M option
+    - FreeBSD/ncid-samba.rc: added --message|-M option
+    - FreeBSD/ncid-speak.rc: added --message|-M option
+    - man/ncidmodules.1: Updated for ncid-hangup
+    - man/ncidmodules.conf.5: Updated for ncid-hangup and --message|-M option
+    - man/sip2ncid.8: Updated for --warn|-W option
+    - modules/Makefile: Updated for ncid-hangup
+    - modules/README.modules: Updated foe ncid-hangup
+    - modules/ncidmodules.conf.dist: Updated for ncid-hangup
+    - modules/ncidmodules.conf-in: renamed from ncidmodules.conf.dist
+    - modules/ncid.blacklist: Added
+    - modules/ncid.hangup.sh: Added
+    - modules/ncid.minicom: Added
+    - test/README.test: Updated to include testclient.log
+    - test/testclient.log: Added
+    - test/testclient: Replaced using netcat with sockets
+    - test/testclient.data: Updated for specific tests
+    - test/testclient.log: Added
+    - test/testlog: Added all missing line labels but one
+    - test/testlog-display: Updated for modified testlog
+
+Version 0.74
+    - Makefile: changed $(MAKE) to gmake in freebsd/freebsd-install targets
+    - ncid.sh: use catch to trap -topmost error in Ubuntu 8.04
+               displayLog{}: changed $Verbose to $Callprog
+               removed set Verbose to 1 if $Callprog set
+    - ncidd.c: errorExit(): do not print error message if msg = arg = 0
+               formatCID(): allow number and or name without date and time
+    - cidgate/sip2ncid.h: added PKTWAIT
+    - cidgate/sip2ncid.c: knows more signals, logs signal on exit
+                          doPCAP(): alarm(), pcapret, msgsent and logic
+                          processPackets(): added alarm() amd msgsent
+                          fixed warnings in doPID() and processPaqckets()
+    - debian/Makefile: Fixed "FILES" line
+    - debian/ncid-page.init: Changed ringopt="-r 4" to ringopt=""
+    - debian/prerm: Fixed test to stop sip2ncid
+    - doc/INSTALL: Updated
+    - doc/INSTALL-andLinux: Updated
+    - doc/INSTALL-Cygwin: Corrected a couple of errors, updated
+    - doc/INSTALL-Fedora: Updated
+    - doc/INSTALL-FreeBSD: Corrected a couple of errors, updated
+    - doc/INSTALL-Mac: Corrected a couple of errors, updated
+    - doc/INSTALL-TiVo: Updated
+    - doc/INSTALL-Ubuntu: Updated
+    - doc/INSTALL-Win: Updated
+    - doc/INSTALL-Setup-ncidsip: Updated
+    - Fedora/ncidsip.init: Added the line: opts=""
+    - Fedora/ncid-page.init: Changed ringopt="-r 4" to ringopt=""
+    - Fedora/Makefile: Fixed "FILES" line
+    - Fedora/ncidsip.init: Updated
+    - Fedora/ncid.spec: added Fedora changes by Eric Sandeen
+    - FreeBSD/Makefile: Fixed "FILES" line, removed man and html targets
+    - FreeBSD/ncid-page.rc: Changed ringopt="-r 4" to ringopt=""
+    - modules/ncidmodules.conf.dist: Added more information for ring options
+    - test/README.test: Updated
+    - test/testserver: Updated to handle new cidcall.log logic.
+    - tools/cidcall.pl: allow 10 characters for LINE ID instead of 4
+
+Version 0.73
+    - Makefile: Removed install-log and references, added prefix4 for fedoradir
+                Removed install-tools from tivo-install-hack and tivo-install
+                Added "cd test; $(MAKE) clean" to clean:
+    - README:  Updated
+    - ncid.sh: Removed the -A | -all option
+               Removed variable $Connect
+               Added the -t | --PopupTime option
+               connectCID {}: Added "clearlog" to "if $NoGUI" "else"
+                           Removed -translation {binary binary} from fconfigure
+               doPopup {}: Added $state and "wm attributes . -topmost 0/1"
+                           Added tests for "iconic"
+                           Added popup delay time
+               getCID {}: Changed "Phone Ringing" to "Phone Call"
+                          Removed "if (!Connect ...)" and its comment
+                          Removed: "if {$type < 4}" { and its closing "}"
+                          Separated: "if ($CallOnRing && $type == 5)
+    - ncid.conf.dist: Corrected spelling error and added to comments
+    - ncidd.alias: Added example to display "VOIP" for one SIP telephone line
+                   Added example for using a '*' in a line alias.
+    - ncidd.c: sendlog(): Changed LOGMAX to cidlogmax in all 3 places
+               doPoll(): Changed in 2 places: "Client (sd %d) sent ..."
+                         To: "Gateway (sd %d )sent ..."
+                         Added logic for "POLLOUT" for completeness
+                         Reworded some messages
+                         On read error, if not EGAIN remove client from poll
+               errorExit(): Corrected error codes
+               userAlias(): Allow '*' "alias LINE * = ..." to mean any line
+               main(): Added signals: SIGABRT, SIGILL, and IGSEGV
+                       Added logic for creating cidlog if not present
+               finish(): added "Received Signal" message
+               formatCID(): Removed line: ... if (!isprint(*ptr)) *ptr = '?';
+                            and its comment (this make it pass Unicode)
+               main: Changed wording for using a Gateway and serial device
+                     Added wording for using a AT Modem. 
+                     Changed logfile indicators from level 2 to level 1
+                     Creates cid log if not present, indisates if data log
+                             present
+               Changes to pass lint
+    - ncidd.h: Changes to pass lint
+    - ncidalias.c: Changes to pass lint
+    - ncidalias.h: Changes to pass lint
+    - nciddconf.c: Changes to pass lint
+    - nciddconf.h: Changes to pass lint
+    - cidgate/ncidsip.conf: Changed "args" to "opts", updated comments
+    - debian/README.Debian: Updated
+    - debian/Makefile: Updated
+    - debian/ncid-popup.init: Renamed to ncid-kpopup.init
+    - debian/postinst: removed line: touch /var/log/cidcall.log
+    - debian/rules: removed line: rm $$(pwd)/debian/root/var/log/cidcall.log
+    - doc/CONTRIBUTORS: Updated for ncid-popup to ncid-kpopup name change
+    - doc/CONTRIBUTORS: Added: Lloyd Stahlbush and Marko Koski-Vähälä
+    - doc/INSTALL: Updated
+    - doc/INSTALL-andLinux: Added to CONFIGURE section
+    - doc/INSTALL-Fedora: Added to CONFIGURE section
+    - doc/INSTALL-FreeBSD: Added to CONFIGURE section
+    - doc/INSTALL-Mac: Added to CONFIGURE section
+    - doc/INSTALL-Ubuntu: Added to CONFIGURE section
+    - doc/NetCallerID: Converted \r\n to \n
+    - doc/Verbose-ncidd: Updated
+    - Fedora/Makefile: Updated sed script and variables
+    - Fedora/ncid-popup.init Renamed to ncid-kpopup.init
+    - Fedora/ncid.spec: Updated and broke into multiple packages
+    - Fedora/README.Fedora: Updated
+    - FreeBSD/README.FreeBSD: Updated
+    - FreeBSD/Makefile: Updated
+    - FreeBSD/ncid-popup.rc: Renamed to ncid-kpopup.rc
+    - man/Makefile: Updated
+    - man/ncid.1: Removed "\^" and updated it for ncid changes.
+    - man/ncid.conf.5: Removed "\^"
+    - man/ncidd.8: Spelling corrections and some rewrites
+    - man/ncidd.alias.5: Removed "\^"
+    - man/ncidd.conf.5: Rewrote and expanded the EXAMPLES section
+    - man/ncidmodules.1: Updated, Removed "\^"
+    - man/ncidmodules.conf.5: Updated, Removed "\^"
+    - man/ncidrotate.1: Changed ncidd to ncid, removed ncid.1, added sip2ncid.8
+                       specified cidcall.log as file to keep lines
+    - man/ncidrotate.conf.5: New
+    - man/ncidsip.8: Updated for ncidsip.conf
+    - man/ncidsip.conf.5: New
+    - man/sip2ncid.8: Removed "\^"
+    - man/sip2ncid.conf.5: Removed "\^"
+    - man/ncidtools.1: Explained the -m option
+    - man/yac2ncid.1: Changed title from NCID to YAC2NCID
+    - man/yac2ncid.conf.5: Changed title from NCID.CONF to YAC2NCID.CONF
+    - modules/Makefile: changed ncid-popup.sh to ncid-kpopup.sh
+    - modules/README.modules: Updated
+    - modules/ncid-popup.sh renamed to ncid-kpopup.sh
+    - modules/ncidmodules.conf.dist: Updated
+    - scripts/ncidrotate.conf: Removed the shebang line
+    - test/README.test: Updated
+    - test/Makefile: Created, only has the target: clean
+    - test/ncidd-errors.conf: Updated
+    - test/ncidd-noerrors.conf: Updated
+    - test/testlog: Added and revised call log lines
+    - test/testlog-display: Updated to new display and testlog data
+    - test/testclient.data: added a name using UTF-8, added more CIDINFO lines
+    - test/TestGWcalls.data: updated a name using UTF-8
+
+Version 0.72.1
+    - ncid.sh: Changed all if statements that used "ne" to "!="
+               Removed the expr statement from the if statement for "US"
+
+Version 0.72
+    - Makefile: changed tivo-series1 to tivo-s1 and tivo-series2 to tivo-s2
+                changed .sh rule to be more general for /usr/local changes
+                added added IMAGEDIR and added $IMAGEDIR to .sh rule 
+                added tivo-install-hack and added tivo-hack-install to usage
+                added IMAGES and install of $IMAGES
+    - ncid.sh: added BINDIR=/usr/local/bin and $BINDIR for tivosh command
+               added check for $DISPLAY and if not present run with --no-gui
+               added $Country and $NoOne
+               formatCID(): modified to accept variables as separators
+                            eliminated to 8/9 digit bad number format
+                            added if {$COUNTRY == "US"} ...
+               doPID(): rewrote to remove inactive PID's from pidfile
+               about(): changed wording
+               displayCID(): added ismsg and test it to display a message
+                             Changed the GUI output line into 5 parts,
+                               each part of the line has a color tag
+                             Changed font to Monospace 14
+               getCID(): Changed messages from displayLog to displayCID
+               makeWindow(): Changed label font from Helvetica to Monospace
+                             Changed "Send Message" from black to blue
+                             Changed message window message from black to red
+               added doPopup(): called from getCID() type == 4 and type == 3
+    - ncid.conf.dist: added minicom and Mac init strings to comments
+                      added $Country and $NoOne configuration variables
+    - ncid.gif: added
+    - ncidd.c: global global pidfile set to 0, -P option must filename
+               doPID(): added if (ifpidfile == 0) ...
+    - ncidd.conf.dist: added information about the minicom init string
+                       added information about a alternate init for the Mac
+                       updated for optional PID file
+    - cidgate/sip2ncid.c: global pidfile set to 0, -P option must filename
+                          doPID(): added if (ifpidfile == 0) ...
+                          getCallID(): added else to "if (len < size)"
+                          processPackets(): sipbuf[BUFSIZ] -> sipbuf[SIPSIZ]
+                                            Added if (size_pdata < SIPSIZ)
+                                            Changed calls[] logic
+                                            Improved linenum[] logic
+                                            Added exceeded Telephone ling msg
+                          parseLine(): changed: static linebuf[BUFSIZ]
+                                       to: static char linebuf[SIPSIZ]
+                                       removed (char *) in strcpy() & strstr()
+                          socketConnect: added ifdef TIVO_S1 and ifndef TIVO_S1
+                                         to replace gethostbyname() on the S1
+                                         with inet_addr()
+    - cidgate/sip2ncid.h: Added define: #define SIPSIZ      2048
+                          changed "localhost" to "127.0.0.1"
+    - cidgate/sip2ncid.conf: updated for localhost to 127.0.0.1 change
+                             updated for optional PID file
+    - cidgate/ncidsip: $pidfile set to "" and added if ($pidfile ne "") ...
+    - cidgate/yac2ncid.sh: Changed test for broken bash
+    - doc/CONTRIBUTORS: updated
+    - doc/Verbose-ncidd: updated for PID file
+    - doc/Verbose-sip2ncid: updated for PID file
+    - debian/ncidd.init: added "--pidfile /var/run/ncidd.pid" to args
+    - debian/ncidsip.init: added "--pidfile /var/run/ncidd.pid" to args
+                           changes $opts to $args to match ncidsip.conf
+    - debian/sip2ncid.init: added "--pidfile /var/run/ncidd.pid" to args
+    - FreeBSD/ncidd.rc: added "--pidfile /var/run/ncidd.pid" to command_args
+    - FreeBSD/ncidsip.rc: added "--pidfile /var/run/ncidd.pid" to args
+    - FreeBSD/sip2ncid.rc: added "--pidfile /var/run/ncidd.pid" to command_args
+    - Fedora/ncid.spec: updated
+    - Fedora/ncidd.init: added "--pidfile /var/run/ncidd.pid" to args
+    - Fedora/ncidsip.init: added "--pidfile /var/run/ncidd.pid" to args
+    - Fedora/sip2ncid.init: added "--pidfile /var/run/ncidd.pid" to args
+    - man/ncidtools.1: Corrected "cidlogupd" to "cidupdate"
+    - man/ncidd.8: updated
+    - man/sip2ncid.8: updated
+    - man/ncidsip.8: updated
+    - man/ncid.1: updated
+    - man/ncid.conf.5: updated
+    - modules/ncid-mythtv.sh: changed "-p" option to "--pidfile" option
+    - modules/ncid-page.sh: added ring option to usage in comments
+                            changed "-p" option to "--pidfile" option
+    - modules/ncid-popup.sh: changed "-p" option to "--pidfile" option
+    - modules/ncid-samba.sh: changed "-p" option to "--pidfile" option
+    - modules/ncid-speak.sh: changed "-p" option to "--pidfile" option
+    - modules/ncid-yac.sh: corrected the module name in usage comment
+                           changed "-p" option to "--pidfile" option
+    - modules/ncidmodules.conf.dist: updated
+    - screenshots/ncid-call.jpg: removed
+    - screenshots/ncid-call-mesg.jpg: removed
+    - screenshots/ncid-call.png: added
+    - screenshots/ncid-mesg.png: added
+    - scripts Makefile: renamed ncidd.logrotate to ncid.logrotate
+    - scripts/ncidd.logrotate: renamed file ncid.logrotate
+    - test/testclient.data: added 11, 10, 9, 8, 7, & 4 digit telephone numbers
+    - tools/README.tools: updated
+    - tools/startncid: added, use only with a TiVo
+    - Win/ncid.nsi: updated
+    - Win/ncid_splash.bmp: changed to logo
+
+Version 0.71
+    - ncid.sh: proc errorMsg: Added if (!$Delay) {exit -1
+               proc getArg: Changed: && $optarg == -1
+                               To: && [regexp {^-[12]$} $optarg]
+                            Added: -N and --nocid option
+                            Added NoCID variable
+               proc getCID: Added NoCID logic to if test for $type == 5
+               proc sendMSG: Added: global ExecSh
+               Updated usage message to include --nocid|-N
+    - ncidd.c: doPoll: Added test for BYE to set ring = -2 in CIDINFO
+                       Changed method of processing client input lines
+    - README: Updated for ring count and hangup indicators
+    - Makefile: Changed target "mac" to create non FAT binary
+                Added target "mac-fat" to create Mac ppc and i386 FAT binaries
+                Changed Mac MFLAGS to depend on arch
+    - VERSION: Now contains version for the NCID package, ncid, ncidd,
+               ncidsip, sip2ncid, and yac2ncid
+    - Fedora/ncidd.init: Corrected reload message
+    - cidgate/sip2ncid.h: Added REGISTER, INVITE, CANCEL, BYE, SIPTAG
+                          Removed PKTREG, PKTINV, PKTCAN, PKTACT, PKTBYE, PKTOK
+                          Removed CSEQACK, CSEQREG, CSEQINV, CSEQCAN, CSEQBYE
+                          Added NONAME, BADNAME, NONUMBER, BADNUMBER
+    - cidgate/sip2ncid.c: Added strmatch() and parseLine()
+                          processPackets: Rewrote INVITE, CANCEL, and BYE
+    - cidgate/ncidsip.pl: Changed default port from 5061 to 10000
+                          Changed packet decode logic to match sip2ncid
+                          Placed PID file code inside if (!$test) statement
+    - cidgate/yac2ncid.sh: Changed output from CID line to CALL line
+    - debian/ncidd.init: Added condrestart
+    - debian/ncid-mythtv.init: Added MythMsg=-M and condrestart
+    - debian/ncid-page.init: Added condrestart
+    - debian/ncid-popup.init: Added PopupMsg=-M and condrestart
+    - debian/ncid-samba.init: Added condrestart
+    - debian/ncidsip.init: Added condrestart
+    - debian/ncid-speak.init: Added condrestart
+    - debian/ncid-yac.init: Added condrestart
+    - debian/sip2ncid.init: Added condrestart
+    - debian/yac2ncid.init: Added condrestart
+    - debian/README.debian: Changed 0.70 to 0.71, added -src to tar source file
+    - doc/INSTALL-andLinux: Corrected and improved
+    - doc/INSTALL-Cygwin: Changed source tar file to ncid-VERSION-src.tar.gz
+    - doc/INSTALL-Mac: Changed source tar file to ncid-VERSION-src.tar.gz
+    - doc/NCID-DataFormats: Updated
+    - doc/NCID-PROTOCOL: Updated
+    - doc/TODO: Corrected error
+    - doc/Verbose-sip2ncid: Updated
+    - Fedora/ncid-mythtv.init: Added MythMsg configuration
+    - Fedora/ncid-popup.init: Added PopupMsg configuration
+    - Fedora/ncid.spec: added -src to source file name
+    - FreeBSD/ncidd.rc: Added condrestart
+    - FreeBSD/ncid-mythtv.rc: Added condrestart and MythMsg=-M
+    - FreeBSD/ncid-page.rc: Added condrestart
+    - FreeBSD/ncid-popup.rc: Added condrestart and PopupMsg=-M
+    - FreeBSD/ncid-samba.rc: Added condrestart
+    - FreeBSD/ncidsip.rc: Added condrestart
+    - FreeBSD/ncid-speak.rc: Added condrestart
+    - FreeBSD/ncid-yac.rc: Added condrestart
+    - FreeBSD/sip2ncid.rc: Added condrestart
+    - FreeBSD/yac2ncid.rc: Added condrestart
+    - man/ncid.1: Updated
+    - man/ncidmodules.conf.5: Updated
+    - modules/ncid-muthtv.sh: Corrected typo: --teplate => --template
+                              Added MythMsg=-M
+    - modules/ncid-popup.sh: Added PopupMsg=-M
+    - modules/ncidmodules.conf: Updated
+    - scripts/ncidd.logrotate: Changed logs to rotate to:
+                                /var/log/cid*.log & /var/log/*ncidd.log
+                               Changed prerotate and postrotate
+                               Added: "rotate 5" since default is no rotate
+                               Commented out "compress"
+    - README.test: Changed <RETURN> to <ENTER>
+                   Updated to include TestGWcalls
+    - test/testclient: Changed <RETURN> to <ENTER>
+    - test/TestGWcalls: Added
+    - test/TestGWcalls.data: Added
+    - test/testserver: Changed "-P ncidd.pid" to -P "T-ncidd.pid"
+
+Version 0.70
+    - README: ncidmodule.conf corrected be ncidmodules.conf, and updated
+    - Makefile: Fixed tivo-series2 so it defaults to /var/hack
+                Added freebsddir to freebsd target
+                Made changes to support Mac FAT binaries (ppc and i386)
+                Removed CFLAGS from $(PROC) rule
+    - ncidd.h: Added and modified sip CONSTANTS and Options
+               Added PCAPWAIT and LOGFILE
+               Added [-e lineid     | --lineid identifier]\n\ to USAGE
+               Added extern char *lineid
+    - ncidd.c: Changed SIGHUP to reload instead of exit
+               Added char *lineid=ONELINE
+               Added reload(): remove existing aliases, and then reload aliases
+               main(): no error exit when poll() returns EINTR for SIGHUP
+               getOptions(): Added -e lineid IDENT and --lineid IDENT
+               formatCID(): replaced ONELINE with lineid
+               doPoll(): Added in Poll Error, close connection and poll slot
+               strdate(): Added cast to argument of localtime()
+               errorExit(): Cleaned up "error == -1" if statement
+                            Set msg and arg to "oops" for should not happen
+    - ncidd.conf.dist: Added lineid configuration information
+    - nciddalias.c: Added rmaliases() to remove aliases & free alias memory
+    - nciddconf.c: Added lineid to setword[]
+    - ncid.sh: Added 2007, 2008 to Copyright in About
+               Changed exec from $0 to ncid for tivocid and tivoncid
+               Added variables CygwinBat and EXEC
+               Added "exec sh -c" if on Cygwin and module is a shell script
+               Added "-p | --pidfile" option
+               Removed unused and undocumented "-N" option
+    - cidgate/README: Updated and renamed README.Gateways
+    - cidgate/README.Gateways: New
+    - cidgate/Makefile: Added BASH=/bin/bash and BASH rule
+                        Added distclean target
+                        Made changes to support Mac FAT binaries (ppc and i386)
+    - cidgate/sip2ncid.h: Changed usge: -p option should be -P option
+                          Changed SHOWVER to "%s: %s\n"
+                          Added LOGFILE and updated Usage
+                          Updated VERSION
+                          Moved "#include <time.h>" to almost end of includes
+    - cidgate/sip2ncid.c: Added "-L <file> | --logfile <file>" option
+                          socketRead(): LEVEL3 -> LEVEL5
+                          processPackets(): changed socketRead() if statement
+                                            Added msgbuf and LogMsg()
+                                            Rewrote sip packet processing
+    - cidgate/ncidsip.pl: Fixed VERSION line
+                          Updated parse routines to key in on CSeq lines
+                          Modified CIDINGO CANCEL line to be same as sip2ncid
+                          Added CIDINFO BYE line
+    - cidgate/yac2ncid.config: Added BSD
+    - cidgate/yac2ncid.sh: Added more verbose output
+                           Added autodetect of BSD version of netcat
+    - debian/changelog: Updated
+    - debian/README: Removed
+    - debian/README.Debian: Updated and combined with README
+    - debian/control: Added to Depends: libpcap
+                      Changed Depends: tcl8.4 to tcl, and tk8.4 to tk
+                      Rewrote description
+    - debian/postinst: Removed ncid from update-rc.d command
+                       Commented out ncidd update-rc.d command
+    - debian/postrm: Removed ncid update-rc.d command
+                     Added undate-rc.d command for ncid-mythtv, ncid-page,
+                           ncid-popup, ncid-samba, ncid-skeak, and ncid-yac
+    - debian/prerm: Removed ncid update-rc.d command
+                    Added undate-rc.d command for ncid-mythtv, ncid-page,
+                          ncid-popup, ncid-samba, ncid-skeak, and ncid-yac
+    - debian/ncidd.init: Changed reload to sends SIGHUP instead of stop-start
+    - debian/ncid.init: Removed
+    - debian/ncid-{mythtv,page,popup,samba,speak,yac}.init: Added
+    - doc/CONTRIBUTORS: Updated
+    - doc/CID-init: Combined with Modem-init and removed
+    - doc/DistinctiveRing: Renamed to Modem-DistinctiveRing
+    - doc/Modem-DistinctiveRing: New
+    - doc/NCID-DataFormats: Updated for ncidsip modifications
+    - doc/Install: Updated for sip2ncid and yac2ncid
+    - doc/Install-andLinux: New
+    - doc/Install-Cygwin: Updated for sip2ncid and yac2ncid
+    - doc/Install-Fedora: New
+    - doc/Install-FreeBSD: Updated for sip2ncid and yac2ncid
+    - doc/Install-Mac: Updated for sip2ncid and yac2ncid
+    - doc/Install-TiVO: Updated for sip2ncid and yac2ncid
+    - doc/Install-Win: Rewrote
+    - doc/Install-Ubuntu: New
+    - doc/TODO: Updated
+    - doc/Verbose-ncidd: Added LEVEL1 SIGHUP and server version messages
+    - doc/Verbose-sip2ncid: Added LEVEL1 server version message
+    - doc/NCID-DataFormats: Updated for sip2ncid
+    - doc/PROTOCOL: Updated for gateways
+    - Fedora/README: Updated and renamed to README.Fedora
+    - Fedora/README.Fedora: New
+    - Fedora/ncid.spec: Updated
+                        Rewrote description
+    - Fedora/ncidd.init: Changed reload to sends SIGHUP instead of stop-start
+    - Fedora/ncid.init: Removed
+    - Fedora/ncid-{page,popup,samba,speak,yac}.init: Added
+    - FreeBSD/README: Updated for new and modified rc.d files
+                      README: Renamed to README.FreeBSD
+    - FreeBSD/README.FreeBSD: New
+    - FreeBSD/Makefile: Modified for rc.d files
+    -                   Removed {ncidd,ncidsip,yac2ncid,ncid}.sh
+    -                   Added {mythtv,page,popup,samba,speak,yac}.rc
+    - man/ncidd.8: Updated for SIGHUP and telephone line indicator
+    - man/ncid.1: Updated, and added "-p | --pidfile" option
+    - man/ncidmodules.1: Added ncid-popup and ncid-skel
+    - man/sip2ncid.8: Corrected: -p option should be -P option
+                      Added new "-L <filename> | --logfile <filename>" option
+    - modules/Makefile: Added ncid-skel
+                        Removed README install
+    - modules/README: Renamed to README.modules
+    - modules/README.modules: New
+    - modules/ncid-popup: Added
+    - modules/ncidmodules.conf.dist: Updated for new module init files
+                                     Added ncid-popup configuration
+    - scripts: README: Renamed to README.logfile
+    - scripts: README.logfile: Renamed from README
+    - test/README: Renamed to README.test
+    - test/README.test: New
+    - test/testserver: Added -P option
+    - tools/README: Renamed to README.tools
+    - tools/README.tools: New
+    - Win/ncid.nsi: Updated
+                    Renamed installer to ncid-0.70-1-client_setup.exe
+      Win/README: README: Renamed README to README.Win
+      Win/README.Win: README.Win: New
+
+Version 0.69
+    - Makefile: Updated: new directory structure
+                Added: tivo-mips: target to use mips-TiVo-linux- prefix
+                Changed: .sh rule now configures ncid for $BIN
+                Added: prefix3
+    - README: Updated
+    - ncidd.alias: Changed "client" to "gateway" for ncidsip comments
+    - ncidd.c: Added -P or --pidfile option
+               Added code to create and remove the pidfile.
+               Changed logfile message to: CallerID from CID gateways(s) only
+               errorExit(): if (erroe == -1) => if (error == -1 && arg == 0)
+    - ncidd.h: added PIDFILE and pidfile in usage
+    - nciddconf.c: added configuration for a pidfile
+    - ncid.init.dist: Moved to Fedora/ncid.init
+    - ncidd.init: Moved to Fedora/ncidd.init
+    - ncid.spec: Moved to Fedora/ncid.spec
+    - ncid.sh: Added a [ -n "$GUI" ] line for $TCLSH
+               Changed: /var/hack/bin/out2osd -> /usr/local/bin/out2osd
+               Added doPID() and writePID(chan)
+    - ReleaseNotes: updated
+    - cidgate/Makefile: New
+    - cidgate/README: New
+    - cidgate/config.c: New
+    - cidgate/config.h: New
+    - cidgate/sip2ncid.c: New
+    - cidgate/sip2ncid.config: New
+    - cidgate/sip2ncid.h: New
+    - cidgate/ncidsip.conf: Moved from tools/ncidsip.conf
+    - cidgate/ncidsip.pl: Moved from tools/ncidsip.pl
+    - cidgate/yac2ncid.conf: Moved from tools/yac2ncid.conf
+    - cidgate/yac2ncid.sh: Moved from tools/yac2ncid.sh
+                           Added workaround for broken trap on a TiVo
+                           Tries to find a alternate shell on a TiVo
+                           Changed pid file name to yac2ncid.pid
+                           Rewrote the dienice function
+    - debian/changelog: New
+    - debian/control: New
+    - debian/Makefile: New
+    - debian/ncidd.init: New
+    - debian/ncid.init: New
+    - debian/ncidsip.init: New
+    - debian/postinst: New
+    - debian/postrm: New
+    - debian/prerm: New
+    - debian/README: New
+    - debian/README.Debian: New
+    - debian/rules: New
+    - debian/yac2ncid.init: New
+    - doc/INSTALL: Updated
+    - doc/INSTALL-Cygwin: Updated
+    - doc/INSTALL-FreeBSD: Updated
+    - doc/INSTALL-Mac: Updated
+    - doc/Modem-TiVo: New
+    - doc/TiVo-modem: renamed to Modem-TiVo
+    - doc/Verbose-ncidd: New
+    - doc/Verbose-sip2ncid: New
+    - doc/VerboseLevels: Added level 1 nad level 2 pidfile messages
+                         Removed (changed name to Verbose-ncidd)
+    - Fedora/README: New
+    - Fedora/Makefile: New
+    - Fedora/ncid.init: Moved from ../ncid.init.dist, fixed comment
+                        Changed: killproc $shell -> killproc $program
+                        Added daemon line in place of $shell line
+                        Removed success and failure lines
+                        Fixed status
+    - Fedora/ncidd.init: Moved from ../Fedora/ncidd.init
+    - Fedora/ncidsip.init: Moved from tools/ncidsip.init.dist, fixed comment
+                           Changed: killproc $shell -> killproc $program
+                           Added daemon line in place of $shell line
+                           Removed success and failure lines
+    - Fedora/ncid.spec: Moved from ../ncid.spec, Updated
+    - Fedora/sip2ncid.init: New
+    - Fedora/yac2ncid.init: Moved from tools/yac2ncid.init.dist, fixed comment
+                            Fixed config file: ncidsip.conf -> yac2ncid.conf
+                            Added daemon line in place of $shell line
+                            Removed success and failure lines & Fixed status
+    - FreeBSD/Makefile: Added yac2ncid.sh
+    - FreeBSD/README: Added yac2ncid.sh
+    - FreeBSD/ncid.sh: Renamed variable from NCIDD to NCID
+    - FreeBSD/ncidsip.sh: Renamed variable from NCIDD to NCIDSIP
+    - FreeBSD/yac2ncid.sh: Added
+    - man/Makefile: Updated
+    - man/ncid.1: Corrected --prog to --program, see tracker 1704732
+    - man/ncidd.8: Added the -110 exit code: PID file lockfile exists
+                   Added the -P and --pidfile option
+                   Updated for for multiple NCID Gateways
+    - man/ncidmodules.1: Renamed man/ncidscripts.1, updated for new name
+    - man/ncidmodules.conf.5: Renamed man/ncidscript.conf.5, updated new name
+                              Added line indicator examples
+    - man/ncidsip.8: Updated, corrected some errors, and added pidfile
+    - man/ncidrotate.1: New
+    - man/sip2ncid.8: New
+    - man/sip2ncid.conf.5: New
+    - modules/Makefile: New
+    - modules/README: New
+    - modules/ncid-mythtv.sh: Moved here from scripts/ncid-mythtv.sh
+    - modules/ncid-page.sh: Moved here from scripts/ncid-page.sh
+                            Changed variable: ADDRESS -> PageTo
+                            Modified script so mail can be sent as $PageFrom
+    - modules/ncid-samba.sh: Moved here from scripts/ncid-samba.sh, updated
+    - modules/ncid-speak.sh: Moved here from scripts/ncid-speak.sh, updated
+    - modules/ncid-tivo.sh: Moved here from scripts/ncid-tivo.sh, updated
+    - modules/ncid-yac.sh: Moved here from scripts/ncid-yac.sh, updated
+    - modules/ncid-skel: New, skeleton output module to help write new ones
+    - modules/ncidmodules.conf: Renamed scripts/ncidscript.conf
+                                Changed variable: ADDRESS -> PageTo
+                                Added variable: PageFrom
+                                Added out2osd, corrected module ncid-tivo
+    - scripts/Makefile: Updated, added prefix3
+    - scripts/README: Updated
+    - scripts/ncid-mythtv.sh: moved to modules/ncid-mythtv.sh
+    - scripts/ncid-page.sh: moved to modules/ncid-page.sh
+    - scripts/ncid-samba.sh: moved to modules/ncid-samba.sh
+    - scripts/ncid-speak.sh: moved to modules/ncid-speak.sh
+    - scripts/ncid-tivo.sh: moved to modules/ncid-tivo.sh
+    - scripts/ncid-yac.sh: moved to modules/ncid-yac.sh
+    - tools/Makefile: Updated, added prefix3
+    - tools/README: Updated
+    - tools/ncidsip.conf: moved to cidgate/ncidsip.conf
+    - tools/ncidsip.init.dist: moved to Fedora/ncidsip.init
+    - tools/ncidsip.pl: moved to cidgate/ncidsip.pl
+    - tools/yac2ncid.conf: moved to cidgate/yac2ncid.conf
+    - tools/yac2ncid.init.dist: moved to Fedora/yac2ncid.init
+    - tools/yac2ncid.sh: moved to cidgate/yac2ncid.sh
+    - Win/ncid.nsi: updated
+
+Version 0.68
+    - Makefile: added ETCFILE, removed $(FILES): target
+    - ncid.spec: Updated: version number, new programs, and new man pages
+    - ncidd.conf.dist: Added comment: NetCallerID device is not a modem
+                       Added variable cidlogmax and comments
+    - ncidd.h: Added extern variable cidlogmax,
+               Added defines: MAXLEVEL and LOGMAXNUM
+               Update Usage to include -M & --cidlogmax
+    - ncidd.c: Added variable 'cidlogmax' and '-M & --cidlogmax' options
+               Added LogMsg level 2 for CID logfile maximum size
+    - nciddconf.c: added variable cidlogmax, LOGMAXNUM, and MAXLEVEL
+    - ncidd.init: Changed stop priority from 06 to 23
+    - ncid.init.dist: Changed stop priority from 05 to 21
+    - ncid.sh: Version number change
+    - doc/Setup-VOIP: Corrected and simplified
+    - doc/CONTRIBUTORS: added new contributor
+    - doc/ReleaseNotes: Updated
+    - doc/INSTALL: Corrected tests
+    - doc/INSTALL-Cygwin: Corrected tests
+    - doc/INSTALL-FreeBSD: Corrected tests
+    - doc/INSTALL-Mac: Corrected tests
+    - doc/INSTALL-TiVo: Corrected tar file information
+    - man/ncidd.8: Updated for new options
+    - man/ncidd.conf.5: Updated for new veriables
+    - man/ncidscripts.1: Added ncid-yac
+    - man/ncidscripts.conf.5: Added ncid-tivo and ncid-yac
+    - man/yac2ncid.1: New, man page for yac2ncid
+    - man/yac2ncid.conf.5: New, man page for yac2ncid config file
+    - scripts/Makefile: added ncid-yac.sh, changed CONFIG to ETCFILE
+    - scripts/ncid-mythtv: Updated for current versin of mythtvosd
+    - scripts/ncid-samba: Changed CLIENT to SambaClient
+    - scripts/ncid-speak: Changed DELAY to SpeakDelay
+    - scripts/ncid-tivo: added options: "--line 1 --xscale 2 --yscale 2"
+    - scripts/ncid-yac: New, output module to send CID to TAC clients
+    - scripts/ncidscript.conf: Added configutation for ncid-yac
+                               Changed CLIENT to SambaClient
+                               Changed DELAY to SpeakDelay
+                               Set: TivoOpt="--line 1 --xscale 2 --yscale 2"
+    - scripts/README: updated
+    - tools/cidcall.pl: Changed regular expression to include * with key word
+    - tools/Makefile: Modified to handle sh scripts, added yac2ncid & ETCFILE
+    - tools/ncidsip.conf: corrected a '.' that should have been a ','
+    - tools/ncidsip.init.dist: Changed stop priority from 05 to 22
+    - tools/ncidsip.pl: Updated to handle case when number not sent
+    - tools/README: updated
+    - tools/yac2ncid.sh: New, YAC client to input CID to NCID server
+    - tools/yac2ncid.conf: New, yac2ncid configuration file
+    - tools/yac2ncid.init.dist: New, yac2ncid init file
+    - Win/ncid.ini: Changed: State="129.0.0.1" To: State="127.0.0.1"
+    - Win/ncid.nsi: Updated version number, corrected 129.0.0.1 to 127.0.0.1
+
+Version 0.67
+    - ncid.spec: Updated version number
+    - VERSION: Updated version number
+    - ncid.sh: Removed global TivoFlag from getCID{}
+    - ncid.conf.dist: - Moved set Program line to end of the file, it seems
+                        it is needed to be at the end for tivosh
+                      - Changed comment for set ProgDir
+    - doc/Install-TiVo: updated and made a little clearer
+    - doc/ReleaseNotes: updated
+    - doc/Setup-VOIP: updated to use the new ncidsip test option
+    - man/ncidsip.8: Added test, list devices, and usage options
+                     Added missing single letter options
+    - scripts/ncidscript.conf: added IMPORTANT message comment
+    - tools/Makefile: Removed changing /usr/bin/perl to /usr/local/bin/perl
+    - tools/ncidsip.pl: Added --test and --listdevs, and usage options,
+                        Added missing single letter options
+                        Corrected name in version option
+    - Win/ncid.nsi: Updated version number
+
+Version 0.66
+    - Makefile: added rm tivocid tivosh to target clobber:
+    - VERSION: updated version number
+    - ncid.sh: formatCID{} - added BAD number display if not telephone
+                             number is not 11, 10, or 7 digits.
+               - initMSG -> if {!$TivoFlag} initMSG -> if {!$NoGUI} initMSG
+               - added the --message option and modified sendMSG{}
+    - ncid.conf.dist: Added TivoFlag and MsgFlag
+    - ncid.spec: updates version number
+    - ncidd.c: openTTY() - added
+               main() - replaced in line TTY open code by openTTY()
+               main() - while(1): TTY in use: added close(ttyfd)
+               main() - while(1): TTY free: replaced tcfluch() with openTTY()
+    - doc/ReleaseNotes: updated
+    - doc/CONTRIBUTORS: updated
+    - doc/NCID-DataFormats: added a '1' to the sample CID message line
+    - doc/VerboseLevels: added
+    - man/ncidscripts.1: updated and added ncid-tivo
+    - man/ncid.1: updated and added ncid-tivo
+    - scripts/README: updated for ncid-tivo.sh
+    - scripts/Makefile: updated for ncid-tivo.sh
+    - scripts/ncid-mythtv.sh: updated comments for usage, handles messages
+    - scripts/ncid-page.sh: updated comments for usage, handles messages
+    - scripts/ncid-samba.sh: updated comments for usage, handles messages
+    - scripts/ncid-speak.sh: updated comments for usage
+    - scripts/ncid-tivo.sh: new, handles messages
+    - scripts/ncidscript.conf: added ncid-tivo configuration
+    - test/testlog: Added CID line with 9 digit telephone number
+    - test/testscript.data: Added POTS line
+    - tools/cidupdate.pl: Fixed "-c cidlog" option, Fixed alias expression
+                          line to handle '*' for a name or number, fixed
+                          alias checking in if statements
+    - Win/ncid.nsi: updated version number
+
+Version 0.65
+    - ncidd.c: main() - while (1): if (ring) -> if (ring > 0)
+               formatCID() - if (sendinfo(): added: if (ring < -1) ring = 0;
+               doPoll() -  added check and code for INFO MSG
+    - ncidd.alias: changed "# alias 1122 = -" to "# alias LINE 1122 = -"
+    - ncid.sh: --ring option: added test for -1 and removed 2nd digit
+               - changed variable 'TiVo' to 'TifoFlag'
+               - added sendMSG{} for a TiVo message display
+               - initMSG -> if {!$TivoFlag} initMSG
+               - sendCID{}: added line indicator to TiVo display on line2
+    - ncid.spec: updated %post, %preun, and %postun sections
+    - man/ncid.1: updated --ring count option, gives count values allowed
+    - man/ncidsip.8: updated, gives Vonage INVITE ports
+    - tools/ncidsip.pl: - changed test for INVITE to execute block of code
+                          to create and send CID line to server
+                        - added test for CANCEL to execute block of code
+                          to create and send CIDINFO line to server
+                        - changed regular expressions to accept a blank
+                          name field.
+                        - changed logic of code that gets last 4 digits
+                          of phone number
+    - Win/ncid.nsi: updated version number
+
+Version 0.64.1
+    - tools/ncidsip.init.dist: ncidtool.conf -> ncidsip.conf,
+      /usr/bin -> /usr/sbin
+
+Version 0.64
+    - README: updated for ncidsip
+    - Makefile: chenged make freebsd to gmake freebsd
+    - ncidd.h: "noserial" to USAGE define, added: extern int noserial;
+               increased MODEMTRY from 2 to 6
+    - ncidd.c: added global variable "noserial"
+               changed "buf" to "msgbuf" for most logMsg() calls
+               added "if (!noserial)" in several places
+               changed LEVEL2 to LEVEL1 for some logMSG() calls
+               added logMsg() calls
+               getOptions() - added options: -n and --noserial
+                            - case 'v': added findword("verbose") line
+                            - case 's': changed to increment a pointer
+               tcpOpen() - changed AF_INET to PF_INET
+               writeLog() - changed logMsg() to write message, not contents
+               doPoll() - added "Client sent message" to logMsg()
+                        - in tests for error conditions, "if else" were
+                          changed to "if"
+                        - added "if" for POLLIN and POLLPRI because of the
+                          error test change
+                        - /* Modem or device returned data */: changed
+                          Terminate String and strip <CR> and <LF>
+                        - /* Client sent message to server */, added
+                          strip <CR> and <LF>
+               formatCID() - added else in NetCallerID code NMBR field
+                           - added test for LINE field in NetCallerID
+                           - identified format for Message CID line
+                           - added 3rd argument to userAlias() call
+               main() - while loop: changed TCSANOW to TCSAFLUSH,
+                        TTY in use and available from LEVEL4 to LEVEL1
+                      - added for loop to indicate send configured messages
+               initModem() - added LEVEL3 message to MODEMTRY for statement
+                           - added test for '\n' in modem output
+               sendLog() - look at return of write() and retry if error
+                           is EAGAIN, added logMsg for errors not EAGAIN
+               userAlias() - added third argument: char *line
+                           - changed 'BOTH' to 'NMBRNAME'
+                           - added case LINEONLY
+    - ncidconf.c: added "noserial" to setword structure
+                  moved configured messages from doSend() to ncidd.c:main()
+    - ncidalias.h: - changed BOTH to NMBRNAME
+                   - added LINEONLY define
+    - ncidalias.c: getalias() - changed BOTH to NMBRNAME
+                              - added strcmp(word, "LINE") line
+                   setalias() - changed BOTH to NMBRNAME
+    - ncid.init.dist: changed /var/lock/subsys/$shell to /var/lock/subsys/$prog
+    - ncidd.alias: added comment  and example for the new LINE alias
+    - ncid.init.dist: removed the -A option
+    - ncid.sh: sendCID() - added the --tivo/-T option
+                         - made default output same as -All, but added cidline
+    - ncid.spec: updated
+    - doc/CONTRIBUTORS: updated
+    - doc/INSTALL-Cygwin: added
+    - doc/INSTALL-FreeBSD: updated
+    - doc/INSTALL-Mac: updated
+    - doc/Modem-CID-test: updated for ncid release 0.63 and newer
+    - doc/Modem-init: Formatted country code table
+    - doc/NCID-DataFormats: updated to include MSG CID line format
+                            and ncid default output change
+    - doc/PROTOCOL: updated
+    - doc/ReleaseNotes: updated
+    - doc/TODO: updated
+    - FreeBSD/README: updated
+    - FreeBSD/Makefile: updated
+    - FreeBSD/ncid.sh: updated
+    - FreeBSD/ncidsip.sh: added
+    - man/Makefile: changed txt and html names to include man page section
+                    added ncidsip.8
+    - man/ncid.1:changed for improved html version
+    - man/ncidscripts.1:changed for improved html version
+    - man/ncidtools.1:changed for improved html version
+    - man/ncid.conf.5:changed for improved html version
+    - man/ncidd.alias.5:changed for improved html version
+    - man/ncidd.conf.5:changed for improved html version
+    - man/ncidscript.conf.5:changed for improved html version
+    - man/ncidd.8: corrected, updated, and changed for improved html version
+    - man/ncidsip.8: new
+    - scripts/ncidscript.conf: - removed the first lien: #! /bin/sh
+                               - remove the -A options from $opts
+                               - moved the "extprog=" lines to before the
+                                 "opts=" line
+    - scripts/ncid-mythtv.sh: removed references to -All and added read CIDLINE
+    - scripts/ncid-page.sh: removed references to -All and added read CIDLINE
+                            added test for CIDLINE to see if it is the default
+    - scripts/ncid-samba.sh: removed references to -All and added read CIDLINE
+    - scripts/ncid-speak.sh: removed references to -All and added read CIDLINE
+    - tools/Makefile: updated
+    - tools/ncidsip.pl: added
+    - tools/ncidsip.init.dist: added
+    - tools/ncidsip.conf: added
+    - test/README: reformatted and updated
+    - test/testclient: changed 'nc -lp 3000' to '|nc -l localhost 3000'
+    - test/testclient.data: updated for the 'LINE' field
+    - test/testlog: removed messages that appear in ncidd.log
+    - test/testlog-display: removed messages that appear in ncidd.log
+    - test/testserver: added
+    - Win/ncid.nsi: updated version number
+
+Version 0.63
+    - README: revised, corrected spelling errors, and updated
+    - Makefile: updated
+    - ncidd.h: added new mask CIDALT3, updated
+    - ncidd.c: changed the "verbose" global variable from 0 to 1
+               added and changed messages and log levels
+               changed start, stop, and status messages to logfile not cidlog
+               main(): added "fopen LOGFILE" to create/open logfile
+               logMsg(): modified for logfile and debug output
+               doPoll(): fixed some possible problems, changed some logic,
+                         added a logMsg() to print "events", added test
+                         of read() return: "0" - client disconnected;
+                         "> 0" - client sent message
+               getOptions(): changed verbose option to take numeric argument
+                             added -L and --logfile options
+               addPoll() return changd  from 0 or -1 to "pos" or -1
+               main(): save pollpos when adding tty to poll
+                       switch statement: when lock appears, save tty
+                       events and remove tty poll, when lock goes away
+                       restore tty poll events
+               formatCID(): added test for CIDALT3 to process missing number
+                            line, arranged tests for CIDALL3, CIDALT3, and
+                            RING by itself
+    - nciddconf.c: configError(): changed fprintf() to sprintf() and logMsg()
+    - ncidd.conf.dist: updated
+    - ncidd.logrotate.dist: added /var/log/ncidd.log
+    - ncid.spec: updated
+    - ncid.sh: added initMSG {}, handleMSG {}, handleGUIMSG {}
+               to be able to send a MSG in GUI and non-GUI modes,
+               also changes some tk window names
+    - VERSION: added current version number
+    - doc/INSTALL: updated
+    - doc/INSTALL-FreeBSD: updated
+    - doc/INSTALL-Mac: updated
+    - doc/INSTALL-TiVo: updated
+    - doc/INSTALL-Win: updated
+    - doc/Modem-CID-test: updated
+    - doc/ReleaseNotes: updated
+    - doc/PROTOCOL: updated by adding information on sending messages
+    - doc/TODO: updated
+    - man/ncid.1: updated
+    - man/ncidtools.1: updated
+    - man/ncidd.8: updated
+    - man/ncidd.conf.5: updated
+    - screenshots: added ncid-call-mesg.jpg
+    - scripts/ncid-mythtv.sh: corrected MythTV URL for command "mythtvosd"
+    - tools/Makefile: changed default target from "default:" to "tools:",
+                      removed man page references
+    - tools/Makefile: updated
+    - tools/cidcall.pl: renamed cidlog.pl, changed variable names
+                        modified -r option to print all lines in the logfile
+                        added -m option to print MSG lines
+    - tools/cidupdate.pl: renamed cidlogupd.pl, changed variable names
+    - Win/NCID.nsi: updated
+
+Version 0.62
+    - Makefile: Added ProgDir substitute to "% : %.sh" rule
+    - README: Removed tabs so printing looks nicer
+    - VERSION: updated
+    - ncid.spec: updated
+    - Updated Copyright information in most *.c and *.h files
+    - ncidd.c: strdate(): fixed null pointer in gettimeofday() call.
+               Replaced three tests of the type "if (!stat(FILE, &statbuf))"
+                 with "if (stat(FILE, &statbuf) == 0)" since stat also
+                 returns -1 on error.
+               main(): Made "TTY in use" and "TTY available" messages
+                       print to stderr when "debug > 1".  It was printing
+                       to the  cidcall log and clients.
+               logMsg() added, and replaced all debug and verbose fprintf()
+                        statements with sprintf() and logMsg()
+    - ncidd.h: added enum for LEVEL1 to LEVEL5 and extern for logMsg()
+               added: #include <stdlib.h>
+    - nciddconf.c: replaced all debug and verbose print statements to
+                   sprintf() and logMsg()
+    - nciddconf.h: removed extern for "debug" and "verbose"
+    - nciddalias.c: replaced all debug and verbose print statements to
+                   sprintf() and logMsg()
+    - getopt_long.h: added: #include <string.h>
+    - doc/CHANGES: file reformatted so most recent changes at top instead
+                   of bottom
+    - doc/CONTRIBUTIONS: updated
+    - doc/INSTALL-Mac: updated
+    - doc/INSTALL-FreeBSD: updated
+    - doc/INSTALL-TiVo: updated
+    - doc/TiVo-modem: updated
+    - doc/Modem-CID-test: cleaned up by removing tabs
+    - doc/Modem-init: added country setting information
+    - doc/PROTOCOL: cleaned up by removing tabs
+    - doc/ReleaseNotes: updated
+    - doc/TiVo-modem: cleaned up by removing tabs
+    - doc/TODO: added
+    - man/ncid.1: updated
+    - man/ncidd.8: updated
+    - man/ncidscripts.1: updated
+    - man/ncidscripts.conf.5: updated
+    - scripts/README: updated
+    - scripts/Makefile: updated
+    - scripts/ncid-mythtv.sh: added to display CID on MythTV
+    - scripts/ncid-page.sh: converted <TAB> to <SPACE>
+    - scripts/ncid-samba.sh: converted <TAB> to <SPACE>
+    - scripts/ncidscript.conf: updated
+    - Win/README: added
+    - Win/NCID.ini: added
+    - Win/NCID.nsi: added
+    - Win/NCID.ncid_splash.bmp: added
+
+Version 0.61
+    - ncid: formatCID(): corrected reqular expression for finding LINE field
+            getField(): removed set dataString line, changed regsub line to
+                        regsub ".*\\*$dataString\\*" $dataBlock {} result
+            displayCID(): corrected comment line for INPUT:
+            displayLog(): corrected comment line for INPUT:
+    - ncidd.c: removed debug messages when same message sent as MSG line
+                doPoll(): Improved error messages, added hangup message,
+                          error messages sent as MSG lines
+                main(): added char buf[BUFSIZ], added error messages for
+                        when the TTY port is in use, active, or fails to
+                        initialize as MSG lines, added Server Startup MSG
+                        to logfile
+                getdate(): added to print date and time to server MSG lines
+    - ncidd.h: updated
+    - Makefile: removed "local" from  install-freebsd
+                 The TiVo builds now put the logfiles in /var/log
+                 Removed all man references, added man and install-man targets
+                 to go into the new man directory to build man stuff
+    - man/: created directory and moved all manpages here, Created Makefile
+             to build builds man text files, and man html files
+    - scripts/Makefile: removed all man references
+    - test/README: updated
+    - test/testlog: added
+    - test/testlog-display: added
+    - tools/Makefile: removed all man references
+    - tools/cidlog.pl: corrcted regular expression to obtain LINE field
+                        modified -r option to print all lines in the logfile
+                        added -m option to print MSG lines
+    - FreeBSD/Makefile: updated and corrected man sections
+
+Version 0.60
+    - ncidd.logrotate.dist: rewrote to call ncidrotate in both the
+      prerotate and postrotate parts and eliminate the move files
+    - ncid.sh: was ncid, added distinctive ring Line output
+      formatCID(): added check for LINE field, and get data if there
+                   otherwise create a default for $cidline
+                   added $cidline to return
+      displayCID(): added $cidline to Input: comment, increased
+                    llength CID check from 4 to 5
+      displayLOG(): added $cidline to Input: output $cidline data
+    - ncid.init.dist: was ncid.init, rewrote to use a configuration script:
+      ncidscript.conf
+    - Makefile: updated for configuration file, removed prefix3
+    - ncidd.h: changed MODEMTRY from 9 to 2, added INITWAIT and INITTRY
+      changed -S option to -T, and added -S and -m options, chamged -m
+      option to -t option, changed -M option to -d option, reordered Usage,
+      changed modemlog to datalog, added option -A, changed LAST to STAR,
+      added #define LINE "*LINE*"
+      changed #define TYPE "CID: " to #define CIDLINE "CID: "
+      added #define MSGLINE "MSG: "
+      removed #define CIDLOG "cidlog:"
+      added #define LINETYPE 25
+    - ncidd.c: added cidline to structure cid, and initialized it
+      initModem() added delay while loop to wait for response
+      after writing string to modem; changed do while loop to a while;
+      and added more comments
+      doPoll(): added: if (buf[num - 2] == '\r') buf[num - 2] = '\0';
+                added: "MSG: Modem Error Condition, Server Terminating"
+                       sent to logfile and clients, if modem goes away
+      formatCID(): added support for NetCallerID (CallerID info on one line),
+                   added more comments, changed LAST to START
+                   added inside "Output Caller ID" if statement, check for
+                         message, and if none, cid.cidmesg is set to "1",
+                         the default
+                   removed inside "if more than NAME is missing" line that
+                           sets the default to cid.cidmesg
+                   removed: static struct cid cid;
+                   added: check for distinctive line during ring, and copy
+                          indicator to cid.cidline
+                   added: LINE and cid.cidline fields added to log file
+                          and also sent to clients
+      sendInfo(): changed LAST to STAR, added LINE and cid.cidline to output
+      doTTY(): added: this sets up the tty and calls doModem()
+      doModem(): deleted line:  ntty.c_iflag |= (IGNCR);
+                 removed tty settings and put into doTTY()
+      getoptions(): changed option sttyclocal to ttyclocal, added ttyport,
+                    ttyspeed, nomodem, and alias options
+                    tcpAccept(): int socksize -> unsigned int socksize
+      sendLog(): rewrote line by line sending of log file
+    - nciddconf.h: moved alias definitions and variables to nciddalias.h
+      moved extern statements to end of file
+    - nciddconf.c:setword[]: changed sttyclocal to ttyclocal; changed
+      modem to ttyport, added ttyspeed and nomodem, changed options to
+      match those in changed in ncidd.c, changed vatiable conferr to
+      configStatus; moved alias functions and variables to nciddalias.c
+    - nciddalias.h: added, most content was in nciddconf.h
+    - nciddalias.c: added, most content was in nciddconf.c
+    - ncidd.conf.dist: changed "set modem ..." to "set ttyport ...",
+      changed "set sttyclocal ..." to "set ttyclocal 0/1",
+      added "set nomodem 0/1" and "set ttyspeed ...",
+      updated comments for distinctive ring
+    - ncid.spec: updated
+    - ncidd.8: updated
+    - ncid.1: updated
+    - ncid.conf.5: added
+    - ncidd.conf.5: updated
+    - ncidd.alias.5: added
+    - doc/Modem-CID-test: added
+    - doc/manpages moved up one directory
+    - doc/NCID-DataFormats: updated
+    - doc/INSTALL: updated
+    - doc/PROTOCOL: updated
+    - doc/NetCallerID: added
+    - doc/DistinctiveRing: added
+    - scripts/ncidrotate: rewrote to input "prerotate" and "postrotate"
+      and to use a configuration file: ncidrotate.conf
+    - scripts/ncid-page: rewrote to use a configuration script:
+      ncidscript.conf
+    - scripts/ncid-samba: rewrote to use a configuration script:
+      ncidscript.conf
+    - scripts/ncid-speak: rewrote to use a configuration script:
+      ncidscript.conf
+    - scripts/ncidscripts.1: updated
+    - scripts/ncidscript.conf.5: added
+    - scripts/Makefile: updated for configuration file
+    - scripts/ncidrotate.conf: added
+    - scripts/nciddcript.conf: added
+    - tools/Makefile: updated for configuration files
+    - tools/cidlog.pl: updated
+    - tools/cidalias.pl: updated
+    - tools/cidlogupd.pl: updated
+    - tools/ncidtools.1: updated
+
+Version 0.50
+    - poll.c: modified to usr "poll.h", events and revents were switched,
+      added case statement for the return value of select(), added mode
+      poll() defines, replaced tabs with spaces, changed logic of finding
+      FD that requires service.
+    - ncidd.c: changed global "char version[]" to "char *version"
+      formatCID(): changed code to only use first NAME or NMBR received
+      instead of the last.  A cell phone company sent NMBR twice, the first
+      was the number, the second was O for out-of-area; changed string
+      arrays in options to pointers using srtdup() instead of strcst()
+    - ncidd.h: modified to use "poll.h" and "getopt_long.h", when using
+      poll.c and getopt.c; changed cidlog[], modemlog[], modem[],initstr[],
+      initcid[], lockfile to *cidlog, *modemlog, *modem, *initstr, *initcid,
+      *lockfile;
+    - nciddconf.c: changed struct setword to use **buf instead of *buf
+      doSet(): use strdup to set WORDSTR strings
+      cpy2mem(): replaced perror() and exit() with errorExit
+    - nciddconf.h: changed *buf to **buf in struct setword
+    - getopt_long.c: renamed: was getopt.c, modified to use "getopt_long.h",
+      replaced tabs with spaces
+    - poll.h: added
+    - getopt_long.h: added
+    - ncidd.conf.dist: added: set modem /dev/cu.modem # Macintosh OS X
+    - Makefile: fixed problem passing prefix2 and prefix3, replaced "make"
+      with "$(MAKE) inside Makefile, added targets: mac, install-mac,
+      freebsd, install-freebsd, set TiVo default to modem port instead of
+      serial port for series1
+    - README: updated for FreeBSD
+    - ncid.dist: changed wish to $WISH and tclsh to $TCLSH
+    - scripts/ncid-page: updated comments
+    - scripts/ncid-samba: updated comments; added test for CLIENT
+    - scripts/ncid-speak: updated comments; added choice of Linux,
+      Freebsd, or MacOSX
+    - doc/INSTALL-FreeBSD: renamed README-FreeBSD and updated
+    - doc/INSTALL-Mac: updated
+    - doc/INSTALL-TiVo: updated
+    - doc/ReleaseNotes: added
+    - FreeBSD/ncid.sh: changed to call ncid-page instead of ncid-speak
+    - FreeBSD/README: updated
+    - FreeBSD/Makefile: added
+
+Version 0.40
+    - ncidd.c: doPoll(): added code to abort if modem unplugged [bug #780011]
+                         added code to handle poll errors
+               main(): Fixed lockfile name creation so name would follow
+                       command line or configuration file name change.
+                       Added more verbose statements.
+               getOptions(): added -S and --sttyclocal option
+    - ncidd.h: updated
+    - nciddconf.h: updated, added min and max to struct setword
+    - nciddconf.c: added sttylocal to structword[]
+                   doSet(): improved if (setword[num].type & WORDSTR) code
+    - Makefile: updated, added package and cygwin targets, added comments
+      to the begining of the makefile, explaining usage, updated tivo targets,
+      added targets: dirs, install-base, and updates install to use them,
+      corrected passing of prefix2 and prefix3 to tools and scripts directories
+    - tivomake: removed, replaced by "make tivo-series1" or "make tivo-series2"
+    - INSTALL-TiVoCID: corrected verbose and raw options, should be -V and -R
+    - ncidd.8: updated to show the -S and --sttyclocal option
+    - ncid.spec: updated version
+    - VERSION: updated version
+    - doc/INSTALL: updated
+    - doc/INSTALL-TiVo: updated
+    - doc/INSTALL-Mac: updated
+    - test/ncidd-noerrors.conf: added "set cidlog" and "set modemlog" lines
+
+Version 0.30
+    - Makefile: updated and added TiVo targets to cross compile
+      for ppc and mips TiVo's
+    - ncidd.conf: added examples for aliases and told to place them
+      at the end of the file
+    - TiVo-modem: updated
+    - README: updated
+    - ncid.dist: updated version
+    - ncidd.h: updated version
+    - ncid.spec: updated version
+    - VERSION: updated version
+
+Version 0.20
+    - ncidd.c: main(): Moved modem lock check code to after doConf(),
+      so check was valid in case the default modem port was changed
+      by a command line option or configuration file.
+    - ncidd.logrotate: Changed the logfile script so the postrotate script
+      will only be run once, not once for each log which is rotated".
+      Modified it to use ncidrotate so lines can be retained in the logfile
+      after it is rotated.  Changed file name to ncidd.logrotate.dist so
+      Makefile can change location of cidrotate.
+    - Renamed File "NCID-FORMAT" to "NCID-DataFormats"
+    - nciddconf.h: changed CIDCONF from /etc/cidd.conf to /etc/ncidd.conf
+    - Makefile: added target to call scripts/Makefile
+      Added target to make ncidd.logrotate from ncidd.logrotate.dist
+    - ncid: Added directory, /usr/share/ncid, for helper scripts.
+      Changed command line option to add the directory path to the
+      helper program name given.  Added "raise ." to popup sequence
+      so window will be above all others.
+    - ncid.init: changed arguments to agree with the new ncid, and used
+      short args instead of long ones so ps -auxw will show all.
+    - ncid.spec: updated for ncid client changes
+    - scripts/Makefile: added
+    - scripts/ncidrotate: added for use in ncidd.logrotate script
+    - scripts/README: updated for ncidrotate
+    - doc/ncid.1: Some cleanup and updated for ncid.
+
+Version 0.12
+    - ncidd.h: increased RINGWAIT from 20 to 25 for Linmodems
+    - ncid.init: run tclsh directly instead of using initlog
+    - scripts/README: added note to hide user root when masquerading
+
+Version 0.11
+    - ncidd.h: increased MODEMTRY from 5 to 9 for linmodmes
+    - ncid: changed regex to account for 11 digit number (14075551212)
+    - tools/cidlog: changed regex to hanldle 10 and 11 digit numbers
+    - tools/cidalias: changed to format output, -r dumps raw lines
+    - tools/ncidtools.1: updated for cidalias
+    - test/aliasfile: added
+    - test/README: updated for aliasfile
+
+Version 0.10
+    - ncidd.c: modified to send a CIDINFO line indicating the RING count
+      added 'send DATA' option and configuration, replaced sendlog option
+      and configuration
+    - ncidd.h: updated for send
+    - nciddconf.c: updated for send
+    - ncid: added ring option, updated comments
+    - ncid: sendCID(): corrected some comments, pass "\n" at the end
+      of the string sent to a external program, use catch with exec
+    - ncid: getField(): Fixed error in regex by always searching for
+      *FIELDNAME* instead of just FIELDNAME which was not always unique
+    - ncid.init: fixed start and stop, added variables
+    - Makefile: added passing of MAN variable to tools subdirectory for FreeBSD
+    - INSTALL: added a better description of Makefile variables.
+    - scripts/ncid-page: changed subject line from "phone number" to
+      "Telephone Call" updated wording to indicate cell phone use as
+      well as pager
+    - scripts/ncid-speak: added Mac OS X interface
+    - scripts/ncid-samba: added
+    - scripts/README: added
+    - test/testclient: server added to test clients using port 3000
+    - test/testclient.data: contains data to test a client, used by testclient
+    - test/testscript.data: added to test ncid-* scripts
+    - test/README: added
+    - test/cidtest.log: deleted
+    - test/ncidd-test1 renamed to ncid-errors.conf
+    - test/ncidd-test2 renamed to ncid-noerrors.conf
+    - test/ncidd-test3.conf: deleted
+    - test/ncidd-test4.conf: deleted
+    - test/ncid-testline: deleted
+    - doc/ncidd.8: updated for send cidlog or cidinfo
+    - doc/ncidd.conf.5: updated for send cidlog or cidinfo
+    - doc/ncid.1: updated for ring option
+    - doc/NCID-FORMAT: updated for CIDINFO lines
+    - doc/PROTOCOL: undated for CIDINFO lines
+    - doc/COPYING renamed to doc/LICENSE
+
+Version 0.9
+    - ncidd.c: formatCID(): patch to get modem data at either character
+      position 5 or 7 rathen than position 7 all the time
+    - ncidd.c: doALias(): allow "*" in alias[?].from field for
+      NMBRDEP and NAMEDEP cases
+    - ncidd.h: fixed 1st line of help message (-h)
+    - ncidd.conf.5: updated
+    - ncid.init: startup is in the background because of a hanging
+      problem.  Using "service ncid stop" fails.
+    - ncid.spec: updated
+    - README: updated
+    - CONTRIBUTORS: updated
+    - added file input.txt, to test ncid-page and ncid-speak
+
+Version 0.8
+    - ncidd.h and getopt.c: fixed broken getopt
+    - Makefile: updated and improved
+    - nciddconf.c: fixed bad test for WORDFLAG,
+      corrected getAlias() line format comments
+    - ncidd.c initModem(): rewrote to eliminate race condition
+    - ncidd.c doModem(): changed termios settings so it also
+      works with FreeBSD
+    - ncidd.conf: added alternate CID settings, and comments on log files
+    - ncidd.init: corrected description
+    - ncid: fixed test for "--no-gui" to use "=" instead of "=="
+    - ncid: added $TCLSH and $WISH variables that are set in a local
+      modifications section for FreeBSD since tclsh is named tclVERSION
+      and wish is named wishVERSION, where VERSION is the version number
+    - ncid: modified to call external programs in background
+    - added README-FreeBSD
+    - ncid.1: updated
+    - ncidd.8: removed ncidd configuration information
+    - ncidd.conf.5: added (contains ncidd configuration information)
+    - README: updated
+    - INSTALL: updated
+    - ncid.init: added
+    - added the tools subdirectory:
+      added cidlog.pl, cidalias.pl, cidlogupd.pl
+      added ncidtools.1, README, and Makefile
+
+Version 0.7
+    - ncidd.c split into multiple .c and .h files
+    - ncidd.c Ported to BSD and Macintosh, added getopt.c and poll.c
+    - ncidd.c formatCID: added MESG stuff
+    - ncidd.c formatCID: remove any trailing spaces from NAME field
+    - ncidd.c formatCID: modified to output Date, Time, and, Number
+      if no NAME field or MESG field found
+    - ncidd.c: TIMEOUT 50 -> 100
+    - ncid was rewritten and combined with tivocid to replace it
+    - added program ncid-speak
+    - added program ncid-page
+    - added files: ncid.spec, INSTALL-Mac, PROTOCOLS
+    - updated files: ncid.1, INSTALL, INSTALL-TiVo, INSTALL-Win,
+      NCID-FORMAT, README
+
+Version 0.6
+    - ncidd.c: increased the number of TCP connections from 9 to 15
+    - ncidd.c: added routines to send the CID call log file to clients
+    - ncidd.c: doModem(): eliminated pointer "ptr"
+    - ncidd.c: doModem(): added tcflush()
+    - ncidd.c: doModem(): added new error message "No modem found"
+      for no modem response
+    - ncidd.c: doModem(): put call to initialize modem in a for loop
+      to try 5 times, sometimes it failed to get a modem response
+      the 1st time
+    - ncidd.c doPoll(): added check; if fd == 0, set revents == 0
+      sometimes the poll seemed to get stuck on revents for fd = 0
+    - ncidd.c: doPoll(): modified "if (addPoll(sd) < 0)" to send
+      message to client, and write message to stderr if "verbose"
+    - ncidd.c doPoll(): added clear socker errors when client
+      disconnects
+    - ncidd.c: TIMEOUT 10 -> 50
+    - ncidd.c: CONNECTIONS + 3 -> CONNECTIONS + 2
+    - ncidd.c: cleanup(): added tcflush() before exit(), to eliminate
+      program hang when modem failed to respond
+    - ncidd.c: sendLog(): added
+    - ncidd.logrotate: changed cidmodem.log to ciddata.log
+    - ncid.8: added "SEE ALSO" section, and error code -105
+    - ncidd.conf: updated
+    - README: updated
+    - Makefile: updated
+    - ncid.spec: updated
+    - TiVo-modem: added
+    - INSTALL: updated
+    - INSTALL-TiVo: added
+    - INSTALL-Win: added
+    - ncid: added
+    - ncid.1: added
+    - changed FORMAT to NCID-FORMAT
+    - ncidd.c: main() converted stdin to output to "/dev/null" in
+      deamon mode to solve poll problems
+
+Version 0.5.1
+    - Modem port open changed so it would not hang if
+      port in use, or if port was not restored after use.
+      It will fail sometimes.
+    - corrected MODEMLOG value in Makefile
+    - DATE field in CID line modified to include year: MMDDYYYY
+    - Changed FORMAT and ncidd.8 to reflect new DATE field.
+
+Version 0.5
+    - Released

@@ -1,0 +1,56 @@
+#!/bin/sh
+# postrm script for ncid server
+#
+# see: dh_installdeb(1)
+
+set -e
+
+# summary of how this script can be called:
+#        * <postrm> `remove'
+#        * <postrm> `purge'
+#        * <old-postrm> `upgrade' <new-version>
+#        * <new-postrm> `failed-upgrade' <old-version>
+#        * <new-postrm> `abort-install'
+#        * <new-postrm> `abort-install' <old-version>
+#        * <new-postrm> `abort-upgrade' <old-version>
+#        * <disappearer's-postrm> `disappear' <overwriter>
+#          <overwriter-version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+
+case "$1" in
+    failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+    purge|remove)
+        # remove NCID port if firewall installed and running
+        if type firewall-cmd > /dev/null 2>&1
+        then
+            if firewall-cmd --quiet --state
+            then
+                if firewall-cmd --quiet --permanent --query-port=3333/tcp
+                then
+                     firewall-cmd --quiet --permanent --remove-port=3333/tcp
+                fi
+            fi
+        fi
+        # remove NCID doc directory
+        [ -h /usr/doc/ncid ] && rmdir --ignore-fail-on-non-empty /usr/doc/ncid
+    ;;
+    upgrade)
+        rm -f /usr/share/ncid/NumberDisconnected.???
+        for i in /usr/share/ncid/*.???
+        do
+            if [ -f $i ]; then mv $i /usr/share/ncid/recordings; fi
+        done
+        # restart server if running
+        pgrep -f ncidd > /dev/null 2>&1 && invoke-rc.d ncidd restart
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+exit 0

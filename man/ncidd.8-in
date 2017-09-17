@@ -1,0 +1,446 @@
+.\" %W% %G%
+.TH NCIDD 8
+.SH NAME
+.B ncidd
+- Network Caller ID Server
+.SH SYNOPSIS
+.B ncidd\^
+[options]
+.PP
+.I Options:
+.PP
+.nf
+[-A aliasfile    | --alias <file>]
+[-a announce     | --announce <file>]
+[-B blacklist    | --blacklist <file>]
+[-C configfile   | --config <file>]
+[-c calllog      | --cidlog <file>]
+[-D              | --debug]
+[-d datalog      | --datalog <file>]
+[-e lineid       | --lineid <identifier>]
+[-f command      | --audiofmt <command>]
+[-g 0|1          | --gencid <0|1>]
+[-H 0|1|2|3      | --hangup <0|1|2|3>]
+[-h              | --help]
+[-I modemstr     | --initstr <initstring>]
+[-i cidstr       | --initcid <cidstring>]
+[-L logfile      | --logfile <file>]
+[-l lockfile     | --lockfile <file>]
+[-M MaxBytes     | --cidlogmax <MaxBytes>]
+[-m 0|1|2|3      | --hupmode <0|1|2|3>]
+[-N 0|1          | --noserial <0|1>]
+[-n 0|1          | --nomodem <0|1>]
+[-P pidfile      | --pidfile <file>]
+[-p portnumber   | --port <portnumber>]
+[-r 0|1          | --regex <0|1>]
+[-S ttyspeed     | --ttyspeed <ttyspeed>]
+[-s datatype     | --send cidlog|cidinfo|callout]
+[-T 0|1          | --ttyclocal <0|1>]
+[-t ttyport      | --ttyport <ttyport>]
+[-V              | --version]
+[-v <1-9>        | --verbose <1-9>]
+[-W whitelist    | --whitelist <file>]
+[--osx-launchd]
+.fi
+.SH DESCRIPTION
+The \fBncidd\fR server collects Caller ID data from:
+.PP
+.nf
+    - a modem or CID device on a telephone line
+    - a CID gateway on the network
+    - or both
+.fi
+.PP
+It formats the data on a single text line, and then sends it
+to one or more
+\fBNetwork Caller ID\fR (\fBNCID\fR)
+clients over TCP/IP.
+The \fBncidd\fR server
+also allows an alias for the number, an alias for the name,
+and an alias for the telephone line identifier.
+.PP
+The telephone company limits names to 15 upper case characters,
+so by using the alias function, you can display the name as you
+would like to view it, or correct a name that was truncated.
+You can even change or mask (hide) a telephone number.
+.PP
+The \fBsend cidinfo\fR option configures \FBncidd\fR
+to send a CIDINFO line to clients at each ring and when ringing stops.
+It contains a telephone LINE label and a RING indicator.
+.PP
+If the Caller ID is obtained from a modem, and the modem supports it,
+the server will include a ring count in each CIDINFO line.
+When ringing stops, the ring count will be zero.
+This allows, for example, a client to send the call information
+to a pager or cell phone on a specific ring count.  If the ring count
+is not reached, it is assumed the phone was answered and there is no
+need to send a page or cell phone notification.
+
+If \FBncidd\fR is using a modem that indicates ring but not Caller ID, \FBncidd\fR
+can handle calls without Caller ID by generating call data on ring
+number 2 and sending it to the connected clients.  The number will be "RING"
+and the name will be "No Caller ID".  This feature is on by default.
+
+If the Caller ID is obtained from a Gateway, the CIDINFO line may be sent
+at the beginning and end of a call.  At the end of a call, RING
+indicates either \fIHangup Without Answer\fR or \fIHangup after Answer\fR.
+This allows a cell phone or pager to receive a message only if the phone
+was not answered.
+
+If the Caller ID is obtained from a Gateway that supports outgoing
+calls and the \fBsend callout\fR option is configured, 
+\FBncidd\fR will send outgoing call text lines to the clients.
+
+If the Caller ID is obtained from a Gateway that supports automatic
+hangup, \FBncidd\fR will send hangup call text lines to the clients.
+
+Internal Hangup refers to call termination that is based on the blacklist
+and whitelist files. A Hangup Extension refers to call termination that
+is based on a user-defined external script or program.
+
+If the Internal Hangup \fB\-\-hangup\fR option and/or the Hangup Extension 
+\fB\-\-hupmode\fR option is configured, \FBncidd\fR will automatically hangup
+the call and send a hangup (HUP) text line to the clients. Both \fB\-\-hangup\fR
+and \fB\-\-hupmode\fR have identical modes: normal hangup, FAX hangup, and Announce 
+hangup. If the \fB\-\-hangup\fR option and/or \fB\-\-hupmode\fR option is 
+configured for FAX hangup, but the modem does not support FAX, \fBncidd\fR
+changes the mode from a FAX hangup to a normal hangup. Similarly, if the
+\fB\-\-hangup\fR option and/or \fB\-\-hupmode\fR option is configured for Announce
+hangup, but the modem does not support Voice or the Announcement file is
+missing, \fBncidd\fR changes hangup from an Announce hangup to a normal 
+hangup.
+.PP
+A client can send \fBncidd\fR a text message.  The text message
+is then sent to all connected clients, including the one that sent it.
+.PP
+Gateways send \fBncidd\fR a \fICALL text line\fR.  The \fICALL text line\fR
+is either an incoming call (CID), an outgoing call (OUT), a hangup (HUP), or
+a message (MSG).  Gateways are normally used in place of a modem, but can
+also be used with a modem connected to \fBncidd\fR.
+.PP
+Gateways also send \fBncidd\fR \fICALLINFO text lines\fR.
+A SIP gateway will send a CALLINFO line when it receives a CANCEL or
+BYE command.  The server then sends a ring count of -1 to its clients
+to indicate a hangup with no answer.
+.PP
+The NCID gateway sends \fBncidd\fR CID and CIDINFO text lines instead
+of the normal gateway CALL and CALLINFO lines which need conversion.
+.PP
+When \fBncidd\fR receives a SIGHUP signal, it reloads the alias, 
+blacklist and whitelist files.
+.PP
+When \fBncidd\fR receives a SIGUSR2 signal, it sends a list of connected
+clients to the logfile.  This is for troubleshooting in debug mode.
+.SH "OPTIONS"
+.PD 0
+.TP
+.B -A <file> | --alias <file>
+Alias file.
+.br
+Default: /etc/ncid/ncidd.alias
+.TP
+.B -a <file> | --announce <file>
+Announcement file. Used for the Internal Hangup Announce option, \fB\-\-hangup\fR 3.
+If a Hangup Extension is enabled with \fB\-\-hupmode\fR 3 but the Hangup Extension
+does not specify its own Announcement file, it will default to this 
+announcement file.
+.br
+Default: /usr/share/ncid/NumberDisconnected.rmd
+.TP
+.B -B <file> | --blacklist <file>
+Blacklist file used for Internal Hangups.
+.br
+Default: /etc/ncid/ncidd.blacklist
+.TP
+.B -C <file> | --config <file>
+Config file.
+.br
+Default: /etc/ncid/ncidd.conf
+.TP
+.B -c <file> | --cidlog <file>
+Call log data file.
+.br
+Default: /var/log/cidcall.log
+.TP
+.B -D | --debug
+In debug mode, \fIncidd\fR stays attached to the terminal and displays
+all messages that go into the server logfile.
+.TP
+.B -d <file> | --datalog <file>
+Data logfile, used to capture the raw data sent to/received from \fBncidd\fR.
+This is usually the data to/from a modem, CID device or gateway.
+The logfile must exist, \fBncidd\fR will not create it.
+.br
+Default: /var/log/ciddata.log
+.TP
+.B -e <identifier> | --lineid <identifier>
+The telephone line identifier is typically used for a modem.  It is normally
+1 to 6 characters.  The default indicator is not displayed, but for one POTS
+line, you could change it to
+.IR POTS .
+For multiple lines you should use an identifier.
+You could change it to the 4 digit extension for an exchange.
+For example, if the telephone number is 321-555-1212 the identifier
+would be 1212.
+.br
+Default: -
+.TP
+.B -f <command> | --audiofmt <command>
+Used for the Internal Hangup Announce option, \fB\-\-hangup\fR 3, and for a
+Hangup Extension Announce option, \fB\-\-hupmode\fR 3.
+The audio format command is very dependent on the modem.  It must match
+the number of one of the lines returned by AT+VSM=?.
+The default modem manufacturer is CONEXANT, but the voice file also works
+for U.S. Robotics provided the modem firmware version is at least V1.2.23.
+.br
+Default: AT+VSM=130
+.TP
+.B -g <0|1> | --gencid <0|1>
+Generate a generic Caller ID at ring 2 if one is not received
+from the modem, either because the telco is not sending it or
+because the modem does not support it.
+The generic Caller ID generated uses "RING" for the number
+and "No Caller ID" for the name.
+.br
+Default: gencid = 1
+.TP
+.B -H <0|1|2|3> | --hangup <0|1|2|3>
+Controls Internal Hangup that will automatically hangup up on a call if 
+the caller name or number is in the ncidd.blacklist file but not the 
+ncidd.whitelist file. If \fB\-\-hangup\fR is set to 1, \fBncidd\fR will 
+immediately hangup the call.  If \fB\-\-hangup\fR is set to 2, \fBncidd\fR will 
+generate FAX tones and then hangup the call. (If FAX mode does not produce 
+FAX tones try setting pickup = 0 in ncidd.conf.) If \fB\-\-hangup\fR is set to 3, 
+\fBncidd\fR will play an announcement file and then hangup the call.
+.br
+Default: hangup = 0
+.TP
+.B -h | --help
+Display a help message.
+.TP
+.B -I "string" | --initstr "string"
+Modem initialization string.
+.br
+Default: ATE1V1Q0
+.TP
+.B -i "string" | --initcid "string"
+CID initialization string.
+.br
+Default: AT+VCID=1
+.br
+if it fails: AT#CID=1
+.TP
+.B -L <file> | --logfile <file>
+Server logfile.
+.br
+Default: /var/log/ncidd.log
+.TP
+.B -l <file> | --lockfile <file>
+Modem lockfile.
+.br
+Default: /var/lock/LCK..modem
+.TP
+.B -M <MaxBytes> | --cidlogmax <MaxBytes>
+Set the maximum CID call logfile size in bytes.
+.br
+Maximum size is 100000000.
+.br
+Default: cidlogmax = 110000
+.TP
+.B -m <0|1|2|3> | --hupmode <0|1|2|3>
+A Hangup Extension uses the same modes as the Internal Hangup setting, 
+\fB\-\-hangup\fR.  It enables an external script or program to determine if 
+\fBncidd\fR should hangup or not. It can be used with and without the 
+Internal Hangup. If used with Internal Hangup, \fB\-\-hupmode\fR is only executed
+if the Internal Hangup is not going to terminate the call.
+
+If \fB\-\-hupmode\fR is set to 1, \fBncidd\fR will immediately hangup the call.  If
+\fB\-\-hupmode\fR is set to 2, \fBncidd\fR will generate FAX tones and then hangup
+the call.  (If FAX mode does not produce FAX tones try setting pickup = 0 in 
+ncidd.conf.) If \fB\-\-hupmode\fR is set to 3, \fBncidd\fR will play an announcement
+file and then hangup the call.
+.br
+Default: hupmode = 0
+.TP
+.B -N <0|1> | --noserial <0|1>
+Serial device is being used (0) or no serial device (1).
+.br
+Default: noserial = 0
+.TP
+.B -n <0|1> | --nomodem <0|1>
+Modem is being used (0) or no modem (1).
+.br
+Default: nomodem = 0
+.TP
+.B -P <pidfile> | --pidfile <pidfile>
+Server PID file.
+Set to \fI/var/run/ncidd.pid\fR in an rc or init script when \fBncidd\fR is used
+as a service. The program will still run if it does not have permission to
+write a pidfile. There is no default.  If pidfile is not set, no pid file 
+will be used.
+.TP
+.B -p <port> | --port <port>
+Server port.
+.br
+Default: 3333
+.TP
+.B -r <0|1> | --regex <0|1>
+Use simple expressions (0) or Posix extended regular expressions (1) for
+blacklist/whitelist files.
+.br
+Posix Regular Expression Description and Syntax:
+https://en.wikipedia.org/wiki/Regular_expression
+.br
+Introduction to Regular Expressions:
+http://www.regular-expressions.info/quickstart.html
+.br
+Default: regex = 0
+.TP
+.B -S <ttyspeed> | --ttyspeed <ttyspeed>
+Set the tty port speed to one of: 115200, 38400, 19200, 9600, 4800
+.br
+Default: ttyspeed = 115200
+.TP
+.B -s <datatype> | --send <datatype>
+Send optional CID data to a client.
+Where \fIdatatype\fR is:
+.br
+.IR cidlog :
+sent when the client connects.
+If the CID call log gets too big, it will not be sent.
+.br
+.IR cidinfo :
+sent on each ring, to all clients,
+gives the current ring count.
+.br
+Default: Optional CID DATA is not sent
+.TP
+.B -T <0|1> | --ttyclocal <0|1>
+Enable (0) or disable (1) modem control signals.
+.br
+Default: modem control signals enabled
+.TP
+.B -t <ttyport> | --ttyport <ttyport>
+Modem device file, or serial port that provides Caller ID information.
+.br
+Default: /dev/modem
+.TP
+.B -V | --version
+Display the version number.
+.TP
+.B -v <1-9> | --verbose <1-9>
+Verbose mode. Send information into the server logfile and display information
+for the -D  option.  Set a higher number for more information.
+Do not use level 9 unless there is a problem in poll().  It grows the
+logfile very fast.
+.br
+To debug, try: verbose = 3
+.br
+Default: verbose = 1
+.TP
+.B -W <file> | --whitelist <file>
+Whitelist file used for Internal Hangups.
+.br
+Default: /etc/ncid/ncidd.whitelist
+.TP
+.B --osx-launchd
+This option is only for OSX when using launchd to control \fBncidd\fR.  It
+prevents \fBncidd\fR from entering daemon mode.  It is like debug
+mode, but nothing is printed to the screen.
+.PD
+.SH CONFIGURATION
+The ncidd.conf(5) file is used to set options.
+The syntax of the ncidd.conf(5) file is discussed separately,
+and should be consulted for detailed reference information.
+.PP
+The ncidd.alias(5) file is used to create aliases.
+The syntax of the ncidd.alias(5) file is discussed separately,
+and should be consulted for detailed reference information.
+.SH "DATA LINE FORMAT EXAMPLES"
+These are six examples of the four types of lines sent to
+.I NCID
+clients. The first field identifies the type of info which follows.
+.PP
+The \fICID:\fR line gives the CID information of the current call.
+.PP
+The \fICIDLOG:\fR line gives the CID information of a line in the
+CID logfile.
+.PP
+The \fIMSG:\fR line gives messages from the server.
+.PP
+The \fIMSGLOG:\fR line gives a message logged in the CID logfile.
+.PP
+The \fICIDINFO:\fR line gives a line number and ring count from the server.
+The ring count starts at 1 and increases until ringing ends,
+at which time a count of 0 is sent.
+The line number default is 1. If Distinctive Ring service is being provided
+by the telco, \fBncidd\fR will add one of the
+letters A, B, C, or D to indicate the virtual line called.
+.PP
+The \fICID:\fR
+and \fICIDLOG:\fR lines are identical,
+with data stored as name and value pairs.
+Clients should always locate the line identifier,
+and then scan for a field name and get its value.
+It's possible that additional name/value pairs may be added in the future.
+.PP
+The \fIMSG:\fR
+and \fIMSGLOG:\fR lines are identical,
+.PP
+.nf
+CID: *DATE*mmddyyyy*TIME*hhmm*NMBR*number*MESG*NONE*NAME*name*
+CIDLOG: *DATE*mmddyyyy*TIME*hhmm*NMBR*number*MESG*NONE*NAME*name*
+CIDINFO: *LINE*line indicator*RING*ringcount*TIME*hh:mm:ss*
+MSG: Too many clients connected: 15
+MSGLOG: Too many clients connected: 15
+CIDOUT: *DATE*mmddyyyy*TIME*hhmm*NMBR*number*MESG*NONE*NAME*NONAME*
+.fi
+.SH FILES
+.TP
+.B /etc/ncid/ncidd.blacklist
+Blacklist file
+.TP
+.B /etc/ncid/ncidd.whitelist
+Whitelist file
+.TP
+.B /etc/ncid/ncidd.conf
+Configuration file
+.TP
+.B /var/run/ncidd.pid
+PID file
+.TP
+.B /var/log/cidcall.log
+Contains CID and MSG lines
+.TP
+.B /var/log/ciddata.log
+Contains the output from the modem, device or gateway.
+.TP
+.B /var/log/ncidd.log
+Server logfile.  Contents controlled by \fB\-\-verbose\fR.
+.SH DIAGNOSTICS
+.nf
+    Return Code    Meaning
+    -----------    -------
+         0         Successful
+      -100         Usage
+      -101         Invalid port number
+      -102         TTY lockfile exists
+      -103         Unable to set modem for Caller ID
+      -104         Configuration file error
+      -105         No modem found
+      -106         Invalid data type.
+      -107         Invalid number
+      -108         Invalid tty port speed [set in config file]
+      -109         Alias file error
+      -110         PID file already exists
+      -111         Cannot init TTY
+      -112         Serial device error
+      -113         string too long
+      -114         Blacklist or whitelist file error
+        -?         System error
+.fi
+.SH SEE ALSO
+sip2ncid.8,
+ncid2ncid.1, ncidrotate.1, yac2ncid.1, wc2ncid.1, ncid.1, lcdncid.1,
+ncidd.conf.5, ncidd.alias.5, ncidd.blacklist.5, ncidd.whitelist.5,
+ncidtools.7

@@ -1,0 +1,112 @@
+.\" %W% %G%
+.TH NCIDSIP 8
+.SH NAME
+.B ncidsip
+- Inject CID info by snooping SIP invites
+.SH SYNOPSIS
+.B ncidsip\^
+[options]
+.PP
+.I Options:
+.PP
+.nf
+[-D                 | --debug]
+[-d <filename>      | --dumpfile <filename>]
+[-i <interface>     | --interface <interface>]
+[-h                 | --help]
+[-l                 | --list]
+[-n <host[:port]>   | --ncid <host[:port]>]
+[-s <[host][:port]> | --sip <[host][:port]>]
+[-p <filename>      | --pidfile <filename>]
+[-t                 | --test]
+[-u                 | --usage]
+[-V                 | --version]
+[-v                 | --verbose]
+.fi
+.SH DESCRIPTION
+Snoops SIP Invites via libpcap and injects the caller id information
+found to the NCID server specified.  Uses Net::Pcap to interface with
+the libpcap library and snoops only udp traffic on the specified SIP
+host and port.
+.PP
+The configuration file for \fIncidsip\fR is /etc/ncid/ncidsip.conf.
+.SH "OPTIONS"
+.TP
+.B -s <[host][:port]> | --sip=<[host][:port]>
+Specifies the hostname of the SIP device to snoop.  You may also specify
+the UDP port by suffixing the hostname with :<port>, or if no hostname
+is wanted, just :<port>.  If you do not specify a host, it defaults to
+the network interface.  If you do not specify a port, it defaults to
+<5061> (Vonage default).  Other Vonage ports are 5060 and 10000.  The
+new Vonage default appears to be <10000>.
+.TP
+.B -n <host[:port]> | --ncid=<host[:port]>
+Specifies the NCID server to connect to.  Port may be specified by
+suffixing the hostname with :<port>.  By default it will connect to
+port 3333 on "localhost".
+.TP
+.B -i <interface> | --interface=<interface>
+Specifies the network interface to snoop on.  If this is not specified
+then libpcap will pick a network interface.  This will generally be
+the first Ethernet interface found.
+.TP
+.B -p <filename> | --pidfile=<filename>
+Specifies the pidfile name to write.
+Set to \fI/var/run/ncidsip.pid\fR in a rc or init script when used as a service.
+The program will still run if it does not have permission to write a pidfile.
+There is no default, if pidfile is not set, no pid file will be used.
+.TP
+.B -h | --help
+Prints this help
+.TP
+.B -D | --debug
+Display the payload of all packets that matched the libpcap filter.
+.TP
+.B -d <filename> | --dumpfile <filename>
+Read packets from a libpcap capture file instead of the network.
+Mostly only useful for development purposes.
+.TP
+.B -u | --usage
+Prints this help
+.TP
+.B -V | --version
+Displays the version
+.TP
+.B -v | --verbose
+Displays status.  Use this option to run interactive.
+.TP
+.B -l | --listdevs
+Returns a list of all network device names that can be used.
+.TP
+.B -t | --test
+Test for SIP packets.  This option is used to check if SIP packets
+exist without starting the NCID server.  It will display the Caller
+ID line generated when a call comes in, and a CANCEL line if cancel
+was generated.
+.SH FILES
+/etc/ncid/ncidsip.conf
+.SH CID MESSAGE FORMAT
+.nf
+CID: ###DATEmmddhhss...LINEidentifier...NMBRnumber...NAMEwords+++
+.fi
+.SS Example
+.nf
+CID: ###DATE05311233...LINE1122...NMBR13215551212...NAMEBig John+++
+.fi
+.SH EXAMPLES
+.nf
+# run ncidsip as root and view status:
+ncidsip -v
+
+# run ncidsip as root and list all network device names:
+ncidsip --listdevs
+
+# run ncidsip as root and view SIP packets:
+ncidsip --debug
+
+# run sip from the init file at boot:
+ncidsip
+.fi
+.SH SEE ALSO
+ncidsip.conf.5, sip2ncid.8, ncidd.8, ncid2ncid.1, yac2ncid.1,
+ncidrotate.1

@@ -1,0 +1,275 @@
+.\" %W% %G%
+.TH NCID 1
+.SH NAME
+.B ncid
+- Network Caller ID Client
+.SH SYNOPSIS
+.B ncid\^
+[options] [arguments]
+.PP
+.B tivocid\^
+[options] [arguments]
+.PP
+.B tivoncid\^
+[options] [arguments]
+.PP
+.I Options:\^
+.PP
+.nf
+[--no-gui]
+[--alt-date               | -A]
+[--delay <seconds>        | -D <seconds>]
+[--help                   | -h]
+[--noexit                 | -X]
+[--pidfile <file name>    | -p <file name>]
+[--PopupTime <seconds>    | -t <seconds>]
+[--program <program name> | -P <program name>]
+[--ring <count>           | -r <count>]
+[--tivo                   | -T]
+[--verbose                | -v]
+[--version                | -V]
+.fi
+.PP
+.I Arguments:\^
+.PP
+.nf
+[IP_ADDRESS | HOSTNAME]
+[PORT_NUMBER]
+.fi
+.SH DESCRIPTION
+The \fBncid\fR client
+displays Caller ID information sent to it by the NCID server.
+In the default GUI mode, if the server is configured to send the
+Call Log, it will load the call log in the call history window at
+startup.  The history window is then updated by \fIncid\fR whenever
+a call is received.
+.PP
+The size of the client window at startup is controlled by the
+the \fIncid.conf\fR file.  The user can resize the window, but
+there is a minimum size restriction.
+.PP
+The history window displays one line per call or message.  Each
+line line starts with a call label.  There are five call types
+and two message types that can be displayed:
+.PP
+.PD 0
+.TP
+.B CID:
+Incoming Call
+.TP
+.B OUT:
+Outgoing Call
+.TP
+.B HUP:
+Blacklisted Call Hangup
+.TP
+.B BLK:
+Blacklisted Call Block
+.TP
+.B PID:
+CID from a smart phone
+.TP
+.B MSG:
+User or NCID message
+.TP
+.B NOT:
+Message from a smart phone
+.PD
+.PP
+The \fBncid\fR client
+also has a message window that will send a single line message
+to the server which, in turn, will send it to all connected clients.
+.PP
+The \fBncid\fR client
+runs on Linux and Windows 98, ME, XP, 2000, NT and Mac OS X.  In the 
+GUI mode, it will pop up, and go on top whenever a call comes in.
+In addition, it will display itself on whatever desktop is active in 
+Linux.  If \fIncid\fR is given the --no-gui option, it will run
+without a GUI.
+.PP
+If \fIncid\fR is given the --program <module> option, it will
+output to either a external program or output module.  The
+.B ncid
+client can be configured to call any one module.  It cannot call
+multiple modules, but multiple clients can be used, each calling
+a different output module.
+.PP
+If \fIncid\fR is named \fItivocid\fR, it will start in a no-gui mode
+and output to a external program called \fIout2osd\fR which displays
+the Caller ID on a TV using a TiVo.
+.PP
+If \fIncid\fR is named \fItivoncid\fR, it will start in a no-gui mode
+and output to a module called \fIncid-tivo\fR which displays
+the Caller ID on a TV using a TiVo.  This option uses the TiVo
+program, \fItext2osd\fR, instead of \fIout2osd\fR.
+.PP
+If \fIncid\fR is configured to output to a external program, it will
+test for it, and if it is not found, or if it is not executable,
+it will terminate with a error message.
+.PP
+The configuration file for \fIncid\fR is /etc/ncid/ncid.conf.
+.PP
+The distributed output modules are listed in the ncid-modules man page,
+can be customized as needed in the /etc/ncid/conf.d/ncid-<name>.conf files.
+.PP
+Whenever the server connection is broken, \fIncid\fR will normally try
+to reconnect once a minute.  It provides a visual record of the countdown
+and number of tries.
+If the delay between attempts is set to
+zero seconds, \fIncid\fR will not attempt a reconnect.
+.PP
+The file menu provides three menu items in the GUI mode:
+.PP
+.PD 0
+.TP 11
+.B reconnect
+provides an immediate reconnect and a reload of the call log file.
+This provides a way to synchronize \fIncid\fR with the server call log in
+the event of a network problem.
+.TP
+.B clear
+clears the call log
+.TP
+.B quit
+terminates \fIncid\fR.
+.PD
+.SH "OPTIONS"
+.PD
+.TP
+.B --no-gui
+Do not display CID information using a GUI.
+.IP
+Default: display CID using a GUI, unless called as \fBtivocid\fR
+or \fBtivoncid\fR.
+.TP
+.B --alt-date | -A
+Display the date in a alternate format.
+Assuming the date separator is a "/",
+the date is displayed as dd/mm/yyyy.
+.IP
+Default: display the date as mm/dd/yyyy
+.TP
+.B --delay SECONDS | -D SECONDS
+Delay SECONDS between server connection attempts if SECONDS > 0.
+.br
+Only one attempt to connect to server if SECONDS = 0.
+.IP
+Default: 60 seconds
+.TP
+.B --help | -h
+Display usage.
+.TP
+.B --noexit | -X
+Configure ncid to to ignore the close window button.
+.TP
+.B --pidfile | -p
+Name of PID file to create.
+Set to \fI/var/run/ncid.pid\fR in a rc or init script when used as a service.
+Set to \fI/var/run/OUTPUTMODULE.pid\fR in a rc or init script when used as
+a service and when using a output module.
+There is no default.  If pidfile is not set, no pid file will be used.
+.TP
+.B --program PROGRAM | -P PROGRAM
+Output the Caller ID information to the external program or output module.
+PROGRAM is the name of the output module (program) to use.
+The selected module is sent all calls and messages.
+.IP
+Default module PATH: /usr/share/ncid/modules
+.TP
+.B --ring count | -r count
+Call output module on specific ring count.
+.br
+All count values: -9 -2 -1 0 2 3 4 5 6 7 8 9
+.IP
+For modems that indicate RING, count is: -9 0 2 3 4 5 6 7 8 9
+.br
+A count of -9 indicates call on each ring.
+.br
+A count of 0 indicates call when ringing stops.
+.br
+A count of 1 should never be used, Caller ID is between 1 and 2.
+.br
+A count between 2-9 indicates call on that ring number.
+.br
+A count greater than 9 is not useful.
+.IP
+For VoIP, using a SIP or wc2ncid gateway, count is: -2 -1
+.br
+A count of -1 indicates call on hangup with no answer.
+.br
+A count of -2 indicates call on hangup after answer.
+.IP
+Default: output module called as soon as CID received
+.TP
+.B --Tivo | -T
+This option is for a TiVo using out2osd or text2osd
+.br
+Changes output to 2 lines: name number line.
+.IP
+Default output is 5 lines: date time number name line.
+.TP
+.B --PopupTime seconds | -t seconds
+Time for the popup to stay on top of all windows.
+Range is 1 second to 99 seconds.
+.IP
+Default popup time os 5 seconds.
+.TP
+.B --verbose | -v
+Display formatted CID information, including CID log file.
+.IP
+Default: silent
+.TP
+.B --version | -V
+Display version and quit.
+.PD
+.SH "ARGUMENTS"
+.PD
+.TP 30
+.B IP_ADDRESS | HOSTNAME
+Set the IP Address.
+.IP
+Default: 127.0.0.1 (localhost)
+.TP
+.B PORT_NUMBER
+Set the port number.
+.IP
+Default: 3333
+.PD
+.SH FILES
+/etc/ncid/*
+.br
+/usr/share/ncid/modules/*
+.SH EXAMPLES
+.nf
+# Display the date as dd/mm/yyyy
+ncid --alt-date
+
+# run ncid in a terminal window, server on remote host
+ncid --no-gui tardis.drwho.home
+
+# only speak Caller ID
+ncid --no-gui --program ncid-speak
+
+# send CID output to GUI and speak it
+ncid --program /usr/local/bin/ncid-speak
+
+# send CID output to a cell phone
+ncid --no-gui --program ncid-page
+
+# run ncid on a TiVo using out2osd, server on remote host
+tivocid 192.168.0.1
+.fi
+.SH SEE ALSO
+ncidd.8, sip2ncid.8,
+ncid2ncid.1, ncidrotate.1, yac2ncid.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-speak.1,
+ncid-yac.1,
+ncid.conf.5 ,
+ncidtools.7

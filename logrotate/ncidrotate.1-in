@@ -1,0 +1,30 @@
+.\" %W% %G%
+.TH NCIDROTATE 1
+.SH NAME
+.B ncidrotate
+- keep lines in cidcall.log after it is rotated
+.SH SYNOPSIS
+.B ncidrotate\^
+{prerotate|postrotate}
+.SH DESCRIPTION
+The NCID log rotation module is normally found in
+.BR /usr/share/ncid/sys
+directory.
+.PP
+.B Ncidrotate
+is called by
+.I /etc/logrotate.d/ncid
+and will keep a number of lines in cidcall.log after rotation.
+The default is 0 lines kept.  The configuration file for
+logrotate is
+.I /etc/ncid/ncidrotate.conf
+.SH REQUIREMENTS
+logrotate ‐ rotates, compresses, and mails system logs
+.SH FILES
+/usr/share/ncid/sys/ncidrotate
+.br
+/etc/ncid/ncidrotate.conf
+.br
+/etc/logrotate.d/ncid
+.SH SEE ALSO
+ncidrotate.conf.5, ncidd.8

@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID client using the Speak Module
+Documentation=man:ncid-speak(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-speak.pid
+ExecStart=/usr/bin/ncid --no-gui --pidfile /run/ncid-speak.pid -P ncid-speak
+
+[Install]
+WantedBy=multi-user.target

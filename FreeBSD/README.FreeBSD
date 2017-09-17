@@ -1,0 +1,23 @@
+----------------
+NCID for FreeBSD
+----------------
+
+FreeBSD rc scripts:
+
+    ncid-initmodem.rc - rc file for ncid with ncid-initmodem output module
+    ncid-mysql.rc     - rc file for ncid with ncid-mysql output module
+    ncid-mythtv.rc    - rc file for ncid with ncid-mythtv output module
+    ncid-page.rc      - rc file for ncid with ncid-page output module
+    ncid-notify.rc    - rc file for ncid with ncid-notify output module
+    ncid-samba.rc     - rc file for ncid with ncid-samba output module
+    ncid-speak.rc     - rc file for ncid with ncid-speak output module
+    ncid-yac.rc       - rc file for ncid with ncid-yac output module
+    ncidd.rc          - rc file for ncidd
+    ncid2ncid.rc      - rc file for ncid2ncid
+    obi2ncid.rc       - rc file for obi2ncid
+    rn2ncid.rc        - rc file for rn2ncid
+    sip2ncid.rc       - rc file for sip2ncid
+    wc2ncid.rc        - rc file for wc2ncid
+    yac2ncid.rc       - rc file for yac2ncid
+
+See Doc/INSTALL-FreeBSD for install instructions

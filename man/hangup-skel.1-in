@@ -1,0 +1,53 @@
+.\" %W% %G%
+.TH HANGUP-SKEL 1
+.SH NAME
+.B hangup-skel
+.SH SYNOPSIS
+.B hangup-skel
+[-h]
+.br
+.B hangup-skel
+[-v] <string>
+.PP
+where string is in this format:
+.br
+"*DATE*<mmddyyyy>*TIME*<hhmm>*LINE*<lineid>*NMBR*<number>*NAME*<name>*"
+.SH DESCRIPTION
+.B Hangup-skel
+is a template for writing a server hangup extension.  Use a new name
+to duplicate the file and make the necessary modifications. You
+need to write the code to check if a number should return the word
+\fIhangup\fR to STDOUT. You have the option of returning a recording
+file name to use with a hangup. Your script name should follow this format: 
+.I hangup-<name>
+.PP
+The example below assumes you have copied \fIhangup-skel\fR to
+.I hangup-myscript
+for your customized version of hangup-skel.
+.PP
+Server hangup extensions are only executed by the server unless testing.
+.PP
+Execute your customized \fBhangup-myscript\fR in a terminal window by itself
+for testing. Only fields used in the script are needed for the input string.
+To test your customized hangup-myscript with a number:
+.PP
+/usr/share/ncid/extensions/hangup-myscript -v "*NMBR*0000000000*"
+.SH OPTIONS
+.PD
+.TP
+.B -h
+show help message
+.TP
+.B -v
+turn on verbose and send additional data to STDOUT for troubleshooting
+.PD
+.SH FILES
+/usr/share/ncid/extensions/hangup-skel
+.br
+/usr/share/ncid/recordings/*.rmd
+.SH SEE ALSO
+ncidd.8,
+ncidd.whitelist.5,
+hangup-calls.1
+hangup-closed-skel.1,
+hangup-message-skel.1,

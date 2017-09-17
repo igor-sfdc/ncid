@@ -1,0 +1,36 @@
+Documentation HELP for NCID
+
+The MD files are in markdown text.
+
+The original markdown command line program and documentation can
+be obtained from http://daringfireball.net/projects/markdown/
+
+Usage:
+    make         - builds NCID-UserManual.md from the *.md files.
+    make html    - builds NCID-UserManual.html and NCID-API.html
+    make epub    - builds NCID-UserManual.epub and NCID-API.epub
+    make install - does nothing
+
+Requirements:
+    pandoc   - required to bulid HTML files from the MD fiiles
+    calibre  - required to build the epub books
+
+    Use any markdown editor you like to view and edit the markdown
+    files (*.md).  One good editor is "retext" available from your
+    repository or from https://sourceforge.net/projects/retext/
+
+The .md documentation can be converted into other formats using:
+
+    pandoc  - http://johnmacfarlane.net/pandoc/
+    calibre - http://calibre-ebook.com/
+
+Calibre can display the markdown or epub files with "view-ebook".
+
+The Makefile is used to create html files and epub files.
+
+prefix  - default: /usr/local:            $(prefix)/bin and $(prefix)/sbin
+prefix2 - default: prefix2 = $(prefix1):  $(prefix2)/etc
+prefix3 - default: "":                    $(prefix)/var
+
+prefix2 controls where to look for the config file,
+(the default is /usr/local)

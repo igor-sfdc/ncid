@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID using the NMA Output Module
+Documentation=man:ncid-notify(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-notify.pid
+ExecStart=/usr/bin/ncid --no-gui --pidfile /run/ncid-notify.pid -P ncid-notify
+
+[Install]
+WantedBy=multi-user.target

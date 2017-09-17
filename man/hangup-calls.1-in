@@ -1,0 +1,24 @@
+.\" %W% %G%
+.TH HANGUP-CALLS 1
+.SH NAME
+.B hangup-calls
+.SH SYNOPSIS
+.B hangup-calls
+.SH DESCRIPTION
+.B Hangup-calls
+is a hangup script that hangs up on all calls not in the whitelist.
+.PP
+If \fIhupmode\fR is set to 3 (announcement mode), the sctipt will
+play the default recording or one set in \fIncidd.conf\fR.
+.SH FILES
+/usr/share/ncid/extensions/hangup-calls
+.br
+/usr/share/ncid/recording/*.rmd
+.br
+/etc/ncid/ncidd.whitelist
+.SH SEE ALSO
+ncidd.8,
+ncidd.whitelist.5,
+hangup-closed-skel.1,
+hangup-message-skel.1,
+hangup-skel.1

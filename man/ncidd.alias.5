@@ -1,0 +1,75 @@
+.\" %W% %G%
+.TH NCIDD.ALIAS 5
+.SH NAME
+.B ncidd.alias
+- NCID Server Alias File
+.SH DESCRIPTION
+The \fIncidd.alias\fR file contains the alias information for
+\fIncidd\fR, the NCID Server.  It contains the aliases for
+Caller ID names and numbers.  It also contains the aliases
+for telephone line identifiers.
+.PP
+The \fIncidd.alias\fR file understands 3 types of lines:
+.TP 15
+\fBblank line\fR: ignored
+.TP
+\fBcomment line, beginning with '#'\fR: ignored
+.TP
+\fBalias line: processed
+.RS 0
+    alias [NMBR|NAME] ["]FROM["] = ["]TO["] [if ["]VALUE["]]
+    alias [LINE] ["]FROM["] = ["]TO["
+         where  NMBR, NAME or LINE is a KEYWORD
+                FROM is a CID string:
+                     can be a '*' (match everything) when using if
+                TO is the alias for the FROM string
+                VALUE is a NAME if KEYWORD = NMBR
+                VALUE is a NMBR if KEYWORD = NAME
+                      can contain a '^' (partial match from beginning)
+                VALUE is a LINE if KEYWORD = LINE
+.RE
+.SH EXAMPLES
+Change OUT-OF-AREA to UNAVAILABLE in both name and number fields:
+.RS 0
+	alias OUT-OF-AREA = UNAVAILABLE
+.RE
+.PP
+Change OUT-OF-AREA to UNAVAILABLE in the name field only:
+.RS 0
+	alias NAME OUT-OF-AREA = UNAVAILABLE
+.RE
+.PP
+Change any name to a specific name for a phone number:
+.RS 0
+	alias NAME * = "John on cell" if 4075551212
+.RE
+.PP
+Change any name to a specific name matching the beginning of a phone number
+.RS 0
+	alias NAME * = "Toll Free" if ^800
+.RE
+.PP
+Mask a phone number:
+.RS 0
+	alias NMBR 4075551212 = "----------"
+.RE
+.PP
+The default line indicator for a POTS line is "-".  The ncid client
+will not display the "-" indicator.  To display 'POTS' for a POTS line:
+.RS 0
+	alias LINE - = POTS
+.RE
+.PP
+To not display a gateway line indicator, change it from the one
+received a '-'.  If the line indicator is '1122':
+.RS 0
+	alias LINE 1122 = -
+.RE
+.PP
+Change any line indicator to VOIP.  Be careful to place this after
+a POTS line indicator if a POTS line is also present:
+.RS 0
+	alias LINE * = VOIP
+.RE
+.SH SEE ALSO
+ncidd.8, ncidd.conf.5

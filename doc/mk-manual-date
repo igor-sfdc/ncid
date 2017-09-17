@@ -1,0 +1,111 @@
+#!/bin/bash
+
+# Last Edited: Jul 14, 2016
+
+# Update the date in the UserManualIndex.md file to the
+# most recent date of a markdown file that is part of it.
+
+# Normally run from the Makefile using the file list
+# in the proper order.
+
+# Can be used manually to test that one or more file dates
+# were obtained.  Must use the -t option.  For example
+#   bash mk-manual-date -t User.md
+# Manually look at all dates in the markdown files, but file order not correct:
+#   bash mk-manual-date -t *.md
+
+set -e
+
+prog=`basename $0`
+usage() {
+    cat <<EOF
+Usage: $prog [options] {User_Manual_files}
+Options:
+    [-h] [-t]
+
+    -h = show this help
+    -t = test
+EOF
+exit 1
+}
+
+INDEX=UserManualIndex.md
+
+if [ -z "$1" ]; then usage ; exit 0; fi
+
+while getopts :ht opt ; do
+    case $opt in
+        h) usage;;
+        t) test=1;;
+        :) echo "Option -$OPTARG requires an argument."; usage;;
+        *) echo "Invalid option: -$OPTARG"; usage;;
+    esac
+done
+
+shift $((OPTIND-1)) # skip over command line args (if any)
+
+# determine if date command is GNU date or BSD date
+gnu_date=0
+date -j > /dev/null 2>&1 || gnu_date=$?
+
+if [ $gnu_date -eq 1 ]
+then
+        [ -n "$test" ] && echo "Using GNU date command"
+        mcmd='date --date="$index_date" +%s'
+        fcmd='date --date="$file_date" +%s'
+else
+        [ -n "$test" ] && echo "Using BSD date command"
+        mcmd='date -j -f "%b %d %Y %H:%M:%S" "$index_date 00:00:00" "+%s"'
+        fcmd='date -j -f "%b %d %Y %H:%M:%S" "$file_date 00:00:00" "+%s"'
+fi
+
+orig_index_date=`grep "Last Edit:" $INDEX-in | tr -d '\r' | sed 's/.*: //;s/<\/center>//'`
+index_date=`echo $orig_index_date | tr -d ','`
+index_date_epoch=`eval $mcmd`
+[ -n "$test" ] && \
+{
+    printf "%-19s %-11s %12d\n" $INDEX "$orig_index_date" $index_date_epoch
+    echo
+}
+
+for i in $*
+do
+    # if file does not contin "Last edited:", skip it
+    grep "Last edited:" $i > /dev/null 2>&1 || continue
+
+    # skip the index page
+    [ "$i" = "$INDEX" ] && continue
+
+    orig_file_date=`grep "Last edited:" $i | tr -d '\r' | sed 's/.*: //;s/ *$//'`
+    file_date=`echo $orig_file_date | tr -d ','`
+    file_date_epoch=`eval $fcmd`
+    new_tag=
+    [ $file_date_epoch -gt $index_date_epoch ] && \
+    {
+        changed=1
+        index_date_epoch=$file_date_epoch
+        index_date=$orig_file_date # index_date now has a comma
+        new_tag="<== new date"
+    }
+    fixed_date=`echo $orig_file_date | sed 's/\( [0-9],\)/ \1/'`
+    [ -n "$test" ] && printf "%-19s %-11s %12d %s\n" $i "$fixed_date" $file_date_epoch "$new_tag"
+done
+
+if [ -z "$test" ]
+then
+    if [ -n "$changed" ]
+    then
+        sed "s/Last Edit:.*$/Last Edit: $index_date<\/center>/" ${INDEX}-in > $INDEX
+    else
+        cp ${INDEX}-in $INDEX
+    fi
+else
+    echo
+fi
+
+if [ -n "$changed" ]
+then
+    echo "$INDEX date Changed from '$orig_index_date' to '$index_date'"
+else
+    echo "$INDEX date Not Changed: $orig_index_date"
+fi

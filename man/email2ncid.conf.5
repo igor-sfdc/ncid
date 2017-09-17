@@ -1,0 +1,40 @@
+.\" %W% %G%
+.TH EMAIL2NCID.CONF 5
+.SH NAME
+.B email2ncid.conf
+- email2ncid configuration file
+.SH DESCRIPTION
+The \fIemail2ncid.conf\fR file contains the configuration information for
+\fIemail2ncid\fR.
+.PP
+The \fIemail2ncid.conf\fR file understands 3 types of lines:
+.TP
+.B blank line
+ignored
+.TP
+.B comment line, beginning with '#'
+ignored
+.TP
+.B VARIABLE=VALUE
+VALUE can be between quotes.
+.SH OPTIONS
+.TP
+.B NCIDSERVER=<host address>:<port>
+The NCID server host address can be an IP address or a resolvable host name.
+
+Default: ncidserver = localhost:3333
+.TP
+.B lineid
+Suggested values: WIRELESS NETWORK Internet
+
+Default: lineid = NETWORK
+.PP
+See email2ncid.conf for a complete list of variables to set and
+what the default values are.
+.SH EXAMPLES
+Set the NCID server IP address: ncidserver = 192.168.1.20
+.PP
+Set the NCID server port: ncidserver = :3333
+.SH SEE ALSO
+email2ncid.1,
+procmail.1

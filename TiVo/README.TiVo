@@ -1,0 +1,30 @@
+README.TiVo
+
+startncid      - starts NCID programs (default starts ncidd and ncidtivo)
+                 needs to be configured to change the default
+                 will not try to start a running program or script
+                 uses pgrep
+
+stopncid       - stops all running NCID programs (no configuration needed)
+                 uses pgrep
+
+initmodem      - signals ncidd to re-initialize the modem
+                 restarts ncidd if it is not running
+
+ncid           - zero length file used to create the symbolic links
+
+tivocid        - symbolic link to ncid
+
+tivoncid       - symbolic link to ncid
+
+ncid-tivo      - TiVo module used to display CID on TV
+
+ncid-tivo.conf - TiVo module configuration file
+
+The following scripts are not useful on the TiVo and are not installed.
+    ncidrotate
+    ncidtools
+    ncid-kpopup
+    ncid-mythtv
+    ncid-samba
+    ncid-speak

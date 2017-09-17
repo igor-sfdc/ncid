@@ -1,0 +1,56 @@
+.\" %W% %G%
+.TH NCID-YAC 1
+.SH NAME
+.B ncid-yac
+- send Caller ID to YAC listeners
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-yac
+.SH DESCRIPTION
+The
+.B ncid-yac
+output module sends the Caller ID or message to YAC listeners.
+.SH CONFIGURATION
+The
+.B ncid-yac
+output module is configured in \fIncid-yac.conf\fR.
+.TP 10
+.I YACTYPES
+This sets the NCID message types \fBncid-yac\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: YACTYPES="CID OUT MSG PID NOT"
+.TP
+.I YACPORT
+The YAC network port
+
+Default: YACPORT=10629
+.TP
+.I YACLIST
+A list of YAC clients, separated by spaces, inside quotes.
+List can be IP_Addresses or hostnames or both.
+
+Default: YACLIST="localhost"
+.SH REQUIREMENTS
+YAC listener
+.TP
+URL:
+http://www.sunflowerhead.com/software/yac/
+.SH FILES
+/etc/ncid/conf.d/ncid-yac.conf
+.br
+/usr/share/ncid/modules/ncid-yac
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid-alert.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-wakeup.1,
+ncid-speak.1

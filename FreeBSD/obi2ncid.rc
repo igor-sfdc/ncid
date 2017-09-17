@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# PROVIDE: obi2ncid
+# REQUIRE: NETWORKING ncidd
+
+#
+# Add the following lines to /etc/rc.conf to enable obi2ncid:
+#
+#obi2ncid_enable="YES"
+#
+obi2ncid_enable="${obi2ncid_enable-NO}"
+
+. /etc/rc.subr
+
+rcvar=`set_rcvar`
+extra_commands="condrestart"
+
+name=obi2ncid
+pidfile="/var/run/${name}.pid"
+
+command=/usr/local/sbin/$name
+command_args="--pidfile /var/run/${name}.pid &"
+command_interpreter=perl
+
+load_rc_config $name
+
+case $1 in
+    condrestart)
+        run_rc_command "stop" && run_rc_command "start"
+        ;;
+    *)
+        run_rc_command "$1"
+        ;;
+esac

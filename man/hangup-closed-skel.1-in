@@ -1,0 +1,57 @@
+.\" %W% %G%
+.TH HANGUP-CLOSED-SKEL 1
+.SH NAME
+.B hangup-closed-skel
+.SH SYNOPSIS
+.B hangup-closed-skel
+[-h]
+.br
+.B hangup-closed-skel
+[-v] <string>
+
+where string is in this format:
+.br
+"*DATE*<mmddyyyy>*TIME*<hhmm>*LINE*<lineid>*NMBR*<number>*NAME*<name>*"
+.SH DESCRIPTION
+.B Hangup-closed-skel
+is a template for hanging up on callers within a specified time peroid.
+Your script name should be the same name without \fI-skel\fR.
+Script names use the format: 
+.I hangup-<name>
+.PP
+The example below assumes you have copied \fIhangup-closed-skel\fR to
+.I hangup-closed
+for your customized version of hangup-closed-skel.
+.PP
+Change the start and end times to whatever is needed in \fIhangup-closed\fR.
+Record your message for \fIhangup-closed\fR.  Call it closed.rmd
+and place it in /usr/share/ncid/recordings.
+.PP
+Server hangup extensions are only executed by the server unless testing.
+.PP
+Execute your custom \fBhangup-closed\fR in a terminal window by itself for testing.
+Only fields used in the script are needed for the input string.
+To test your custom hangup-closed script with a number:
+.PP
+/usr/share/ncid/extensions/hangup-closed -v "*NMBR*4075551212*"
+.SH OPTIONS
+.PD
+.TP
+.B -h
+show help message
+.TP
+.B -v
+turn on verbose and send additional data to STDOUT for troubleshooting
+.PD
+.SH FILES
+/usr/share/ncid/extensions/hangup-closed-skel
+.br
+/usr/share/ncid/recording/*.rmd
+.br
+/etc/ncid/ncidd.whitelist
+.SH SEE ALSO
+ncidd.8,
+ncidd.whitelist.5,
+hangup-calls-skel.1,
+hangup-message-skel.1,
+hangup-skel.1

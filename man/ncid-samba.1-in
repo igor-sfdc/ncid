@@ -1,0 +1,47 @@
+.\" %W% %G%
+.TH NCID-SAMBA 1
+.SH NAME
+.B ncid-samba
+- send Caller ID to samba to create a popup
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-samba
+.SH DESCRIPTION
+The
+.B ncid-samba
+output module sends the Caller ID or message to a Windows computer.
+.SH CONFIGURATION
+The
+.B ncid-samba
+output module is configured in \fIncid-samba.conf\fR.
+.TP 12
+.I SambaTypes
+This sets the NCID message types \fBncid-samba\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: SambaTypes="CID OUT HUP BLK MSG PID NOT"
+.TP 12
+.I SambaClient
+Must be set to a Windows Computer Name.
+
+Default: Samba Client=""
+.SH REQUIREMENTS
+Windows computer
+.SH FILES
+/etc/ncid/conf.d/ncid-samba.conf
+.br
+/usr/share/ncid/modules/ncid-samba
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid-alert.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-skel.1,
+ncid-speak.1,
+ncid-wakeup.1,
+ncid-yac.1

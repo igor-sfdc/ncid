@@ -1,0 +1,47 @@
+.\" %W% %G%
+.TH NCIDROTATE.CONF 5
+.SH NAME
+.B ncidrotate.conf
+- ncidrotate configuration file
+.SH DESCRIPTION
+The \fIncidrotate.conf\fR file contains the configuration information for
+\fIncidrotate\fR, used to rotate the \fIcidcall.log\fR file.
+.PP
+The \fIncidrotate.conf\fR file understands 3 types of lines:
+.TP
+.B blank line
+ignored
+.TP
+.B comment line, beginning with '#'
+ignored
+.TP
+.B Variable=Argument
+.PP
+There are only two variables to change: Lines2keep and RotateOff
+.TP
+.B Defaults:
+Lines2keep=0
+.br
+RotateOff=0
+.PP
+The other variables should not be changed.
+See ncidrotate.conf for a complete list of variables to set and
+what the default values are.
+.SH EXAMPLES
+Keep 10 lines in cidcall.log after rotation:
+.RS 0
+	Lines2keep=10
+.RE
+.PP
+Do not rotate (allows the cidcall.log file to continue growing):
+.RS 0
+    RotateOff=1
+.RE
+.SH REQUIREMENTS
+logrotate ‐ rotates, compresses, and mails system logs
+.SH FILES
+/etc/ncid/ncidrotate.conf
+.br
+/var/log/cidcall.log
+.SH SEE ALSO
+ncidrotate.1, ncidd.8

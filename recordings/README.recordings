@@ -1,0 +1,38 @@
+Last edited: Apr 14, 2016 
+
+Modem voice files
+
+  NumberDisconnected.pvf - master recording used to create the default .rmd file
+
+  NumberDisconnected.rmd - modem raw data file
+      The default: 8-bit unsigned PCM raw modem file
+
+HOW TO create a raw modem file
+
+  Install the sox and mgetty-voice packages.
+
+  You can create any recording file format that "sox" recognizes.
+      See: http://linux.die.net/man/7/soxformat
+
+  Convert an .mp3 file to .wav. The standard sox distribution does not support 
+      .mp3 because of .mp3 patent/licensing restrictions.
+
+  You can use a recording file from http://www.thisisarecording.com/ with
+      many language choices.
+
+  You can create a custom mp3 file at http://www.fromtexttospeech.com/ with
+      a few language and gender choices.
+
+  You can create a .wav file to make an .rmd file for your modem.
+
+  If you created a NumberDisconnected.wav file, Here are the steps to
+  create a NumberDisconnected.rmd file:
+
+    sox NumberDisconnected.wav -t pvf -c 1 -r 8000 -b 8 NumberDisconnected.pvf
+    pvftormd V253modem 8 NumberDisconnected.pvf NumberDisconnected.rmd
+
+    pvftormd is dependent on the modem, use pvftormd -L for the modem list
+
+  Different modem chipsets can use different parameters. 
+  You may wish to check the https://en.wikipedia.org/wiki/Network_Caller_ID
+  to see if someone has already documented the steps for your modem.

@@ -1,0 +1,213 @@
+ncid (1.6-1) Ubuntu-16.04 raspian; urgency=low
+
+  * See NCID CHANGES file
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu, 13 Oct 2016 11:36:00 -0400
+
+ncid (1.5-1) Ubuntu-16.04 raspian; urgency=low
+
+  * Removed install requirement of tk-tile
+  * created new ncid-gateways package from the ncid package
+  * added ncid-gateways.conffiles, postrm-gateways, prerm-gateways
+  * created new ncid-mysql package from the ncid package
+  * modified control for the ncid-gateways and ncid-mysql packages
+  * added ncid-mysql.conffiles, postrm-mysql, prerm-mysql
+  * added ncid-client.conffiles
+  * added email2ncid, email2ncid.conf, email2ncid.1, email2ncid.conf.5
+  * added ncid-yearlog, ncid-yearlog.1
+  * added ncid-setup, ncid-email2ncid-setup
+  * added ncid-setup.1, ncid-email2ncid-setup.1
+  * added check for firewall and NCID port in postinst to add port
+  * added check for firewall and NCID port in postrm to remove port
+  * removed file NCID-SDK.tar.gz from ncid package
+  * removed the dependency on Retext.
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat,  1 Oct 2016 10:19:00 -0400
+
+ncid (1.4-1) Ubuntu-16.04 raspian; urgency=low
+
+  * See NCID CHANGES file
+  * Added conffiles, ncid-client.conffiles, ncid-kpopup.conffiles
+  * Added ncid-mythtv.conffiles, ncid-samba.conffiles, ncid-speak.conffiles
+  * added *.pvf to /usr/share/doc/ncid
+  * Modified rules for conffiles and changed install-ubuntu to install-debian
+  * removed the -isp option from dpkg-gencontrol in rules
+  * Changed confile:ncid-client depends from tcl8.5 & tk8.5 to tcl & tk
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat,  7 Apr 2016 22:34:00 -0400
+
+ncid (1.3-1) Ubuntu-14.04 raspian; urgency=low
+
+  * See NCID CHANGES file
+  * updated rules, prerm, prerm-client, postrm, postrm-client
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu, 31 Dec 2015 21:56:00 -0400
+
+ncid (1.2-1) Ubuntu-14.04 raspian; urgency=low
+
+  * See NCID CHANGES file
+  * updated rules
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat, 12 Sep 2015 14:41:00 -0400
+
+ncid (1.1-1) Ubuntu-14.04 raspian; urgency=low
+
+  * See NCID CHANGES file
+  * updated postrm, prerm
+  * fixed init scripts status command
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Mon, 24 Aug 2015 16:23:00 -0400
+
+ncid (1.0-1) Ubuntu-14.04 raspian; urgency=low
+
+  * new release
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri, 29 Aug 2014 17:58:00 -0400
+
+ncid (0.89-1) Ubuntu-13.10 raspian; urgency=low
+
+  * new release
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Tue, 8 Apr 2014 19:09:00 -0400
+
+ncid (0.88-1) Ubuntu-13.10 raspian; urgency=low
+
+  * rules: added test/README.test doc/NCID_Documentation.md doc/Makefile
+  *        doc/README.docdir man/man.docdir
+  *        removed dpkg-shlibdeps: debian/tmp-ncid/usr/bin/rn2ncid
+  *                                debian/tmp-ncid/usr/bin/wc2ncid
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri, 3 Jan 2014 19:06:00 -0400
+
+ncid (0.87-1) Ubuntu-13.04 raspian; urgency=low
+
+  * Removed "S" from the default stop in the init scripts.
+  * added gateway: rn2ncid
+  * rn2ncid.init, sip2ncid.init, wc2ncid.init, yac2ncid.init: start after ncidd
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Tue, 28 May 2013 21:48:00 -0400
+
+ncid (0.86-2) Ubuntu-12.10 raspian; urgency=low
+
+  * added a "curl" requirement in "control" for the ncid-client package
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri, 29 Mar 2013 18:44:00 -0400
+
+ncid (0.86-1) Ubuntu-12.10 raspian; urgency=low
+
+  * See NCID CHANGES file
+  * updated rules
+  * changed i386 in the control file to any
+  * added ${perl:Depends} to controlfile
+  * added gateway: wc2ncid
+  * added modules: ncid-alert ncid-wakeup
+  * removed gateway: ncidsip
+  * updated postrm, prerm
+  * fixed pre-* and post-* scripts
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Wed, 20 Mar 2013 14:45:00 -0400
+
+ncid (0.85-0ubuntu1) 12.04; urgency=low
+
+  * See NCID CHANGES file
+  * updated rules
+  * added ${shlibs:Depends} all packages in control
+  * rewrote postinst, prerm*, and postrm* scripts
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri, 18 Sep 2012 20:53:00 -0400
+
+ncid (0.84-0ubuntu1) 12.04; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Mon,  2 Jul 2012 00:29:00 -0400
+
+ncid (0.83-0ubuntu1) 11.04; urgency=low
+
+  * See NCID CHANGES file
+  * removed ncid-tivo.1 from rules
+  * added ncid-skel to rules
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Tue,  2 Aug 2011 23:27:00 -0400
+
+ncid (0.82.1-0ubuntu1) 11.04; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri,  6 Jun 2011 13:07:00 -0400
+
+ncid (0.81-0ubuntu1) 10.04; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat, 26 Feb 2011 10:41:00 -0400
+
+ncid (0.80-0ubuntu1) 10.04; urgency=low
+
+  * See NCID CHANGES file
+  * changed Requires: and added Recommends: for ncid-client in control
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sun, 10 Oct 2010 23:18:00 -0400
+
+ncid (0.79-0ubuntu1) 10.04; urgency=low
+
+  * See NCID CHANGES file
+  * added ncid2ncid.init file and ncid2ncid.init to rules
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu,  1 Jul 2010 20:26:00 -0400
+
+ncid (0.78-0ubuntu1) 10.04; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri, 14 May 2010 13:16:00 -0400
+
+ncid (0.77-0ubuntu1) Karmic Koala; urgency=low
+
+  * See NCID CHANGES file
+  * removed postrm-kpopup and prerm-kpopup
+  * removed ncid-kpopup.init file, and ncid-kpopup.init from rules
+  * removed prerm-ncid-kpopup file, and postrm-ncid-kpopup from rules
+  * added ncid-initmodem.init files, and ncid-initmodem.init to rules
+  * added ncid-initmodem to postrm-client and prerm-client
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu,  25 Mar 2010 23:20:00 -0400
+
+ncid (0.76-0ubuntu1) Karmic Koala; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat,  23 Jan 2010 21:41:00 -0400
+
+ncid (0.75-0ubuntu1) Jaunty Jackalope; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Sat,  12 Sep 2009 18:01:00 -0400
+
+ncid (0.74-0ubuntu1) Jaunty Jackalope; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Fri,  19 Jun 2009 16:20:00 -0400
+
+ncid (0.73-0ubuntu1) Hardy Heron; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Tue,  3 Feb 2009 18:31:00 -0400
+
+ncid (0.72-0ubuntu1) Hardy Heron; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu,  20 Nov 2008 22:56:14 -0400
+
+ncid (0.71-0ubuntu1) Hardy Heron; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Mon,  2 Jun 2008 19:04:23 -0400
+
+ncid (0.70-0ubuntu1) Feisty; urgency=low
+
+  * See NCID CHANGES file
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Thu,  14 Feb 2008 13:33:23 -0400
+
+ncid (0.69-0ubuntu1) Feisty; urgency=low
+
+  * Initial Release.
+
+ -- John L. Chmielewski <jlc@users.sourceforge.net>  Tue,  9 Oct 2007 11:37:23 -0400

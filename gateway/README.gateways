@@ -1,0 +1,34 @@
+NCID Gateways:
+
+    These are CID gateways that pull CID information off the network
+    and input it to the NCID server.
+
+email2ncid      - email2ncid Gateway to convert email into NCID messages
+email2ncid.conf - configuration file for email2ncid
+obi2ncid        - OBI Gateway for obi200, other obi devices may work
+obi2ncid.conf   - configuration file for obi2ncid
+ncid2ncid       - NCID gateway: receives CID information and messages
+                  from 1 or more NCID servers and send them to a NCID
+                  server
+ncid2ncid.conf  - configuration file for ncid2ncid
+rn2ncid         - Android smart phone app 'Remote Notifier'to NCID gateway
+rn2ncid.conf    - configuration file for rn2ncid
+sip2ncid        - SIP gateway: receives CID information from SIP Invite
+                  packets and sends it as a CID line to the NCID server
+sip2ncid.conf   - configuration file for sip2ncid
+wc2ncid         - Whozz Calling (WC) gateway: receives CID information from
+                  WC Ethernet Link Devices http://callerid.com
+wc2ncid.conf    - configuration file for wc2ncid
+yac2ncid        - YAC gateway: receives CID information and messages from a
+                  YAC server and sends them as CID or message lines to the
+                  NCID server
+yac2ncid.conf   - configuration file for yac2ncid
+
+The Makefile is used to create the runable scripts.
+
+    prefix  - default: /usr/local:            $(prefix)/bin and $(prefix)/sbin
+    prefix2 - default: prefix2 = $(prefix1):  $(prefix2)/etc
+    prefix3 - default: "":                    $(prefix)/var
+
+	prefix2 controls where to look for the config file,
+	(the default is /usr/local)

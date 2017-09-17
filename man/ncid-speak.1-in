@@ -1,0 +1,83 @@
+.\" %W% %G%
+.TH NCID-SPEAK 1
+.SH NAME
+.B ncid-speak
+- send Caller ID to a text-to-speech program
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-speak
+.SH DESCRIPTION
+The
+.B ncid-speak
+output module speaks the Caller ID using festival.
+.SH CONFIGURATION
+The
+.B ncid-speak
+output module is configured in \fIncid-speak.conf\fR.
+.TP 10
+.I SpeakTypes
+This sets the NCID message types \fBncid-speak\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: SpeakTypes="CID MSG"
+.TP
+.I SpeakThis
+What to say, '$NAME' or '$NMBR' or '$NMBR $NAME' or '$NAME $NMBR'.
+Must be inside single quotes.
+
+Default: SpeakThis='$NAME'
+.TP
+.I SpeakInput
+Test-to-speech program.  Default uses \fIfestival\fR.
+.br
+If using the Macintosh:
+.br
+SpeakInput="say $SpeakThis"
+.br
+If you want a specific voice for the Macintosh:
+.br
+SpeakInput="say -v Vicki $SpeakThis"
+
+Default: SpeakInput="echo $SpeakThis | festival --tts"
+.TP
+.I SpeakTimes
+The number of times to speak the same input.
+
+Default: SpeakTimes=1
+.TP
+.I SpeakDelay
+If SpeakTimes is greater than 1, SpeakDelay is the delay in seconds
+between repeating the input.
+
+Default: SpeakDelay=2
+.TP
+.I AreaCodeLength
+If non-zero, a name value of "NO NAME" will be replaced with
+the string "Area Code " followed by the requested number of
+area code digits separated by spaces.
+If set to the number of digits in phone number, a name value
+of "NO NAME" will be replaced with the digits of the phone
+number separated by spaces.
+A leading "1" for the CID number is always ignored.
+
+Default: AreaCodeLength=3
+.SH REQUIREMENTS
+festival text-to-speech software
+.SH FILES
+/etc/ncid/conf.d/ncid-speak.conf
+.br
+/usr/share/ncid/modules/ncid-speak
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid-alert.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-wakeup.1,
+ncid-yac.1

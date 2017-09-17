@@ -1,0 +1,96 @@
+#! /bin/bash
+# requires: calibre installed for ebook-convert
+# Last edited: Jul 17, 2016
+
+usage() {
+   #printf -v spcs "%*s" ${#prgE} " "   # indent
+   #indent example: $spcs  Options MUST appear before message.
+   cat <<EOF
+
+Usage: $prgE [options]
+
+       Create NCID-UserManual.epub and NCID-API.epub from markdown files.
+       
+Options:
+       [-h] [-k]
+
+       -h = show this help
+
+       -k = keep work around files when done instead of deleting them
+            
+EOF
+       
+exit 1
+}
+
+prog=`basename $0 .sh`
+prgE=`basename $0` # with extension
+
+MacOS_ebook_prog=/Applications/calibre.app/Contents/MacOS/ebook-convert
+
+# Options on command line
+while getopts :hk opt ; do
+    case $opt in
+        h) usage;;
+        k) keep=1;;
+        :) echo "Option -$OPTARG requires an argument."; usage;;
+        *) echo "Invalid option: -$OPTARG"; usage;;
+    esac
+done
+shift $((OPTIND-1)) # skip over command line args (if any)
+
+# main routine  
+
+# create NCID-UserManual.epub
+make NCID-UserManual.md
+
+# create NCID-UserManual-workaround.md
+sed 's/&#x7[Cc];/@PIPE@/g' > NCID-UserManual-workaround.md < NCID-UserManual.md
+
+ebook_prog=$MacOS_ebook_prog
+[ -x "${ebook_prog}" ] || \
+{
+    ebook_prog=`type -p ebook-convert` > /dev/null 2>&1
+    [ $? = "1" ] && ebook_prog=""
+
+    [ -x ${ebook_prog} ] || \
+    {
+      echo "Could not find ${ebook_prog}"
+      exit 1
+    }
+}
+
+${ebook_prog} \
+    NCID-UserManual-workaround.md NCID-UserManual.epub \
+    --title "NCID User Manual" \
+    --authors "John L Chmielewski and Todd A Andrews" \
+    --cover images/ncid-cover.jpg \
+    --tags "setup, admin" \
+    --language English \
+    --max-toc-links 0 \
+    --toc-threshold 0 \
+    --preserve-cover-aspect-ratio \
+    --sr1-search @PIPE@ \
+    --sr1-replace "|"
+
+# remove NCID-UserManual-workaround.md
+[ -z "$keep" ] && rm -f NCID-UserManual-workaround.md
+
+# create NCID-API-workaround.md
+sed 's/&#x7[Cc];/@PIPE@/g' > NCID-API-workaround.md < NCID-API.md
+
+${ebook_prog} \
+    NCID-API-workaround.md NCID-API.epub \
+    --title "NCID API" \
+    --authors "John L Chmielewski" \
+    --cover images/ncid-cover.jpg \
+    --tags "API" \
+    --language English \
+    --max-toc-links 0 \
+    --toc-threshold 0 \
+    --preserve-cover-aspect-ratio \
+    --sr1-search @PIPE@ \
+    --sr1-replace "|"
+
+# remove NCID-API-workaround.md
+[ -z "$keep" ] && rm -f NCID-API-workaround.md

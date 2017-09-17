@@ -1,0 +1,53 @@
+# ncid-speak.conf - ncid-speak configuration file
+
+# Last Modified: Sun Apr 13, 2014
+
+# Uncomment, comment. or give variables a different value
+
+# $TYPE is one of:
+#   CID: incoming call
+#   OUT: outgoing call
+#   HUP: blacklisted hangup
+#   MSG: message instead of a call
+#   PID: Caller ID from a smart phone
+#   NOT: notice of a smart phone message
+#
+# All types: "CID OUT HUP BLK MSG PID NOT"
+
+# $TYPE's to process
+# default: "CID PID"
+SpeakTypes="CID PID"
+
+# What to say
+# the default is $NAME but could also be $NMBR or both
+SpeakThis='$NAME'
+
+# If using "festival" for text-to-speech:
+SpeakInput="echo $SpeakThis | festival --tts"   # tts default
+
+# If using the Macintosh "say" for text-to-speech::
+#   To use the default system voice as specified under
+#   System Preferences->Speech->Text to Speech:
+#SpeakInput="say $SpeakThis"    # Mac default
+#   To use a specific voice installed on your system
+#SpeakInput="say -v Vicki $SpeakThis"
+
+# Number of times to speak the same input
+SpeakTimes=1
+
+# delay between speaking
+SpeakDelay=2
+
+# Length of area code.
+#
+# If non-zero, a name value of "NO NAME" will be replaced with
+# the string "Area Code " followed by the requested number of
+# area code digits separated by spaces.
+#
+# If set to the number of digits in phone number, a name value
+# of "NO NAME" will be replaced with the digits of the phone
+# number separated by spaces.
+#
+# A leading "1" for the CID number is always ignored.
+# Default value = 3
+AreaCodeLength=3

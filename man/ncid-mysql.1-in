@@ -1,0 +1,55 @@
+.\" %W% %G%
+.TH NCID-MYSQL 1
+.SH NAME
+.B ncid-mysql
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-mysql
+.SH DESCRIPTION
+The
+.B ncid-mysql
+output module stores NCID data in a
+MySQL or MariaDB Database using the 'mysql' command line client
+(it is called 'mysql' for both MySQL and MariaDB). 
+
+The database configuration parameters are specified in the
+.B ncid-mysql.conf file 
+
+Available field names (columns) in the created table:
+.PP
+.RS
+CID (primary key, auto-increment)
+.br
+CIDDATE
+.br
+CIDTIME
+.br
+CIDNMBR
+.br
+CIDNAME
+.br
+CIDLINE
+.br
+CIDTYPE
+.br
+CIDMESG
+.br
+CIDMTYPE
+.RE
+.SH REQUIREMENTS
+Network access to a MySQL or MariaDB database server.
+.PP
+The MySQL or MariaDB command line client 'mysql'.
+.PP
+The ncid-mysql-setup script to initialize settings before first use.
+.SH FILES
+/usr/local/etc/ncid/conf.d/ncid-mysql.conf
+.br
+/usr/local/share/ncid/modules/ncid-mysql
+.br
+/usr/sbin/ncid-mysql-setup
+.SH SEE ALSO
+ncid-mysql-setup.8, 
+ncidd.8,
+ncid-modules.7,
+ncid.1

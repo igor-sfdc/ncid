@@ -1,0 +1,39 @@
+.\" %W% %G%
+.TH NCID-SETUP 1
+.SH NAME
+.B ncid-setup
+.SH SYNOPSIS
+.B ncid-setup [-h] [-V] [name [option] [option] [...]]
+.SH DESCRIPTION
+The
+.B ncid-setup
+script uses \fIname\fR and any \fIname options\fR to call a
+\fI/usr/share/ncid/setup/ncid-<name>-setup\fR script. It is
+a convenience script to launch other setup scripts without
+having to know its path and without having to put a lot of
+one-time scripts in /usr/bin.
+.PP
+If no argument is given, \fBncid-setup\fR will list
+all setup scripts and support files.
+.PP
+If the setup script requires other files to complete the setup,
+they can be placed in the same directory as the setup script.
+.PP
+The \fBncid-setup\fR script changes to the setup directory before
+launching the setup script.
+.SH OPTIONS
+.PD 0
+.TP
+.B -h
+Show help
+.TP
+.B -V
+Display version
+.PD
+.SH FILES
+/usr/bin/ncid-setup
+.br
+/usr/share/ncid/setup/ncid-<name>-setup
+.SH SEE ALSO
+ncid-procmailrc-setup.1,
+ncid-mysql-setup.8

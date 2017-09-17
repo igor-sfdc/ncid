@@ -1,0 +1,290 @@
+#!/usr/bin/perl -w
+
+# Created on Apr 18, 2015 by Todd Andrews from a test script by Steve Limkemann
+# Last updated on Jul 7, 2015
+
+# jlc/taa development version 4
+
+use strict;
+use Getopt::Long qw(:config no_ignore_case_always);
+use Socket;
+use Pod::Usage;
+
+
+my ($testfile, $response, $obidata);
+
+my $ConfigDir  = "/usr/local/etc/ncid";
+my $confile = "obi2ncid";
+my $ConfigFile = "$ConfigDir/$confile.conf";
+
+my $nonStop = 0;
+my $delay = 0;
+my $noFilter = 0;
+my $doFilter;
+my $port = 4339;
+my $okToProcessPacket;
+my ($help, $man);
+
+# default filters in case there is no obi2ncid.conf,
+# or if obi2ncid.conf doesn't have any filter lines at all
+my @def_filter = ();
+push @def_filter, "PRD:NOPriFbToTry";
+push @def_filter, "Prd:SrvName";
+push @def_filter, "BASE:resolving root.pnn.obihai.com";
+push @def_filter, "IPC: Event";
+push @def_filter, "DNS SERVER:";
+push @def_filter, "ETH: WAN primary has been renewed!";
+push @def_filter, "SNTP->pool.ntp.org";
+push @def_filter, "SIP Err:MissingReqHdr";
+
+my @filter;
+
+my ($totalRead, $totalFiltered, $totalSent) = (0, 0, 0);
+
+Getopt::Long::Configure ("bundling");
+my ($result) = GetOptions(
+               "configfile|C=s" => \$ConfigFile,
+               "delay|d=i" => \$delay,
+               "help|h" => \$help,
+               "man|m" => \$man,
+               "no-filter|N" => \$noFilter,
+               "non-stop|n" => \$nonStop,
+               "obiport|o=i" => \$port,
+             ) || pod2usage(2);
+pod2usage(-verbose => 1, -exitval => 0) if $help;
+pod2usage(-verbose => 2, -exitval => 0) if $man;
+
+$testfile = (shift or "test-obi-gw.data");
+
+my $proto = getprotobyname ('udp');
+
+my $servaddr = sockaddr_in ($port, 127.0.0.1);
+
+socket SERVER, PF_INET, SOCK_DGRAM, $proto or die "Unable to create socket: $!";
+
+$doFilter = 1 - $noFilter;
+
+if ($doFilter) {
+   @filter = ();
+   if (open(CONFIGFILE, $ConfigFile)) {
+       print "Loading filters from config file: $ConfigFile:\n\n";
+       while (<CONFIGFILE>) {
+          # taa http://docstore.mik.ua/orelly/perl/cookbook/ch08_17.htm
+          chomp;
+          s/^\s+.*\s+$//;         # remove leading and trailing whitespace          
+          next unless length;     # anything left?
+          my ($var, $value) = split(/\s*=\s*/, $_, 2);
+          if ($var eq "filter") {
+             if (substr($value,0,1) eq '"') {$value=substr($value,1);} # remove leading quote
+             if (substr($value,-1,1) eq '"') {$value=substr($value,0,-1);} # remove trailing quote
+             push @filter, $value if length($value);
+             print "    $value\n";
+          }
+       }
+       if (!@filter) {
+          print "Config file has no 'filter' lines\n\n";
+       } else {
+         print "\nEnd of filter load\n\n";
+       }
+   } else {
+       print "Could not open $ConfigFile to read 'filter' lines\n\n";
+   }
+   if (!@filter) {
+      @filter = @def_filter;
+      print "Using default filters:\n\n";
+      foreach my $value (@filter) {
+             print "    $value\n";
+      }
+      print "\n";
+   }
+} else {
+  print "Filtering is disabled.\n\n";
+  @filter = ();
+}
+
+open(TESTFILE, $testfile) || die "Could not open $testfile\n";
+
+my $origIRS=$/; # normal input record separator
+my $dataIRS="\0"; # end of record is \0 from Obi devices
+
+print "Connect obi2ncid gateway to port $port to test\n";
+print "    for example: obi2ncid -tv5 -o $port\n\n";
+if (!$nonStop) {
+   print "Then press <ENTER> multiple times to:\n";
+   print "    send packet\n";
+   print "    end  program\n\n";
+} else {
+   print "Then press <ENTER> once to send entire test file\n";
+}
+  
+$| = 1;
+
+$/=$dataIRS;
+
+while ($obidata = <TESTFILE>) {
+
+      $totalRead++;
+      
+      $okToProcessPacket = 1;
+      if (@filter) {
+         foreach my $x (@filter) {
+            if ($obidata =~ /$x/) {
+               $okToProcessPacket = 0;
+               last;
+            }
+         }
+      }
+
+      if ($okToProcessPacket) {
+	     print $obidata;
+         send SERVER, $obidata, 0, $servaddr;
+         $totalSent++;
+         if ($nonStop) {
+            if ($delay) {sleep($delay);}
+         } else {
+           $/=$origIRS;
+            $response = <>;
+            $/=$dataIRS;
+         }
+      } else {
+        $totalFiltered++;
+      }
+}
+close (SERVER);
+
+print "\n\n";
+printf ("Total packets read    : %5d\n\n", $totalRead);
+printf ("Total packets filtered: %5d\n\n", $totalFiltered);
+printf ("Total packets sent    : %5d\n\n", $totalSent);
+
+exit 0;
+
+=head1 NAME
+
+test-obi-gw - send previously saved Obihai device packets to obi2ncid gateway
+
+=head1 SYNOPSIS
+
+test-obi-gw [options] [<filename>]
+
+<filename> defaults to test-obi-gw.data and is expected to be
+located in the same path as the B<test-obi-gw> script.
+
+ Available options:
+             [--configfile               |-C <filename>]
+             [--delay                    |-d <seconds>]
+             [--help                     |-h]
+             [--man                      |-m]
+             [--no-filter                |-N]
+             [--non-stop                 |-n]
+             [--obiport                  |-o <port>]
+
+=head1 DESCRIPTION
+
+The B<test-obi-gw> script is used to play back the raw packets
+captured when executing the B<obi2ncid> gateway script with 
+the --rawfile-append or --rawfile-overwrite options.
+
+Raw packets from Obihai devices do not have a date/time stamp.
+When played back, the B<obi2ncid> gateway script will treat the
+packets as arriving using the current date/time.
+
+=head1 OPTIONS
+
+=over 2
+
+=item --configfile <filename>, -C <filename>
+
+Specifies the configuration file to use.  The program will still run if
+a configuration file is not found.
+
+Only the 'filter' lines in the configuration file are used.
+
+Default: /usr/local/etc/ncid/obi2ncid.conf
+
+=item --delay <seconds>, -d <seconds>
+
+Specifies the number of seconds to pause between sending packets
+when --non-stop is used. The UDP protocol is used to communicate
+with the B<obi2ncid> gateway and UDP does not guarantee packet delivery.
+Specify a delay only if you experience dropped packets.
+
+Default: 0
+
+=item --help, -h
+
+Displays the help message and exits.
+
+=item --man, -m
+
+Displays the manual page and exits.
+
+=item --no-filter, -N
+
+An Obihai device periodically sends out packets when it is doing
+its own internal "housekeeping." Such packets do not have anything
+to do with call activity, but they can clutter and confuse verbose
+output because of their sheer volume and frequency.
+
+However, in unusual circumstances it may be necessary to use the
+--no-filter option to include all housekeeping packets.
+
+If you specify --no-filter when running B<test-obi-gw> you also need
+to specify --no-filter when running the <B>obi2ncid gateway.
+
+Default: filtering is ON
+
+=item --non-stop, -n
+
+The default behavior is to send a packet from the test file and
+wait for the user to press <ENTER> to send the next one. Use the
+--non-stop option to send the test file with no user interaction.
+
+Default: wait for user to hit <ENTER> between sending packets
+
+=item --obiport <port>, -o <port>
+
+Specifies the UDP port to use for sending the packets to the
+B<obi2ncid> gateway.
+
+Default: 4339
+
+=back
+
+=head1 EXAMPLES
+
+=over 4
+
+=item Start test-obi-gw and send test-obi-gw.data non-stop
+
+test-obi-gw -n 
+
+=item Start test-obi-gw and send test file /home/google-voice.data
+
+=item requiring <ENTER> to be pressed after each packet
+
+test-obi-gw /home/google-voice.data
+
+=back
+
+=head1 REQUIREMENTS
+
+=over
+
+=item The obi2ncid gateway
+
+http://ncid.sourceforge.net/ncid/ncid.html
+
+=back
+
+perl 5.6 or higher,
+
+=head1 FILES
+
+test-obi-gw.data
+
+=head1 SEE ALSO
+
+obi2ncid.1
+
+=cut

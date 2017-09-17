@@ -1,0 +1,78 @@
+# ncid-mysql.conf - ncid-mysql configuration file
+
+# Last Modified: Jul 14, 2016
+
+# Uncomment, comment. or give variables a different value
+
+# $TYPE is one of:
+#   BLK: blacklisted call blocked
+#   CID: incoming call
+#   HUP: blacklisted call hangup
+#   MSG: message instead of a call
+#   NOT: notice of a smart phone message
+#   OUT: outgoing call
+#   PID: Caller ID from a smart phone
+#   WID: incoming call waiting
+#
+# All types: "BLK CID HUP MSG NOT OUT PID WID"
+
+# IMPORTANT: Never send PID or NOT types to a cell phone
+
+# $TYPEs to process
+# default: all types
+db_types="BLK CID HUP MSG NOT OUT PID WID"
+
+# MySQL database connect parameters
+
+# host name or IP address of the MySQL server
+# default: localhost
+db_host="localhost"
+
+# which host name is allowed for queries/updates
+# use '%' to allow from anywhere
+# use $db_host to restrict to a specific machine
+# default: %
+db_host_allowed="%"
+#db_host_allowed=$db_host
+
+# TCP port for the MySQL server
+# default: 3306
+db_port="3306"
+
+# database name
+# default: ncid
+db_name="ncid"
+
+# table name
+# default: ncid
+db_table="ncid"
+
+# MySQL user name that can write to the table
+# default: ncid
+db_user="ncid"
+
+# password for MySQL user name
+# default: ncid
+db_pass="ncid"
+
+# Date field order as received from ncid client.
+# This must be a space delimeted list and must
+# use only the single characters M, D, Y
+# as these become the shell variables.
+# default: "M D Y"
+db_date_field_order="M D Y"
+#db_date_field_order="D M Y"
+
+# The following options are used only when the ncid-mysql-setup
+# script is run.
+
+# Privileges to be granted to db_user. Set to INSERT if you want
+# the bare minimum.
+# default: ALL
+db_grant="ALL"
+#db_grant="INSERT"
+
+# options to pass to CREATE TABLE command
+# default: whatever the default is for the version of MySQL being run
+#db_create_options="ENGINE=InnoDB DEFAULT CHARSET=utf8"
+#db_create_options="ENGINE=MyISAM DEFAULT CHARSET=latin1"

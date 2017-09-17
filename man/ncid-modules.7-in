@@ -1,0 +1,84 @@
+.\" %W% %G%
+.TH NCID-MODULES 7
+.SH NAME
+.B ncid-modules
+- NCID client output modules overview
+.SH DESCRIPTION
+NCID output modules are used to extend the functionality of the client.
+They are mostly simple shell scripts although there is one program
+for the TiVo that acts like a module.
+.PP
+Module names are of the format: \fBncid-<name>\fR.
+.PP
+Modules are normally called by the client using the command line:
+.RS
+    ncid --no-gui --program ncid-<name>
+.RE
+.PP
+The client can only call one module at a time, but multiple clients
+can each have a different output module.
+.PP
+Each module may have a configuration file called \fIncid-<name>.conf>\fR.
+The \fIncid-<name>.conf>\fR file understands three line types:
+.RS
+.PD 0
+.TP 16
+.B blank line:
+ignored
+.TP
+.B comment line:
+begins with a '#' and is ignored
+.TP
+.B shell variable:
+set to a value, for example: foo=bar
+.PD
+.RE
+.PP
+The current modules distributed with NCID are:
+.RS
+.B ncid-alert
+.br
+.B ncid-initmodem
+.br
+.B ncid-kpopup
+.br
+.B ncid-mysql
+.br
+.B ncid-mythtv
+.br
+.B ncid-notify
+.br
+.B ncid-page
+.br
+.B ncid-samba
+.br
+.B ncid-skel
+.br
+.B ncid-speak
+.br
+.B ncid-tivo
+.br
+.B ncid-wakeup
+.br
+.B ncid-yac
+.RE
+.SH FILES
+/usr/share/ncid/ncid-<name>
+.br
+/etc/ncid/conf.d/ncid-<name>.conf
+.br
+/etc/ncid/ncid.conf
+.SH SEE ALSO
+ncid.1,
+ncid.conf.5,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mysql.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-speak.1,
+ncid-wakeup.1
+ncid-yac.1

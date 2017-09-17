@@ -1,0 +1,87 @@
+.\" %W% %G%
+.TH NCIDD.WHITELIST 5
+.SH NAME
+.B ncidd.whitelist
+- whitelist file for \fIncidd\fR hangup
+.SH DESCRIPTION
+The \fIncidd.whitelist\fR file contains the expressions to match against a
+telephone call name or number.
+.P
+If the hangup option is set and if there is no match in the whitelist file,
+a match in the blacklist file will cause \fIncidd\fR to automatically
+terminate the call.
+.PP
+The \fIncidd.whitelist\fR file understands 4 types of lines:
+.TP 14
+.B blank line:
+skip it
+.TP
+.B comment line:
+skip it
+.TP
+.B entry line:
+process it
+.PP
+Entry lines contain one or more expressions and an optional comment.
+An expression is either a string of non-blank characters or everything
+between double quotes.  Multiple expressions are separated by spaces.
+A comment must be last.
+.PP
+Entry line comments are either normal comments or match name comments.
+.PP
+A normal comment begins with a '#' and must not be immediately followed
+by an equals sign. Anything after the '#' is ignored.
+.PP
+A match comment begins with '#=' and is followed by a name to display for
+the caller when the entry matches either the number or name of a call.
+Do not use double quotes around the name.
+.PP
+Example:  ncidd.blacklist: ^999         #= Unwanted Area code
+.br
+          ncidd.whitelist: 9995550000   #= WHT (999) 555-0000
+.SH NOTES
+.IP \(bu 3
+Each expression is compared to the caller name and number.
+.IP \(bu
+Upper and lower case letters are significant.
+.IP \(bu
+The number must be a string of digits as they appear in
+\fI/var/log/cidcall.log\fR.
+.IP \(bu
+A leading '1' is required if it is in \fI/var/log/cidcall.log\fR.
+.IP \(bu
+A partial name or number can match.
+.IP \(bu
+If regular expressions are used (regex = 1):
+.br
+* POSIX Extended Regular Expression Syntax.
+.br
+  https://en.wikipedia.org/wiki/Regular_expression
+.br
+* Introduction to Regular Expressions
+.br
+  http://www.regular-expressions.info/quickstart.html
+.IP \(bu
+A '^' at the beginning of an expression means it must match at the start of
+a name or number.
+.IP \(bu
+A "^1?" at the beginning makes a leading 1 optional.
+This is only useful for US/Canadian numbers.
+.IP \(bu
+If an expression is longer than the name or number field it will never match.
+.SH EXAMPLES
+Blacklist the unassigned 999 area code with and without a leading 1,
+but allow a call from 999-555-1212:
+.RS 0
+	ncidd.blacklist: ^1?999
+.br
+	ncidd.whitelist: 9995551212
+.RE
+.PP
+.br
+Whitelist expression for an optional leading 1 (US/Canada only):
+.RS 0
+	^1?9995551212
+.RE
+.SH SEE ALSO
+ncidd.8, ncidd.conf.5, ncidd.alias.5, ncidd.blacklist.5

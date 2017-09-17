@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID client using the MySQL Module
+Documentation=man:ncid-mysql(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-mysql.pid
+ExecStart=/usr/bin/ncid --no-gui --pidfile /run/ncid-mysql.pid -P ncid-mysql
+
+[Install]
+WantedBy=multi-user.target

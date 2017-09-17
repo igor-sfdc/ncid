@@ -1,0 +1,258 @@
+===============================================================
+These are the test programs and test files for the NCID server,
+gateways, clients, and client output modules.
+===============================================================
+
+    If you haven't built up ncidd(server) and ncid(client),
+    do it now to be able to perform the following tests.
+
+aliasfile:
+    Used to view the cidalias array in the server.  Called
+    from the ncidd-noerrors.conf file.
+
+aliasfile.errors:
+    Various alias file errors: ncidd -DA aliasfile.errors
+
+largecall.log:
+    This call logfile contains 3006 similar lines.  It is used to detect
+    any dropping of characters by the client or server.
+
+large.blacklist:
+    This blacklist file contains approximately 12,000 lines. It is used
+    to detect performance issues with the ncidd server.
+    
+ncidd-errors.conf:
+    Server configuration file with errors: ncidd -DC ncidd-errors.conf
+
+ncidd-noerrors.conf:
+    Server configuration file with no errors.  It reads the aliasfile.
+    ncidd -Dv5 -C ncidd-noerrors.conf
+
+test-client:
+test-client.data:
+test-client-screenshot.data:
+    The program test-client is an NCID server emulator.  It is used to
+    test a client. The test server uses port 3334.  It sends one or more
+    lines from the test-client.data file with each press of <ENTER>.
+    The last <ENTER> will terminate the server.  Blank lines are used to
+    terminate a send initiated by <ENTER>.
+
+    Change to the ./test directory before issuing the commands below.
+    
+    Usage: ./test-client [data_file]
+    Default Data File: test-client.data
+    Alternate File:    test-client-screenshot.data:
+
+    To test a client:
+	    Start test-client (it will give instructions and send a 200 line)
+	    Start the NCID client on port 3334 (it will receive the 200 line)
+	    Press <ENTER> to send 1 MSG line
+	    Press <ENTER> to send 5 CIDLOG lines
+	    Press <ENTER> to send 1 MSG line
+	    Press <ENTER> to send a CID line (there are 2 CID lines)
+	    Press <ENTER> to send various combinations of CID and CIDINFO lines
+                      (there a 8 CID and CIDINFO line combinations)
+	    Press <ENTER> to send a CID line with a specific number of digits
+                      (there are 7 CID lines)
+	    Press <ENTER> to send 1 CIDINFO RING line
+	    Press <ENTER> to end test-client
+
+    NOTE: test-client and test-client.data must be in the same directory
+
+testlog:
+testlog-display:
+    Testlog contains test data that is sent to clients at start.
+    It is used as the cidcall.log file.
+
+    Testlog-display is how ncid will display testlog.
+    This assumes the "1" digit is not configured to display.
+    This also assumes the display format is for the US.
+
+test-module.data:
+    A test file for ncid output modules, like ncid-page and ncid-speak.
+    To test ncid-page: 
+       cat ./test/test-module.data | /usr/local/share/ncid/ncid-page
+    
+    Output modules can be tested buy supplying a minimum of 6 lines of
+    input. The input lines are not error checked.  They are:
+        Date
+        Time
+        Number
+        Name
+        Line Label
+        Call type
+
+test-server:
+    This program is used to test ncidd or a client.  The server is
+    optioned for verbose level 3, port 3334 and either debug mode
+    or Mac OSX launchd mode.  The test server can be run at the same
+    time as one in actual use.
+
+    The test-server script creates empty T-data.log and T-alias files
+    in the current directory.  It also creates T-conf, T-blacklist,
+    and T-whitelist files with test data.  When ncidd is launched, it
+    creates T-logfile, T-pid, T-call.log files and will populate them
+    with data.  Most T-* files can be modified for test-client after
+    they have been created.  The T-* files can be deleted by hand or
+    "make clobber" when testing is finished.
+
+    Change to the ./test directory before issuing the commands below.
+    
+    Usage: test-server {<path>/ncidd} [--osx-launchd] [<ncidd_option(s)>]
+           no options - Caller ID from a modem
+                  -n1 - Caller ID from a serial device (must be first option)
+                  -N1 - Caller ID from a gateway
+
+    Examples: # Run test server in modem mode with verbose level 4:
+              # must use with test-modem-calls
+              ./test-server ../server/ncidd -v4
+
+              # Run test server with a Linux USB modem
+              ./test-server ../server/ncidd -t /dev/ttyACM0
+
+              # Run test-server in launchd mode and noserial (gateway mode)
+              ./test-server ../server/ncidd --osx-launchd -N1
+
+test-modem-calls:
+test-modem-calls.data:
+    This program emulates the output of a modem.  It is usually
+    run at the same time as test-server and ncid. It requires the
+    program 'socat' to be installed because it creates a pseudo-tty
+    that will act like a modem to ncidd.
+    
+    Change to the ./test directory before issuing the commands below.
+
+    To test a server or client, start all three programs in 3 different
+    terminal windows in this order:
+        ./test-modem-calls
+        ./test-server ../server/ncidd
+        ../client/ncid 3334
+
+    Press <ENTER> to send the first line
+    Press <ENTER> to keep sending lines until program terminates
+
+    NOTE: test-modem-calls and test-modem-calls.data must be in the
+          same directory
+
+test-device-calls:
+test-device-calls.data:
+    This program emulates the output of a non-modem serial device. 
+    Use this to simulate devices like the NetCallerID or multi-line
+    POTS devices like those available from the company TCI. 
+    It will also emulate serial Whozz Calling devices that have the 
+    output format (usually switch 7) set to ON for TCI.
+    
+    This program is usually run at the same time as test-server and ncid. 
+    It requires the program 'socat' to be installed because it creates a 
+    pseudo-tty that will act like a serial device to ncidd.
+    
+    Change to the ./test directory before issuing the commands below.
+
+    To test a server or client, start all three programs in 3 different
+    terminal windows in this order:
+        ./test-device-calls
+        ./test-server ../server/ncidd -t ./device0 -n1 -H0
+        ../client/ncid 3334
+
+    Press <ENTER> to send the first line
+    Press <ENTER> to keep sending lines until program terminates
+
+    NOTE: test-modem-calls and test-modem-calls.data must be in the
+          same directory
+
+test-gw-calls:
+test-gw-calls.data:
+test-gw-calls-screenshot.data:
+    This program emulates the generic output from a gateway. Its primary
+    use is to test the ncidd server gateway processing logic and is not
+    specific to a particular gateway device. It is usually run at the
+    same time as test-server and ncid.
+    
+    Change to the ./test directory before issuing the commands below.
+    
+    Usage: ./test-gw-calls [data_file]
+    Default Data File: test-gw-calls.data
+    Alternate File:    test-gw-calls-screenshot.data
+
+    To test a server or client, start all three programs in 3 different
+    terminal windows in this order:
+        ./test-server ../server/ncidd -N1
+        ./test-gw-calls
+        ../client/ncid 3334
+
+    Press <ENTER> to send the first line
+    Press <ENTER> to keep sending lines until program terminates
+
+    NOTE: test-gw-calls and test-gw-calls.data must be in the same directory
+
+test-obi-gw:
+test-obi-gw.data:
+    This program emulates the output from an Obihai device. It is 
+    usually run at the same time as test-server and ncid. It requires
+    the test-obi-gw.data file be created by running obi2ncid with the
+    --rawfile-append or --rawfile-overwrite options.
+    
+    Change to the ./test directory before issuing the commands below.
+
+    This program has a few more options than most of the test scripts.
+    For more info, see the manual page for test-obi-gw.
+    
+    Typical usage: ./test-obi-gw  [data_file]
+               or: ./test-obi-gw  -n [data_file]
+    Default Data File: test-obi-gw.data
+               
+    Specify the -n (--non-stop) option to send the entire test data file
+    at once. Otherwise, you'll need to press <ENTER> to send one line at
+    a time.
+               
+    To test a server or client, start all four programs in 4 different
+    terminal windows in this order:
+        ./test-server ../server/ncidd -N1
+        ./test-obi-gw
+        ../client/ncid 3334
+        ../gateway/obi2ncid -n localhost:3334 -o 4339 -Dv5
+
+    Press <ENTER> to send the first line
+    Press <ENTER> to keep sending lines until program terminates
+
+    NOTE: test-obi-gw and test-obi-gw.data must be in the same directory
+    
+test-rn2ncid:
+test-rn2ncid.data:
+    This program emulates the output from the rn2ncid (Remote Notifier
+    for Android) gateway.  It is usually run at the same time as 
+    test-server and ncid.
+    
+    Change to the ./test directory before issuing the commands below.
+    
+    Usage: ./test-rn2ncid [data_file]
+    Default Data File: test-rn2ncid.data
+
+    To test a server or client, start all four programs in 4 different
+    terminal windows in this order:
+        ./test-server ../server/ncidd -N1
+        ./test-rn2ncid
+        ../client/ncid 3334
+        ../gateway/rn2ncid -n localhost:3334 -c 10600 -D
+
+    Press <ENTER> to send the first line
+    Press <ENTER> to keep sending lines until program terminates
+
+    NOTE: test-rn2ncid and test-rn2ncid.data must be in the same directory
+    
+test-sip-gw:
+test-sip-gw.data:
+    This program emulates a SIP server for testing a SIP gateway.
+    
+    Change to the ./test directory before issuing the commands below.
+    
+    Usage: ./test-sip-gw [data_file]
+    Default Data File: test-sip-gw.data
+
+    To test a SIP gateway:
+        Start test-sip2ncid (it will give instructions for sip2ncid)
+        Start the SIP gateway on port 3334
+        Press <ENTER> to send the first SIP packet
+        Press <ENTER> to keep sending packets until program terminates
+
+    NOTE: test-sip-gw and test-sip-gw.data must be in the same directory

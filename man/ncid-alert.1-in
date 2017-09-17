@@ -1,0 +1,77 @@
+.\" %W% %G%
+.TH NCID-ALERT 1
+.SH NAME
+.B ncid-alert
+- send NCID call or message desktop notifications
+.SH SYNOPSIS
+.B
+ncid
+--no-gui --program
+.B ncid-alert
+.br
+.B ncid
+--program
+.B ncid-alert
+.SH DESCRIPTION
+The
+.B ncid-alert
+output module sends NCID call and message desktop notifications to the
+user via a notification daemon from the command line.  It displays the
+Caller ID or message in the desktop noticifation.
+.P
+If you want ncid in GUI mode along with ncid-alert:
+.RS
+\fBncid\fR --program \fBncid-alert\fR
+.RE
+.SH CONFIGURATION
+The
+.B ncid-alert
+output module is configured in \fIncid-alert.conf\fR.
+.TP 10
+.I alert_types
+This sets the NCID message types \fBncid-alert\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: alert_types="CID OUT WID HUP BLK MSG PID NOT"
+.TP
+.I alert_send
+Alert uses the notify-send program
+
+Default: alert_send="/usr/bin/notify-send"
+.TP
+.I alert_timeout
+Notification appearance time in milliseconds.
+
+Default: alert_timeout=10000
+.TP
+.I alert_urgency=low
+Urgency level: low, normal, critical
+
+Default: alert_urgency=low
+.TP
+.I alert_icon
+Application icon - name or path.
+
+Default: alert_icon=call-start
+.SH REQUIREMENTS
+libnotify
+.br
+/usr/bin/notify-send
+.SH FILES
+/etc/ncid/conf.d/ncid-alert.conf
+.br
+/usr/share/ncid/modules/ncid-alert
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-speak.1,
+ncid-wakeup.1,
+ncid-yac.1

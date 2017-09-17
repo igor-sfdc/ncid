@@ -1,0 +1,48 @@
+---------------
+NCID for Fedora
+---------------
+
+Fedora systemd service files:
+
+  ncid-initmodem.service - service file for ncid using ncid-initmodem module
+  ncid-mysql.service     - service file for ncid using ncid-mysql module
+  ncid-mythtv.service    - service file for ncid using ncid-mythtv module
+  ncid-notify.service    - service file for ncid using ncid-notify module
+  ncid-page.service      - service file for ncid using ncid-page module
+  ncid-samba.service     - service file for ncid using ncid-samba module
+  ncid-speak.service     - service file for ncid using ncid-speak module
+  ncid-yac.service       - service file for ncid using ncid-yac module
+  ncid2ncid.service      - service file for ncid2ncid
+  obi2ncid.service       - service file for obi2ncid
+  rn2ncid.service        - service file for rn2ncid
+  sip2ncid.service       - service file for sip2ncid
+  wc2ncid.service        - service file for wc2ncid
+  yac2ncid.service       - service file for yac2ncid
+
+Fedora init service files (obsolete):
+
+  ncid-initmodem.init - service file for ncid with ncid-initmodem output module
+  ncid-mysql.init     - service file for ncid with ncid-mysql output module
+  ncid-mythtv.init    - service file for ncid with ncid-mythtv output module
+  ncid-page.init      - service file for ncid with ncid-page output module
+  ncid-samba.init     - service file for ncid with ncid-samba output module
+  ncid-speak.init     - service file for ncid with ncid-speak output module
+  ncid-yac.init       - service file for ncid with ncid-yac output module
+  ncid2ncid.init      - service file for ncid2ncid
+  obi2ncid.init       - service file for obi2ncid
+  rn2ncid.init        - service file for rn2ncid
+  sip2ncid.init       - service file for sip2ncid
+  wc2ncid.init        - service file for wc2ncid
+  yac2ncid.init       - service file for yac2ncid
+
+See Doc/INSTALL-Fedora for install instructions
+
+Makefile:
+
+    The Makefile is used to configure and install the service
+    scripts into /usr/lib/systemd/system
+
+    The Makefile can configure and install the obsolete init
+    scripts into the /etc/rc.d/init.d directory
+
+	prefix2 controls where to look for the service scripts

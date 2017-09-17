@@ -1,0 +1,28 @@
+The ncidtools are mostly perl scripts that run under Linux and UNIX.
+
+cidalias      - list alias definitions in the ncidd.alias,
+                ncidd.blacklist, and ncidd.whitelist files
+
+cidcall       - list calls in the cidcall.log file
+
+cidupdate     - Update aliases in the cidcall.log file. Typically
+                executed only by the NCID server for Client Jobs.
+
+ncidutil      - Manipulate entries in ncidd.alias, ncidd.blacklist, 
+                and ncidd.whitelist files.  Typically executed only 
+                by the NCID server for Client Jobs.
+
+ncid-yearlong - Archive the NCID monthly logs into a yearly log on
+                the 1st of each month.  Runs from a user crontab.
+
+wct           - interactively configure a Whozz Calling (WC)
+                Ethernet Link device
+
+The Makefile is used to create the runable scripts.
+
+    prefix  - default: /usr/local:            $(prefix)/bin and $(prefix)/sbin
+    prefix2 - default: prefix2 = $(prefix1):  $(prefix2)/etc
+    prefix3 - default: "":                    $(prefix)/var
+
+    prefix2 controls where to look for the config file,
+    (the default is /usr/local)

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# PROVIDE: yac2ncid
+# REQUIRE: NETWORKING ncidd
+
+#
+# Add the following lines to /etc/rc.conf to enable yac2ncid:
+#
+#yac2ncid_enable="YES"
+#
+yac2ncid_enable="${yac2ncid_enable-NO}"
+
+. /etc/rc.subr
+
+rcvar=`set_rcvar`
+extra_commands="condrestart"
+
+name=yac2ncid
+pidfile="/var/run/${name}.pid"
+
+command=/usr/local/bin/$name
+command_args="-p $pidfile &"
+procname=/usr/bin/nc
+
+load_rc_config $name
+
+case $1 in
+    condrestart)
+        run_rc_command "stop" && run_rc_command "start"
+        ;;
+    *)
+        run_rc_command "$1"
+        ;;
+esac

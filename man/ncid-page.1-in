@@ -1,0 +1,149 @@
+.\" %W% %G%
+.TH NCID-PAGE 1
+.SH NAME
+.B ncid-page
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-page
+.SH DESCRIPTION
+The
+.B ncid-page
+output module sends the Caller ID or message to a cell phone, pager,
+or any other email address.  It can have multiple email addresses.
+.PP
+The module always sends the information as soon as the Caller ID is
+received.
+
+The \fIncid\fR client can be configured  in \fIncid.conf\fR to wait
+until a specific number of rings before sending the Caller ID to a
+module when using a modem that indicates RING, or it can send the
+Caller ID if the call was unanswered or at the completion of the
+call when using a SIP gateway. Do this by creating an 
+\fIncid_page\fR variable in \fIncid.conf\fR.
+.PP
+The module requires \fIPageTo\fR in \fIncid-page.conf\fR to be set
+to the SMS gateway for your cell phone carrier.
+.TP 10
+List of SMS gateways:
+https://en.wikipedia.org/wiki/List_of_SMS_gateways
+.SH CONFIGURATION
+The
+.B ncid-page
+output module is configured in \fIncid-page.conf\fR.
+.TP 10
+.I PageTypes
+This sets the NCID message types \fBncid-page\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: PageTypes="CID MSG"
+
+.RS 1.0in
+.TP
+IMPORTANT
+If \fIMSG\fR is added to PageTypes and you are using the rn2ncid
+gateway, you must configure \fIreject\fR in the rn2ncid.conf file
+to avoid sending the message back to NCID.
+.RE
+.TP
+.I PageTo
+Required. Must be set to either the SMS gateway for your cell 
+phone carrier or an email address.
+
+Default: PageTo=""
+.TP
+.I PageFrom
+This variable has no effect unless root runs \fBncid-page\fR.
+If set, it allows root to run \fBncid-page\fR as another user.
+
+Default: PageFrom=""
+.TP
+.I PageMail
+This variable sets the mail program to use in sending NCID messages.
+
+Default: PageMail="mail"
+.TP
+.I PageOpt
+This variable, if set provides a Subject line for sending email.
+.PD 0
+.RS 1.0in
+.TP 17
+PageOpt=""
+no subject line
+.TP
+PageOpt="NMBR"
+calling number subject line
+.TP
+PageOpt="NAME"
+calling name subject line
+.TP
+PageOpt="NONA"
+calling number and name subject line
+.TP
+PageOpt="NANO"
+calling name and number subject line
+.RS 0
+.PD
+.PP
+Default: PageOpt=""
+.SH REQUIREMENTS
+.TP
+mailx
+Can be another mail program with an optional subject line
+
+.TP
+MTA
+See https://en.wikipedia.org/wiki/Message_transfer_agent
+.br
+Suggest a simple MTA like \fBexim\fR to send and receive mail.
+.br
+The \fBsendmail\fR MTA is very good but hard to configure.
+.br
+Use a SMTP program like \fBSSMTP\fR if only need to send mail.
+
+You can use ssmtp or exim to handle mail on the Raspberry Pi.
+.br
+ssmtp: https://rpi.tnet.com/project/faqs/smtp
+.br
+exim: http://www.sbprojects.com/projects/raspberrypi/exim4.php
+
+To use google for outgoing mail, you need 2-step verification:
+.br
+https://support.google.com/accounts/answer/180744
+.RE
+.SH EXAMPLES
+If you want to call a module on a certain ring count, you need
+to configure the module to set ring in the ncid.conf file.
+.PP
+.RS 0
+ncid command line options to call ncid-page at ring number 4
+
+    ncid --no-gui --program ncid-page --ring 4
+
+ncid.conf line and ncid command line to call ncid-page if no answer
+
+    uncomment the ncid_page line in ncid.conf and change 4 to -1
+    set ncid_page {set Ring -1}
+
+    ncid command to call ncid-page if no answer
+    ncid --no-gui --program  ncid-page
+.RE
+.PP
+.SH FILES
+/etc/ncid/conf.d/ncid-page.conf
+.br
+/usr/share/ncid/modules/ncid-page
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid.conf.5,
+ncid-alert.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-samba.1,
+ncid-skel.1,
+ncid-speak.1,
+ncid-wakeup.1,
+ncid-yac.1

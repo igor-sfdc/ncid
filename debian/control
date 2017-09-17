@@ -1,0 +1,76 @@
+Source: ncid
+Section: net
+Priority: optional
+Maintainer: John L. Chmielewski <jlc@users.sourceforge.net>
+Build-Depends: libpcap0.8-dev
+Standards-Version: 3.7.2
+
+Package: ncid
+Architecture: any
+Depends: ${shlibs:Depends}, perl 
+Description: NCID (Network Caller ID) server and command line tools
+ NCID is Caller ID (CID) distributed over a network to a variety of
+ devices and computers. NCID includes a server, gateways, a client,
+ client output modules and command line tools.
+ .
+ The NCID server obtains the Caller ID information from a modem,
+ a serial device, and from gateways.  It is then sent to all
+ connected clients.
+ .
+ The servers are in the ncid-servers package.
+ The client is in the ncid-client package.
+
+Package: ncid-gateways
+Architecture: any
+Depends: ${shlibs:Depends}, perl, libconfig-simple-perl
+Description: NCID (Network Caller ID) gateways
+ The NCID gateways provide the Caller ID (CID) information from calls
+ to the server.
+
+Package: ncid-client
+Architecture: all
+Depends: ${shlibs:Depends}, tcl, tk, curl
+Recommends: mailx
+Description: NCID (Network Caller ID) client and base output modules
+ .
+ The NCID client obtains the Caller ID from the NCID server and normally
+ displays it in a GUI window.  It can also display the Called ID in a
+ terminal window or, using a output module, format the output and send it
+ to another program.
+ .
+ This package contains the NCID client and output modules that are not
+ separate packages.
+
+Package: ncid-kpopup
+Architecture: all
+Depends: ${shlibs:Depends}, ncid-client, ncid-speak, kdelibs-bin, kde-baseapps, kmix
+Description: NCID (Network Caller ID) client KDE popup module
+ The NCID kpopup module displays caller ID information in a KDE popup window
+ and optionally speaks the number via voice synthesis.
+
+Package: ncid-mythtv
+Architecture: all
+Depends: ${shlibs:Depends}, ncid-client, mythtv-frontend
+Description: NCID (Network Caller ID) MythTV client module
+ The NCID MythTV module displays caller ID information using mythtvosd.
+
+Package: ncid-samba
+Architecture: all
+Depends: ${shlibs:Depends}, ncid-client, samba
+Description: NCID (Network Caller ID) samba client module
+ The NCID samba module sends caller ID information to a windows machine
+ as a popup.  This will not work if the messenger service is disabled.
+
+Package: ncid-speak
+Architecture: all
+Depends: ${shlibs:Depends}, ncid-client, festival
+Description: NCID (Network Caller ID) speak client module
+ The NCID speak module announces Caller Id information verbally, using
+ the Festival text-to-speech voice synthesis system.
+
+Package: ncid-mysql
+Architecture: all
+Depends: ${shlibs:Depends}, ncid-client, mysql
+Description: NCID (Network Caller ID) mysql client module
+ The NCID mysql module inputs Caller ID information into a SQL database
+ using either MariaDB or a MySQL database.

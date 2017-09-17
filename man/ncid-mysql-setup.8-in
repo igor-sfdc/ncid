@@ -1,0 +1,70 @@
+.\" %W% %G%
+.TH NCID-MYSQL-SETUP 1
+.SH NAME
+.B ncid-mysql-setup
+.SH SYNOPSIS
+.B ncid-setup mysql <authentication>
+.SH DESCRIPTION
+The
+.B ncid-mysql-setup
+script initializes the MySQL or MariaDB database, table and user 
+that is required for the
+.B ncid-mysql
+output module. All existing data will be erased.
+.PP
+The
+.B ncid-mysql-setup
+script uses the 
+.B ncid-mysql.conf
+file for the database configuration.
+.PP
+You do not execute
+.B ncid-mysql-setup 
+directly. Instead, you launch it as follows:
+.PP
+     ncid-setup mysql <authentication>
+
+.SH "ARGUMENTS"
+.TP
+<authentication>
+Represents a string of options passed directly to the
+'mysql' command line client (it is called 'mysql' for both MySQL and MariaDB).
+
+It must specify a user and password (if needed)
+that has MySQL or MariaDB administrative privileges.
+
+This is usually a MySQL or MariaDB user called 'root'. It is not the same
+as the 'root' login for this machine.
+
+Typically you would type:
+
+     ncid-setup mysql -u root
+.br
+or: 
+     ncid-setup mysql -u root -p<password>
+.br
+or:
+     ncid-setup mysql -u root --password=<password>
+
+If a password is required for the administrative login, you must specify it
+on the command line.
+
+.SH REQUIREMENTS
+Network access to a MySQL or MariaDB database server.
+.PP
+The MySQL or MariaDB command line client 'mysql'.
+.PP
+Configured ncid-mysql.conf file.
+.SH FILES
+/etc/ncid/conf.d/ncid-mysql.conf
+.br
+/usr/share/ncid/setup/ncid-mysql-setup
+.br
+/usr/bin/ncid-setup
+
+.SH SEE ALSO
+ncid-mysql.1,
+ncid-setup.1,
+ncidd.8,
+ncid-modules.7,
+ncid.1

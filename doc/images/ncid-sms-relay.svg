@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="825"
+   height="1190"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="method-draw-image.svg"
+   inkscape:export-filename="W:\ncidwip\doc\images\method-draw-image.png"
+   inkscape:export-xdpi="40.619999"
+   inkscape:export-ydpi="40.619999">
+  <metadata
+     id="metadata273">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="947"
+     id="namedview271"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.5"
+     inkscape:cx="440.34879"
+     inkscape:cy="574.19635"
+     inkscape:window-x="1671"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="ProcessOnG1239" />
+  <defs
+     id="defs4">
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1032">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1033"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1039">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1040"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="15.236068"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1087">
+      <path
+         d="m 2.236068,3.899033 12,-3.89903 0,7.79807 -12,-3.89904 z"
+         id="ProcessOnPath1088"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1094">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1095"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1101">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1102"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="15.236068"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1149">
+      <path
+         d="m 2.236068,3.899033 12,-3.89903 0,7.79807 -12,-3.89904 z"
+         id="ProcessOnPath1150"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1156">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1157"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1163">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1164"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="15.236068"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1186">
+      <path
+         d="m 2.236068,3.899033 12,-3.89903 0,7.79807 -12,-3.89904 z"
+         id="ProcessOnPath1187"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="15.236068"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1193">
+      <path
+         d="m 2.236068,3.899033 12,-3.89903 0,7.79807 -12,-3.89904 z"
+         id="ProcessOnPath1194"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+    <marker
+       refY="3.8990359"
+       refX="-1"
+       viewBox="-1.0 -1.3763819204711736 16.23606797749979 10.550836550532098"
+       markerHeight="10.550837"
+       markerWidth="16.236069"
+       orient="auto"
+       markerUnits="userSpaceOnUse"
+       id="ProcessOnMarker1220">
+      <path
+         d="M 12,3.89904 0,7.79807 0,0 12,3.89904 Z"
+         id="ProcessOnPath1221"
+         inkscape:connector-curvature="0"
+         style="fill:#323232;stroke:#323232;stroke-width:2" />
+    </marker>
+  </defs>
+  <rect
+     style="fill:#ffffff"
+     x="0"
+     y="0"
+     width="825"
+     height="1190"
+     id="canvas_background" />
+  <path
+     style="fill:none"
+     inkscape:connector-curvature="0"
+     id="ProcessOnPath1003"
+     d="m 2.488247,59.256536 817.866633,0 0,1079.499964 -817.866633,0 0,-1079.499964 z" />
+  <g
+     transform="translate(272,341)"
+     id="ProcessOnG1007">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1008"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1009">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1010"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Cellular</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1011"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Network</text>
+    </g>
+  </g>
+  <g
+     transform="translate(438,341)"
+     id="ProcessOnG1012">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1013"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1014">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1015"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1016"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Android</text>
+    </g>
+  </g>
+  <g
+     transform="translate(613,341)"
+     id="ProcessOnG1017">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1018"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1019">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1020"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1021"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Server</text>
+    </g>
+  </g>
+  <g
+     transform="translate(789,341)"
+     id="ProcessOnG1022">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1023"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,26.875)"
+       id="ProcessOnG1024">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1025"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCIDpop</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1026"
+     transform="translate(1,1)">
+    <path
+       d="m 226.35484,359.42316 0,15.5 0,0 0,15.5"
+       id="ProcessOnPath1027"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1028"
+     transform="translate(1,1)">
+    <path
+       d="m 567.35484,360.42316 0,64.5 0,0 0,64.5"
+       id="ProcessOnPath1029"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1030"
+     transform="translate(1,1)">
+    <path
+       d="m 390.35484,439.42316 87.08333,0 0,0 71.84727,0"
+       id="ProcessOnPath1031"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1032)" />
+    <g
+       transform="translate(564.4653,481.875)"
+       id="ProcessOnG1034">
+      <path
+         d="m -146.64515,-50.576838 103.999995,0 0,16.25 -103.999995,0 0,-16.25 z"
+         id="ProcessOnPath1035"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1036"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*IN</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1037"
+     transform="translate(1,1)">
+    <path
+       d="m 568.35484,468.42316 86.41667,0 0,0 71.1806,0"
+       id="ProcessOnPath1038"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1039)" />
+    <g
+       transform="translate(741.79863,510.875)"
+       id="ProcessOnG1041">
+      <path
+         d="m -146.64515,-50.576838 103.999995,0 0,16.25 -103.999995,0 0,-16.25 z"
+         id="ProcessOnPath1042"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1043"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*IN</text>
+    </g>
+  </g>
+  <g
+     transform="translate(302,541)"
+     id="ProcessOnG1044">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1045"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1046"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1047"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(643,541)"
+     id="ProcessOnG1048">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1049"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1050"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1051"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(819,541)"
+     id="ProcessOnG1052">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1053"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1054"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1055"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(468,541)"
+     id="ProcessOnG1056">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1057"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1058"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1059"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(278,646)"
+     id="ProcessOnG1060">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1061"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1062">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1063"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Cellular</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1064"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Network</text>
+    </g>
+  </g>
+  <g
+     transform="translate(444,646)"
+     id="ProcessOnG1065">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1066"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1067">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1068"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1069"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Android</text>
+    </g>
+  </g>
+  <g
+     transform="translate(619,646)"
+     id="ProcessOnG1070">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1071"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1072">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1073"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1074"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Server</text>
+    </g>
+  </g>
+  <g
+     transform="translate(795,646)"
+     id="ProcessOnG1075">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1076"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,26.875)"
+       id="ProcessOnG1077">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1078"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCIDpop</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1079"
+     transform="translate(1,1)">
+    <path
+       d="m 232.35484,664.42316 0,65 0,0 0,65"
+       id="ProcessOnPath1080"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1081"
+     transform="translate(1,1)">
+    <path
+       d="m 396.35484,665.42316 0,64.5 2,0 0,64.5"
+       id="ProcessOnPath1082"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1083"
+     transform="translate(1,1)">
+    <path
+       d="m 573.35484,665.42316 0,64.5 0,0 0,64.5"
+       id="ProcessOnPath1084"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1085"
+     transform="translate(1,1)">
+    <path
+       d="m 247.59091,714.42316 57.76393,0 0,-1 73,0"
+       id="ProcessOnPath1086"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-start:url(#ProcessOnMarker1087)" />
+    <g
+       transform="translate(407.11803,755.875)"
+       id="ProcessOnG1089">
+      <path
+         d="m -109.14516,-50.576838 29.000005,0 0,16.25 -29.000005,0 0,-16.25 z"
+         id="ProcessOnPath1090"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1091"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">SMS</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1092"
+     transform="translate(1,1)">
+    <path
+       d="m 396.35484,744.42316 88.5,0 0,0 73.26394,0"
+       id="ProcessOnPath1093"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1094)" />
+    <g
+       transform="translate(571.88197,786.875)"
+       id="ProcessOnG1096">
+      <path
+         d="m -153.64515,-50.576838 117.999995,0 0,16.25 -117.999995,0 0,-16.25 z"
+         id="ProcessOnPath1097"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1098"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*OUT</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1099"
+     transform="translate(1,1)">
+    <path
+       d="m 574.35484,773.42316 86.92857,0 0,0 71.6925,0"
+       id="ProcessOnPath1100"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1101)" />
+    <g
+       transform="translate(748.31054,815.875)"
+       id="ProcessOnG1103">
+      <path
+         d="m -153.64515,-50.576838 117.999995,0 0,16.25 -117.999995,0 0,-16.25 z"
+         id="ProcessOnPath1104"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1105"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*OUT</text>
+    </g>
+  </g>
+  <g
+     transform="translate(308,846)"
+     id="ProcessOnG1106">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1107"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1108"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1109"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(649,846)"
+     id="ProcessOnG1110">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1111"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1112"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1113"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(825,846)"
+     id="ProcessOnG1114">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1115"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1116"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1117"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(474,846)"
+     id="ProcessOnG1118">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1119"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1120"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1121"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(278,926)"
+     id="ProcessOnG1122">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1123"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1124">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1125"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Cellular</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1126"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Network</text>
+    </g>
+  </g>
+  <g
+     transform="translate(444,926)"
+     id="ProcessOnG1127">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1128"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1129">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1130"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1131"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Android</text>
+    </g>
+  </g>
+  <g
+     transform="translate(619,926)"
+     id="ProcessOnG1132">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1133"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,18.75)"
+       id="ProcessOnG1134">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1135"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCID</text>
+      <text
+         y="-21.001839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1136"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Server</text>
+    </g>
+  </g>
+  <g
+     transform="translate(795,926)"
+     id="ProcessOnG1137">
+    <path
+       d="m -94.645155,-50.576838 100,0 0,70 -100,0 0,-70 z"
+       id="ProcessOnPath1138"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:2" />
+    <g
+       transform="translate(10,26.875)"
+       id="ProcessOnG1139">
+      <text
+         y="-37.251839"
+         x="-54.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1140"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCIDpop</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1141"
+     transform="translate(1,1)">
+    <path
+       d="m 232.35484,944.42316 0,65.00004 0,0 0,65"
+       id="ProcessOnPath1142"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1143"
+     transform="translate(1,1)">
+    <path
+       d="m 573.35484,945.42316 0,64.50004 0,0 0,64.5"
+       id="ProcessOnPath1144"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1145"
+     transform="translate(1,1)">
+    <path
+       d="m 748.35484,945.42316 0,3 1,0 0,3"
+       id="ProcessOnPath1146"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1147"
+     transform="translate(1,1)">
+    <path
+       d="m 589.59091,974.42316 71.76393,0 0,0 87,0"
+       id="ProcessOnPath1148"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-start:url(#ProcessOnMarker1149)" />
+    <g
+       transform="translate(763.61803,1016.875)"
+       id="ProcessOnG1151">
+      <path
+         d="m -108.64516,-50.576838 28.000005,0 0,16.25 -28.000005,0 0,-16.25 z"
+         id="ProcessOnPath1152"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1153"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">RLY:</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1154"
+     transform="translate(1,1)">
+    <path
+       d="m 395.35484,1036.4232 87.5,0 0,0 72.26394,0"
+       id="ProcessOnPath1155"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1156)" />
+    <g
+       transform="translate(569.88197,1078.875)"
+       id="ProcessOnG1158">
+      <path
+         d="m -153.64515,-50.576838 117.999995,0 0,16.25 -117.999995,0 0,-16.25 z"
+         id="ProcessOnPath1159"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1160"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*OUT</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1161"
+     transform="translate(1,1)">
+    <path
+       d="m 574.35484,1061.7565 85.91667,0 0,0 70.6806,0"
+       id="ProcessOnPath1162"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1163)" />
+    <g
+       transform="translate(747.29863,1104.2083)"
+       id="ProcessOnG1165">
+      <path
+         d="m -153.64515,-50.576838 117.999995,0 0,16.25 -117.999995,0 0,-16.25 z"
+         id="ProcessOnPath1166"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1167"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">NOT: MTYPE*OUT</text>
+    </g>
+  </g>
+  <g
+     transform="translate(308,1126)"
+     id="ProcessOnG1168">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1169"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1170"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1171"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(649,1126)"
+     id="ProcessOnG1172">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1173"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1174"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1175"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(825,1126)"
+     id="ProcessOnG1176">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1177"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1178"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1179"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(474,1126)"
+     id="ProcessOnG1180">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1181"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1182"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1183"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     id="ProcessOnG1184"
+     transform="translate(1,1)">
+    <path
+       d="m 414.59091,1005.4232 71.76393,0 0,0 87.00001,0"
+       id="ProcessOnPath1185"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-start:url(#ProcessOnMarker1186)" />
+    <g
+       transform="translate(588.61803,1047.875)"
+       id="ProcessOnG1188">
+      <path
+         d="m -108.64516,-50.576838 28.000005,0 0,16.25 -28.000005,0 0,-16.25 z"
+         id="ProcessOnPath1189"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="bold"
+         id="ProcessOnText1190"
+         style="font-style:normal;font-weight:bold;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#ff0000">RLY:</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1191"
+     transform="translate(1,1)">
+    <path
+       d="m 250.59091,1019.4232 65.26393,0 0,0 80.5,0"
+       id="ProcessOnPath1192"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-start:url(#ProcessOnMarker1193)" />
+    <g
+       transform="translate(418.11803,1061.875)"
+       id="ProcessOnG1195">
+      <path
+         d="m -109.14516,-50.576838 29.000005,0 0,16.25 -29.000005,0 0,-16.25 z"
+         id="ProcessOnPath1196"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1197"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">SMS</text>
+    </g>
+  </g>
+  <g
+     transform="translate(117.23953,356.0062)"
+     id="ProcessOnG1198">
+    <path
+       d="m -94.645155,-50.576838 160,0 0,40 -160,0 0,-40 z"
+       id="ProcessOnPath1199"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       transform="translate(0,-4.375)"
+       id="ProcessOnG1200">
+      <text
+         y="-37.251839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1201"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Incoming SMS</text>
+      <text
+         y="-21.001839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1202"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">to</text>
+      <text
+         y="-4.7518382"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1203"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Android Smartphone</text>
+    </g>
+  </g>
+  <g
+     transform="translate(117.13337,660.86506)"
+     id="ProcessOnG1204">
+    <path
+       d="m -94.645155,-50.576838 160,0 0,40 -160,0 0,-40 z"
+       id="ProcessOnPath1205"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       transform="translate(0,-4.375)"
+       id="ProcessOnG1206">
+      <text
+         y="-37.251839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1207"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Outgoing SMS</text>
+      <text
+         y="-21.001839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1208"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">from</text>
+      <text
+         y="-4.7518382"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1209"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Android Smartphone</text>
+    </g>
+  </g>
+  <g
+     transform="translate(117.44481,940.44898)"
+     id="ProcessOnG1210">
+    <path
+       d="m -94.645155,-50.576838 160,0 0,40 -160,0 0,-40 z"
+       id="ProcessOnPath1211"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       transform="translate(0,-4.375)"
+       id="ProcessOnG1212">
+      <text
+         y="-37.251839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1213"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">Outgoing SMS</text>
+      <text
+         y="-21.001839"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1214"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">from</text>
+      <text
+         y="-4.7518382"
+         x="-14.645155"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1215"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">NCIDpop</text>
+    </g>
+  </g>
+  <g
+     transform="translate(302,442)"
+     id="ProcessOnG1216">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1217"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     id="ProcessOnG1218"
+     transform="translate(1,1)">
+    <path
+       d="m 246.35484,410.42316 70.5,0 0,-1 55.26394,0"
+       id="ProcessOnPath1219"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2;marker-end:url(#ProcessOnMarker1220)" />
+    <g
+       transform="translate(404.38197,452.875)"
+       id="ProcessOnG1222">
+      <path
+         d="m -109.14516,-50.576838 29.000005,0 0,16.25 -29.000005,0 0,-16.25 z"
+         id="ProcessOnPath1223"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <text
+         y="-37.251839"
+         x="-94.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1224"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">SMS</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1225"
+     transform="translate(1,1)">
+    <path
+       d="m 226.35484,430.42316 0,29.5 0,0 0,29.5"
+       id="ProcessOnPath1226"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     transform="translate(474,745)"
+     id="ProcessOnG1227">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1228"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(825,1003)"
+     id="ProcessOnG1229">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1230"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     id="ProcessOnG1231"
+     transform="translate(1,1)">
+    <path
+       d="m 749.35484,991.42316 0,41.50004 0,0 0,41.5"
+       id="ProcessOnPath1232"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1233"
+     transform="translate(1,1)">
+    <path
+       d="m 397.35484,946.08983 0,64.99997 0,0 0,65"
+       id="ProcessOnPath1234"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1235"
+     transform="translate(1,1)">
+    <path
+       d="m 390.68817,360.42316 0,64.5 0,0 0,64.5"
+       id="ProcessOnPath1236"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     id="ProcessOnG1237"
+     transform="translate(1,1)">
+    <path
+       d="m 744.02152,358.75649 0,64.5 0,0 0,64.5"
+       id="ProcessOnPath1238"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+  <g
+     transform="matrix(3.0555556,0,0,1,371.69353,144)"
+     id="ProcessOnG1239">
+    <path
+       d="m -94.645155,-50.576838 215.999995,0 0,53 -215.999995,0 0,-53 z"
+       id="ProcessOnPath1240"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       inkscape:groupmode="layer"
+       id="layer1"
+       inkscape:label="white background" />
+    <g
+       transform="translate(0,17.125)"
+       id="ProcessOnG1241">
+      <text
+         y="-24.636232"
+         x="24.643023"
+         font-size="15"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1242"
+         style="font-style:normal;font-weight:normal;font-size:27.67874527px;font-family:'微软雅黑';text-anchor:middle;fill:#000000"
+         transform="scale(0.5419321,1.8452496)">
+        <tspan
+           style="font-size:31.66877747px"
+           id="tspan5042">HOW NCIDpop RELAYS SMS</tspan>
+      </text>
+    </g>
+  </g>
+  <g
+     transform="translate(423.14515,222)"
+     id="ProcessOnG1243">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1244"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(544.14515,222)"
+     id="ProcessOnG1245">
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1246"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#323232;stroke-width:4" />
+    <path
+       d="m -84.645155,-30.576838 c 0,-13.33333 20,-13.33333 20,0 0,13.33333 -20,13.33333 -20,0 z"
+       id="ProcessOnPath1247"
+       inkscape:connector-curvature="0"
+       style="fill:#323232;stroke:#323232;stroke-width:0" />
+    <path
+       d="m -94.645155,-30.576838 c 0,-26.66667 40,-26.66667 40,0 0,26.66667 -40,26.66667 -40,0 z"
+       id="ProcessOnPath1248"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+  </g>
+  <g
+     transform="translate(419.64515,201)"
+     id="ProcessOnG1249">
+    <path
+       d="m -94.645155,-50.576838 47,0 0,21 -47,0 0,-21 z"
+       id="ProcessOnPath1250"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       transform="translate(0,2.375)"
+       id="ProcessOnG1251">
+      <text
+         y="-37.251839"
+         x="-71.145157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1252"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">START</text>
+    </g>
+  </g>
+  <g
+     transform="translate(541.14515,198.5)"
+     id="ProcessOnG1253">
+    <path
+       d="m -94.645155,-50.576838 46,0 0,26 -46,0 0,-26 z"
+       id="ProcessOnPath1254"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:0" />
+    <g
+       transform="translate(0,4.875)"
+       id="ProcessOnG1255">
+      <text
+         y="-37.251839"
+         x="-71.645157"
+         font-size="13"
+         font-style="normal"
+         font-weight="normal"
+         id="ProcessOnText1256"
+         style="font-style:normal;font-weight:normal;font-size:13px;font-family:'微软雅黑';text-anchor:middle;fill:#000000">END</text>
+    </g>
+  </g>
+  <g
+     id="ProcessOnG1257"
+     transform="translate(1,1)">
+    <path
+       d="m 749.06913,666.85173 0,64.5 0,0 0,64.5"
+       id="ProcessOnPath1258"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#323232;stroke-width:2" />
+  </g>
+</svg>

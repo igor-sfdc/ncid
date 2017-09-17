@@ -1,0 +1,57 @@
+.\" %W% %G%
+.TH OBI2NCID.CONF 5
+.SH NAME
+.B obi2ncid.conf
+- obi2ncid configuration file
+.SH DESCRIPTION
+The \fIobi2ncid.conf\fR file contains the configuration information for
+\fIobi2ncid\fR.
+.PP
+The \fIobi2ncid.conf\fR file understands 3 types of lines:
+.TP
+.B blank line
+ignored
+.TP
+.B comment line, beginning with '#'
+ignored
+.TP
+.B VARIABLE = VALUE
+VALUE can contain spaces if it is between quotes.
+.PP
+See \fIobi2ncid.conf\fR for all default values.
+.SH VARIABLES
+.TP
+.B verbose = \fIlevel\fR
+Level is in the range 1-9. Not all verbose levels are used.
+.TP
+.B ncidaddr = \fIhost address\fR
+The NCID server host address can be an IP address or a resolvable host name.
+.TP
+.B ncidport = \fIport\fR
+The NCID server port number.
+.TP
+.B delay = \fIseconds\fR
+If the connection to the NCID server is lost, this specifies the number
+of seconds between reconnection attempts.
+.TP
+.B obiport = \fIport\fR
+The NCID gateway listen port.
+.TP
+.B lineid = \fIstring\fR
+The telephone line identification
+.RE
+.SH EXAMPLES
+Set the NCID server IP address:
+.PP
+.RS 3
+ncidaddr = 192.168.1.20
+.RE
+.PP
+Set gateway listen port
+.PP
+.RS 3
+obiport = 4335
+.RE
+.RE
+.SH SEE ALSO
+obi2ncid.1

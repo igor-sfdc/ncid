@@ -1,0 +1,52 @@
+.\" %W% %G%
+.TH NCID-EMAIL2NCID-SETUP 1
+.SH NAME
+.B ncid-procmail-setup
+.SH SYNOPSIS
+.B ncid-setup email2ncid
+.SH DESCRIPTION
+The
+.B ncid-email2ncid-setup
+script is called by
+.B ncid-setup.
+It creates a \fI$HOME/.procmailrc\fR or appends the \fBemail2ncid\fR
+recipes needed to pipe a \fIemail\fR or \fIemail subject line\fR to
+a \fBemail2ncid\fR gateway.
+.PP
+The setup script creates a \fI$HOME/.procmailrc\fR file if it does not
+exist, or appemds the \fIemail2ncid\fR recipes to a \fI$HOME/.procmailrc\fR
+if it exists.
+.PP
+If the setup script
+detects a \fIemail2ncid\fR recipe in \fI$HOME/.procmailrc\fR,
+it will not take any action.
+.PP
+The recipe for sending a \fIemail subject line\fR to the \fBemail2ncid\fR
+gateway requires the user to edit it so detect the sender's email address.
+The recipe can be duplicated and edited for more than one email address.
+.SH REQUIREMENTS
+.TP 2
+.PD 0
+*
+A dynamic DNS service
+.TP
+*
+A Mail Transport Agent (MTA)
+.TP
+*
+Forward port 25 TCP/UDP to the computer running the MTA
+.TP
+*
+procmail
+.PD
+.PP
+See \fIncid2ncid setup\fR in the Gateways section of the NCID User Manual.
+.SH FILES
+/usr/bin/ncid-setup
+.br
+/usr/bin/email2ncid
+.br
+/usr/share/ncid/setup/ncid-email2ncid-setup
+.SH SEE ALSO
+ncid-setup.1,
+ncid-mysql-setup.8

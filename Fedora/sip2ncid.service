@@ -1,0 +1,13 @@
+[Unit]
+Description=SIP to NCID Gateway
+Documentation=man:sip2ncid(8)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=forking
+PIDFile=/run/sip2ncid.pid
+ExecStart=/usr/sbin/sip2ncid --pidfile /run/sip2ncid.pid
+
+[Install]
+WantedBy=multi-user.target

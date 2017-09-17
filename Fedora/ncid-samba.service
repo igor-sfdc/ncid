@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID client using the Samba Module
+Documentation=man:ncid-samba(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-samba.pid
+ExecStart=/usr/bin/ncid --no-gui -p /run/ncid-samba.pid -P ncid-samba
+
+[Install]
+WantedBy=multi-user.target

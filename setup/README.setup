@@ -1,0 +1,10 @@
+NCID setup scripts for gateways and client output modules that need them
+
+Script that either lists available setup scripts or calls a setup script
+    ncid-setup
+
+Setup script for the MySQL or MariaDB database for module ncid-mysql
+    ncid-mysql-setup.sh
+
+Setup script for the email2ncid gateway
+    ncid-email2ncid-setup.sh

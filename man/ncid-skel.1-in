@@ -1,0 +1,53 @@
+.\" %W% %G%
+.TH NCID-SKEL 1
+.SH NAME
+.B ncid-skel
+.SH SYNOPSIS
+ncid --no-gui --program
+.B ncid-skel
+.SH DESCRIPTION
+The
+.B ncid-skel
+output module is used as a template for writing
+a shell script output module.  All it does is send the Caller ID
+data to standard output.  This makes it useful for troubleshooting.
+.SH CONFIGURATION
+The
+.B ncid-skel
+output module is configured in \fIncid-skel.conf\fR.
+.TP 10
+.I PageSkel
+This sets the NCID message types \fBncid-skel\fR will send.  The
+different types are CID, OUT, HUP, BLK, WID, MSG, PID, and NOT.
+
+Default: skel_types="CID OUT HUP BLK MSG PID NOT"
+.TP
+.I skel_raw
+If set to 0, data will be shown as a single horizontal line.
+MSG and NOT are processed as with other clients.
+If set to 1, data will also be formatted vertically, one line
+per input received.
+
+Default: skel_raw=0
+.SH REQUIREMENTS
+run ncid-skel with ncid in a terminal window to view output:
+.br
+ncid --no-gui --program ncid-skel
+.SH FILES
+/etc/ncid/conf.d/ncid-skel.conf
+.br
+/usr/share/ncid/modules/ncid-skel
+.SH SEE ALSO
+ncidd.8,
+ncid-modules.7,
+ncid.1,
+ncid-alert.1,
+ncid-initmodem.1,
+ncid-kpopup.1,
+ncid-mythtv.1,
+ncid-notify.1,
+ncid-page.1,
+ncid-samba.1,
+ncid-speak.1,
+ncid-wakeup.1,
+ncid-yac.1

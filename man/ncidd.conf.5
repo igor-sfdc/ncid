@@ -1,0 +1,114 @@
+.\" %W% %G%
+.TH NCIDD.CONF 5
+.SH NAME
+.B ncidd.conf
+- ncidd configuration file
+.SH DESCRIPTION
+The \fIncidd.conf\fR file contains the configuration information for
+\fIncidd\fR, the Network Caller ID Server.
+.PP
+The \fIncidd.conf\fR file is used to set options.
+Options are set on a command line.
+A line is broken up into words.
+A word is either a string of non-blank characters, everything
+between double quotes, or an equal sign.
+.PP
+The \fIncidd.conf\fR file understands 4 types of lines:
+.TP
+.B blank line
+ignored
+.TP
+.B comment line, beginning with '#'
+ignored
+.TP
+.B command lines, beginning with 'send'
+send DATATYPE
+.RS 11
+where DATATYPE = cidlog or cidinfo
+.RE
+.PP
+.RS 7
+Most gateways and the command line option of ncid do not need the cidlog.
+They send a HELLO command at connect so the server does not send cidlog.
+.RE
+.TP
+.B command lines, beginning with 'set'
+set ITEM = VALUE [ITEM = VALUE] [...]
+.nh
+.RS 7
+.TP
+where ITEM =
+announce,
+audiofmt,
+blacklist,
+cidalias,
+cidlog,
+cidlogmax,
+cidnoname,
+datalog,
+gencid,
+hangup,
+hupmode,
+hupname,
+huprmd,
+ignore1,
+initcid,
+initstr,
+lineid,
+lockfile,
+nomodem,
+noserial,
+pickup,
+pidfile,
+port,
+regex,
+send,
+ttyclocal,
+ttyport,
+ttyspeed,
+verbose,
+whitelist
+.RE
+.hy
+.SH EXAMPLES
+Send the CID log to each client at connect:
+.RS 0
+	send cidlog
+.RE
+.PP
+Send the ring count, at each ring, to each client
+.RS 0
+	send cidinfo
+.RE
+.PP
+Set the modem for Caller ID:
+.RS 0
+	set initcid = "AT#CID=1"
+.RE
+.PP
+Set the modem port for a USB modem:
+.RS 0
+	set ttyport=/dev/ttyACM0
+.RE
+.PP
+Set the Telephone Line Indicator for the modem:
+.RS 0
+	set lineid = POTS
+.RE
+.PP
+Ignore modems that do not send Caller ID:
+.RS 0
+	set gencid = 0
+.RE
+.PP
+Automatically hangup on a call in the blacklist using a modem:
+.RS 0
+	set hangup = 1
+.RE
+.PP
+Only use Gateways to obtain the Caller ID:
+.RS 0
+	set noseriel = 1
+.RE
+.SH SEE ALSO
+ncidd.8 ncidd.alias.5 ncidd.blacklist.5

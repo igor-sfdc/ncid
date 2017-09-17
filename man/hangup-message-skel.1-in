@@ -1,0 +1,65 @@
+.\" %W% %G%
+.TH HANGUP-MESSAGE-SKEL 1
+.SH NAME
+.B hangup-message-skel
+.SH SYNOPSIS
+.B hangup-message-skel
+[-h]
+.br
+.B hangup-message-skel
+[-v] <string>
+
+where string is in this format:
+.br
+"*DATE*<mmddyyyy>*TIME*<hhmm>*LINE*<lineid>*NMBR*<number>*NAME*<name>*"
+.SH DESCRIPTION
+.B Hangup-message-skel
+is a template for leaving caller specific messages prior to terminating
+a call. Your script name should be the same name without \fI-skel\fR.
+Script names use the format: 
+.I hangup-<name>
+.PP
+The example below assumes you have copied \fIhangup-message-skel\fR to
+.I hangup-message
+for your customized version of hangup-message-skel.
+.PP
+Delete the caller and message lines that are in \fIhangup-message\fR.
+Add your own caller and message lines to \fIhangup-message\fR:
+.PP
+.RS
+caller[1]="<number>"  message[1]="<recording file>"
+.RE
+.PP
+You can add as many caller-message lines as you want.  You would need to
+record the message files if you want to leave a personalized message.
+.PP
+Use this format for a message name for your recording: <number>.rmd
+.PP
+Server hangup extensions are only executed by the server unless testing.
+.PP
+Execute your custom \fBhangup-message\fR in a terminal window by itself for testing.
+Only fields used in the script are needed for the input string.
+To test your custom hangup-message script with a number:
+.PP
+/usr/share/ncid/extensions/hangup-message -v "*NMBR*4075551212*"
+.SH OPTIONS
+.PD
+.TP
+.B -h
+show help message
+.TP
+.B -v
+turn on verbose and send additional data to STDOUT for troubleshooting
+.PD
+.SH FILES
+/usr/share/ncid/extensions/hangup-message-skel
+.br
+/usr/share/ncid/recording/*.rmd
+.br
+/etc/ncid/ncidd.whitelist
+.SH SEE ALSO
+ncidd.8,
+ncidd.whitelist.5,
+hangup-calls-skel.1,
+hangup-closed-skel.1,
+hangup-skel.1

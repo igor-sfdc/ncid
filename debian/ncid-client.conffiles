@@ -1,0 +1,6 @@
+/etc/ncid/ncid.conf
+/etc/ncid/conf.d/ncid-alert.conf
+/etc/ncid/conf.d/ncid-page.conf
+/etc/ncid/conf.d/ncid-notify.conf
+/etc/ncid/conf.d/ncid-skel.conf
+/etc/ncid/conf.d/ncid-yac.conf

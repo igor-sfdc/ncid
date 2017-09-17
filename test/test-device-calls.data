@@ -1,0 +1,23 @@
+
+# serial TCI device, or Whozz Calling device set to TCI format
+01      9/03     12:36 PM            PRIVATE                          
+
+01      9/04      1:29 PM       212-555-4000           Vähälä Joe     
+
+01      9/05     11:17 AM       702-555-1145           CARD SERVICES  
+
+02      9/05     12:11 AM        OUT-OF-AREA                          
+
+03      9/06      2:23 PM       941-555-7218           SARASOTA, FL   
+
+01      9/03      2:25 PM       407-555-7777           John on Cell   
+
+# NetCallID
+###DATE03301423...NMBR4075551212...NAMEWIRELESS CALL+++\r
+
+###DATE03301423...NMBR...NAME-UNKNOWN CALLER-+++\r
+
+###DATE03301423...NMBR...NAME+++\r
+
+###DATE...NMBR...NAME   -MSG OFF-+++\r
+

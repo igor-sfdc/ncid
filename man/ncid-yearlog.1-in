@@ -1,0 +1,54 @@
+.\" %W% %G%
+.TH NCID-YEARLOG 1
+.SH NAME
+.B ncid-yearlog
+- create a yearly call log from the monthly call logs
+.SH SYNOPSIS
+.B ncid-yearlog [-h] [-v]
+.SH DESCRIPTION
+.PP
+The
+.B ncid-yearlog
+script is called from \fBcron\fR on the first day of each month.
+It creates a yearly file for \fIcidcall.log\fR in $HOME/NCID/log
+and, if it exists, \fIciddata.log\fR
+.PP
+The
+.B ncid-yearlog
+script should only be run once on the first of the month from the user's
+\fIcrontab\fR.  Running it more than once will result in duplicate data.
+.SH OPTIONS
+.TP
+.PD 0
+.B -h
+Prints this help
+.TP
+.B -V
+Displays the version
+.PD
+.SH REQUIREMENTS
+.TP 14
+.PD 0
+.B logrotate:
+rotates, compresses, and mails system logs
+.TP
+.B ncidrotate:
+must have Lines2keep=0 (default)
+.TP
+.B user crontab:
+11 5 1 * * /usr/share/ncid/sys/ncid-yearlog
+.PD
+.SH FILES
+/usr/share/sys/ncid-yearlog
+.br
+$HOME/NCID/log/cidcall-<year>.log 
+.br
+$HOME/NCID/log/ciddata-<year>.log 
+.br
+/etc/ncid/ncidrotate.conf
+.br
+/var/log/cidcall.log
+.br
+/var/log/ciddata.log
+.SH SEE ALSO
+ncidrotate.1, ncidrotate.conf.5, ncidd.8

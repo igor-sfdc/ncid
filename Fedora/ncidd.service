@@ -1,0 +1,13 @@
+[Unit]
+Description=Network Caller ID server
+Documentation=man:ncidd(8)
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/run/ncidd.pid
+ExecStart=/usr/sbin/ncidd --pidfile /run/ncidd.pid
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

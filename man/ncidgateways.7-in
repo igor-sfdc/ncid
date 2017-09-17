@@ -1,0 +1,53 @@
+.\" %W% %G%
+.TH NCIDGATEWAYS 7
+.SH NAME
+.B ncidgateways
+- NCID gateways overview
+.SH DESCRIPTION
+NCID gateways convert other protocols to the NCID protocol.
+.P
+The current gateways distributed with NCID are:
+.PP
+.PD 0
+.TP 11
+.B email2ncid
+sends the content of an email body to the NCID server
+.TP
+.B obi2ncid
+OBIHAI devices to NCID server gateway
+.TP
+.B ncid2ncid
+Connects multiple NCID servers to a single NCID server
+.TP
+.B rn2ncid
+Android smart phone app 'Remote Notifier' to NCID gateway
+.TP
+.B sip2ncid
+Injects CID info into ncidd by snooping SIP invites
+.TP
+.B wc2ncid
+Whozz Calling devices to NCID server gateway
+.TP
+.B yac2ncid
+YAC server to NCID server gateway
+.PD
+.SH FILES
+$HOME/NCID/log/cidcall-<year>.log
+$HOME/NCID/log/ciddata-<year>.log
+/var/log/ncid2ncid.log
+.br
+/var/log/rn2ncid.log
+.br
+/var/log/sip2ncid.log
+.br
+/var/log/wc2ncid.log
+.br
+/var/log/yac2ncid.log
+.SH SEE ALSO
+email2ncid.1,
+obi2ncid.1,
+ncid2ncid.1,
+rn2ncid.1,
+sip2ncid.8,
+wc2ncid.1,
+yac2ncid.1

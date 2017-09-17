@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID client using the MythTV Module
+Documentation=man:ncid-mythtv(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-mythtv.pid
+ExecStart=/usr/bin/ncid --no-gui --pidfile /run/ncid-mythtv.pid -P ncid-mythtv
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,72 @@
+<!-- UserManualIndex.md -->
+
+<head>
+<!-- without this, some browsers will render '&nbsp;' as '&#194;' -->
+<meta charset="UTF-8">
+</head> 
+<style>
+th {
+   white-space: nowrap;
+}
+table, th, td {
+   padding: 6px 13px;
+   border: 1px solid #DDD;
+   border-collapse: collapse;
+   border-spacing: 0px;
+}
+</style>
+
+<!-- Haroopad won't render centered heading - outputs '#' as-is -->
+
+<center>
+<h2><font color="green">NCID - Network Caller ID User Manual</font>
+</h2></center>
+
+<center>
+![NCID](images/ncid-1.jpg)
+</center>
+<br>
+<font color="red"><center>Copyright: 2014-2016</center></font>
+<br>
+<font color="green">
+<center>Authors:</center>
+<center>John L Chmielewski</center>
+<center>Todd A Andrews</center>
+</font>
+<br>
+<center>
+Last Edit: Jun 13, 2016
+</center>
+<br>
+
+### <a name="doc_top"></a> Introduction
+
+NCID (Network Caller ID) is Caller ID (CID) distributed over
+a network to a variety of devices and computers. 
+
+The NCID server monitors either a modem, Caller ID device, or gateway 
+(e.g., SIP, VoIP, smartphones) for the CID data. The data is collected and sent,
+via TCP, to one or more connected clients. The server supports multiple gateways
+which can be used with or without a modem or device.  The server also supports 
+one line text messages.
+
+The [NCID project website](http://ncid.sourceforge.net/) is the central place to
+go for downloads and user/technical support for the official NCID package and
+its optional client packages.
+
+This document contains information on how to get started with NCID, the hardware needed,
+a Frequently Asked Questions (FAQ) section, and a TODO list.  It also provides information on supported clients, gateways and optional
+server features.  Troubleshooting information is also provided.
+
+### Chapters
+> [Getting Started](#getstarted_top)  
+> [Installation](#install_top)  
+> [Obtaining Caller ID](#obtain_top)  
+> [Supported Clients](#clients_top)  
+> [Client Output Modules](#modules_top)   
+> [Using NCID](#use_top)  
+> [FAQ](#faq_top)  
+> [Verbose Levels](#verbose_top)  
+> [Contributors](#contrib_top)  
+> [TODO](#todo_top)  
+> [LICENSE](#gpl)

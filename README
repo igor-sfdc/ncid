@@ -1,0 +1,61 @@
+NCID - Network CallerID
+
+File last changed: Mar 26, 2016
+
+NCID is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 
+located in a file called doc/GPL.md.
+
+NCID Project Web Site: http://ncid.sourceforge.net
+
+NCID Project Man Pages: http://ncid.sourceforge.net/man/man.html
+
+NCID User Manual: http://ncid.sourceforge.net/doc/NCID-UserManual.html
+
+NCID Package Description: http://ncid.sourceforge.net/ncid/ncid.html
+
+Application Programming Interface: http://ncid.sourceforge.net/doc/NCID-API.html
+
+Software Development Kit: http://ncid.sourceforge.net/doc/NCID-SDK.tar.gz
+
+The server, ncidd, is a TCP/IP Caller ID Daemon.  It either monitors a modem
+or serial device for Caller ID, or obtains it from a CID gateway.  It sends
+the CID information over the network to its clients.  The server can alias
+the NUMBER, NAME, and LINE identifier received before it is sent to its 
+clients.
+
+The US telco always sends the CID between RING 1 and RING 2.  If ncidd does
+not receive the CID by RING 2, ncidd can be configured to indicate a call
+by sending RING as the number and "No Caller ID" as the name.  This
+permits NCID to display a visual indication of a call along with the date
+and time. This requires a modem that indicates RING.
+
+The ncidd server also sends outgoing calls and hangup calls from a blacklist.
+Outgoing calls require a gateway that handles outgoing calls.
+Call Hangups require a modem to hangup the call.
+
+Instructions to make and install the NCID source package are in the various
+INSTALL files included and the web site.
+
+Source Package Directories:
+
+    Fedora     : files specific to Fedora
+    FreeBSD    : files specific to FreeBSD
+    Mac        : files specific to Macintosh OS X
+    TiVo       : files specific to the TiVo
+    Win        : files specific to Windows
+    attic      : obsolete programs and files
+    client     : client program
+    debian     : files specific to Debian
+    doc        : most of the documentation
+    extensions : sample server extension scripts
+    gateway    : gateway programs
+    logrotate  : logrotate scripts
+    man        : man pages
+    modules    : client output modules
+    recordings : modem voice files
+    screenshots: screenshots for ncid and tivocid
+    server     : server program
+    test       : test scripts for the server, client, gateways
+    tools      : scripts to manipulate or view alias, blacklist, whitelist
+                 and call log files

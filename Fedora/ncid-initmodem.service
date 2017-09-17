@@ -1,0 +1,13 @@
+[Unit]
+Description=NCID client using the InitModem Module
+Documentation:man:ncid-initmodem(1)
+Wants=ncidd.service
+After=ncidd.service
+
+[Service]
+Type=simple
+PIDFile=/run/ncid-initmodem.pid
+ExecStart=/usr/bin/ncid --no-gui --pidfile /run/ncid-initmodem.pid -P ncid-initmodem
+
+[Install]
+WantedBy=multi-user.target

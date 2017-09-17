@@ -1,0 +1,5 @@
+/etc/ncid/ncidd.conf
+/etc/ncid/ncidd.alias
+/etc/ncid/ncidd.blacklist
+/etc/ncid/ncidd.whitelist
+/etc/ncid/ncidrotate.conf

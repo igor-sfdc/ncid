@@ -1,0 +1,80 @@
+# ncidd.hangup whitelist file
+
+# File last changed: Jul 4 2016
+
+# This file contains the names or numbers of telephone calls to
+# be excluded from a match in the blacklist file.  It prevents
+# the blacklist file from terminating a call.
+
+###############################
+# Definitions and Line format #
+###############################
+
+# The number must be a string of digits as they appear in
+# /var/log/cidcall.log. A leading '1' is required if it is
+# in /var/log/cidcall.log.
+#
+# A partial name or number can match.
+#
+# There are three types of lines: blank, comment, and entry
+# Blank lines and comment lines are ignored.
+# Entry lines are processed.
+#
+# Entry lines contain one or more expressions and an
+# optional comment.  An expression is either a string of
+# non-blank characters or everything between double quotes.
+# Multiple expressions are separated by spaces.  A comment 
+# must be last.
+#
+# If a number or name begins with a '#' it bust be inside double quotes.
+#
+# Entry line comments are either normal comments or match name comments.
+#
+# A normal comment begins with a '#' and must not be immediately
+# followed by an equals sign. Anything after the '#' is ignored.
+# 
+# A match name comment begins with '#=' and is followed by a name to
+# display for the caller when the entry matches either the number
+# or name of a call.  Do not use double quotes around the name.
+
+#########
+# NOTES #
+#########
+
+#    - Each expression is compared to the caller name and number.
+#    - If simple expressions are used (regex = 0 in ncidd.conf):
+#      * A '^' at the beginning an expression means it must match
+#        at the start of a name or number
+#      * A "^1?" at the beginning makes a leading 1 optional.
+#        This is only useful for US/Canadian numbers.
+#      * Upper and lower case letters are significant.
+#      * A partial name or number can match.
+#    - If regular expressions are used (regex = 1 in ncidd.conf):
+#      * POSIX Extended Regular Expression syntax is used.
+#        https://en.wikipedia.org/wiki/Regular_expression
+#      * Introduction to Regular Expressions
+#        http://www.regular-expressions.info/quickstart.html
+#    - A leading '1' is required if it is in /var/log/cidcall.log
+#    - If an expression is longer than the name or number, it
+#      will never match.
+
+#    A hangup Name can be given in the comment field
+#    A "#=" indicates the comment field is a match name
+#    Do not use double quotes around the name
+#    Example: ncidd.blacklist: ^999         #= Unwanted Area code
+#             ncidd.whitelist: 9995550000   #= WHT (999) 555-0000
+
+###########
+# EXAMPLE #
+###########
+
+#    Blacklist the entire 999 area code in the blacklist file
+#    but allow a call from 999-555-1212:
+#
+#    ncidd.blacklist: ^1?999
+#    ncidd.whitelist: 9995551212
+
+########################
+# Add Expressions here #
+########################
+
